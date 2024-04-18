@@ -10,7 +10,7 @@ import {
 function Footer() {
   return (
     <div>
-      <MDBFooter
+      {/* <MDBFooter
         bgColor="light"
         className="text-center text-lg-start text-muted"
       >
@@ -163,7 +163,7 @@ function Footer() {
             GuardIndiaSeva.com
           </a>
         </div>
-      </MDBFooter>
+      </MDBFooter> */}
     </div>
   );
 }
