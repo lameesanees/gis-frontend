@@ -120,7 +120,9 @@ function FeatureCard() {
       <button className="btn rounded-pill shadow-lg  text-white mt-3"style={{backgroundColor:"#797d43",color:"white"}}>View All Services</button>
 
       </Link>
+     
       </div>
+      
     </>
   );
 }

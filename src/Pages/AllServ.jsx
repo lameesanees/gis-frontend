@@ -6,7 +6,7 @@ import CommunityServices from "../Components/CommunityServices";
 
 function AllServ() {
   return (
-    <div>
+    <div className="allserv-background">
       <Report />
       <TrafficServices />
       <EmergencyServices />

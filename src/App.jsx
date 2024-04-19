@@ -26,6 +26,7 @@ import Volunteer from "./Components/Volunteer"
 import ServcAttach from "./Components/ServcAttach";
 import PublicEvent from "./Components/PublicEvent";
 import HomeSecurity from "./Components/HomeSecurity"
+import TrackApp from "./Components/TrackApp";
 function App() {
   return (
     <>
@@ -63,6 +64,7 @@ function App() {
         <Route path={"/servattach"} element={<ServcAttach />} />
         <Route path={"/publicevent"} element={<PublicEvent />} />
         <Route path={"/homesecurity"} element={<HomeSecurity />} />
+        <Route path={"/trackapp"} element={<TrackApp />} />
       </Routes>
       <Footer />
     </>
