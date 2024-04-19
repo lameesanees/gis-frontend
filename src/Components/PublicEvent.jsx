@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Minor() {
+function PublicEvent() {
   return (
     <div>
       
@@ -8,4 +8,4 @@ function Minor() {
   )
 }
 
-export default Minor
+export default PublicEvent

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Navbar, Nav, Container, Button } from 'react-bootstrap';
 import { FaUserPlus, FaBars, FaTimes } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 function Header() {
   const [isNavOpen, setIsNavOpen] = useState(false);
@@ -21,13 +22,17 @@ function Header() {
   return (
     <Navbar bg="light" expand="lg">
       <Container>
-        <Navbar.Brand href="#">
+
+        <Navbar.Brand>
+          <Link to = {'/'}>
           <img
             src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Government_of_India_logo.svg/1200px-Government_of_India_logo.svg.png"
             height="40"
             className="d-inline-block align-top"
             alt="Logo"
           />
+          </Link>
+          
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" onClick={toggleNav}>
           {isNavOpen ? <FaTimes /> : <FaBars />}

@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Info() {
+function SimpleAcc() {
   return (
     <div>
       
@@ -8,4 +8,4 @@ function Info() {
   )
 }
 
-export default Info
+export default SimpleAcc

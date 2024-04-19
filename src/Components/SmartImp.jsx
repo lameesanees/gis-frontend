@@ -1,6 +1,6 @@
 import React from 'react'
 
-function InfoCard() {
+function SmartImp() {
   return (
     <div>
       
@@ -8,4 +8,4 @@ function InfoCard() {
   )
 }
 
-export default InfoCard
+export default SmartImp

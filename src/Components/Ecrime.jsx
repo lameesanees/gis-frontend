@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Major() {
+function Ecrime() {
   return (
     <div>
       
@@ -8,4 +8,4 @@ function Major() {
   )
 }
 
-export default Major
+export default Ecrime

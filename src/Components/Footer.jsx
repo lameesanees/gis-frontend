@@ -10,7 +10,7 @@ import {
 function Footer() {
   return (
     <div>
-      {/* <MDBFooter
+      <MDBFooter
         bgColor="light"
         className="text-center text-lg-start text-muted"
       >
@@ -58,7 +58,7 @@ function Footer() {
                   <MDBIcon color="secondary" icon="gem" className="me-3" />
                   Guard India Seva.com
                 </h6>
-                <p style={{ textAlign: "match-parent" }}>
+                <p style={{ textAlign: "justify" }}>
                   © Lamees Anees, 2024. All rights reserved. Guard India Seva is
                   dedicated to enhancing road safety and emergency response.
                   Contact us for any assistance or inquiries from the given
@@ -148,7 +148,7 @@ function Footer() {
                 </p>
                 <p>
                   <MDBIcon color="secondary" icon="print" className="me-3" />
-                  +91 956 292 6683
+                  +91 494 123 452
                 </p>
               </MDBCol>
             </MDBRow>
@@ -163,7 +163,7 @@ function Footer() {
             GuardIndiaSeva.com
           </a>
         </div>
-      </MDBFooter> */}
+      </MDBFooter>
     </div>
   );
 }

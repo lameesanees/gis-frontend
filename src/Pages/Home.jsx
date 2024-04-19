@@ -4,12 +4,14 @@ import video1 from '../assets/video1.mp4';
 import video2 from '../assets/video2.mp4';
 import video3 from '../assets/video3.mp4';
 import "./home.css";
+import Feature from "./Feature";
+import About from "../Components/About";
 
 function Home() {
   const videoRefs = useRef([React.createRef(), React.createRef(), React.createRef()]);
 
   useEffect(() => {
-    const playPromise = videoRefs.current[0].current.play("");
+    const playPromise = videoRefs.current[0].current.play();
 
     if (playPromise !== undefined) {
       playPromise
@@ -25,7 +27,7 @@ function Home() {
 
   return (
     <>
-      <Carousel fade className="md-6">
+      <Carousel fade className="md-4">
         {/* SLIDE 1 */}
         <Carousel.Item>
           <div className="video-container">
@@ -65,6 +67,13 @@ function Home() {
           </Carousel.Caption>
         </Carousel.Item>
       </Carousel>
+      <div>
+        <Feature/>
+      </div>
+      <br />
+      <div>
+        <About/>
+      </div>
     </>
   );
 }
