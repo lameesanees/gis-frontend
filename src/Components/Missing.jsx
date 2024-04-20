@@ -1,22 +1,23 @@
 import React, { useState } from "react";
 import { MDBInput } from "mdb-react-ui-kit";
 
-function UnknownAcc() {
+function Missing() {
   const [formData, setFormData] = useState({
     name: "",
+    age: "",
+    gender: "",
     location: "",
     date: "",
     description: "",
     contact: "",
-    file: null,
-    aadharNumber: ""
+    file: null
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
-      [name]: name === "contactNumber" ? formData.countryCode + value : value
+      [name]: value
     }));
   };
 
@@ -31,19 +32,19 @@ function UnknownAcc() {
   const handleClear = () => {
     setFormData({
       name: "",
-      state: "",
-      location:"",
+      age: "",
+      gender: "",
+      location: "",
       date: "",
       description: "",
       contact: "",
-      file: null,
-      aadharNumber: ""
+      file: null
     });
   };
 
   return (
     <div className="container">
-      <h1 className="text-center mt-4">Unknown Accident Report</h1>
+      <h1 className="text-center mt-4">Missing Person Report</h1>
       <form className="mt-4">
         <div className="mb-3">
           <label htmlFor="name" className="form-label">Full Name:</label>
@@ -57,43 +58,41 @@ function UnknownAcc() {
           />
         </div>
         <div className="mb-3">
-          <label htmlFor="aadharNumber" className="form-label">Aadhar Number:</label>
+          <label htmlFor="age" className="form-label">Age:</label>
           <MDBInput
-            type="text"
+            type="number"
             className="form-control"
-            id="aadharNumber"
-            name="aadharNumber"
-            value={formData.aadharNumber}
+            id="age"
+            name="age"
+            value={formData.age}
             onChange={handleChange}
           />
         </div>
         <div className="mb-3">
-          <label htmlFor="location" className="form-label">State:</label>
+          <label htmlFor="gender" className="form-label">Gender:</label>
           <select
             className="form-select"
-            id="state"
-            name="state"
-            value={formData.state}
+            id="gender"
+            name="gender"
+            value={formData.gender}
             onChange={handleChange}
           >
-            <option value="">Select State</option>
-            <option value="Andhra Pradesh">Andhra Pradesh</option>
-            <option value="Arunachal Pradesh">Arunachal Pradesh</option>
-            <option value="Assam">Assam</option>
-            <option value="Bihar">Bihar</option>
-            {/* Add options for other states */}
+            <option value="">Select Gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
           </select>
         </div>
         <div className="mb-3">
-        <label htmlFor="name" className="form-label">Location:</label>
-          <MDBInput
+          <label htmlFor="location" className="form-label">Last Known Location:</label>
+          <input
             type="text"
             className="form-control"
             id="location"
             name="location"
             value={formData.location}
             onChange={handleChange}
-          />  
+          />
         </div>
         <div className="mb-3">
           <label htmlFor="date" className="form-label">Date:</label>
@@ -106,7 +105,6 @@ function UnknownAcc() {
             onChange={handleChange}
           />
         </div>
-
         <div className="mb-3">
           <label htmlFor="description" className="form-label">Description:</label>
           <textarea
@@ -117,9 +115,8 @@ function UnknownAcc() {
             onChange={handleChange}
           ></textarea>
         </div>
-
         <div className="mb-3">
-        <label htmlFor="name" className="form-label">Contact:</label>
+          <label htmlFor="contact" className="form-label">Contact:</label>
           <MDBInput
             type="text"
             className="form-control"
@@ -129,9 +126,8 @@ function UnknownAcc() {
             onChange={handleChange}
           />  
         </div>
-
         <div className="mb-3">
-          <label htmlFor="file" className="form-label">Upload File:</label>
+          <label htmlFor="file" className="form-label">Upload Photo:</label>
           <MDBInput
             type="file"
             className="form-control"
@@ -149,4 +145,4 @@ function UnknownAcc() {
   );
 }
 
-export default UnknownAcc;
+export default Missing;

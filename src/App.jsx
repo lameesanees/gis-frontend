@@ -27,6 +27,10 @@ import ServcAttach from "./Components/ServcAttach";
 import PublicEvent from "./Components/PublicEvent";
 import HomeSecurity from "./Components/HomeSecurity"
 import TrackApp from "./Components/TrackApp";
+import About from "./Components/About";
+import FeatureCard from "./Components/FeatureCard";
+import Missing from "./Components/Missing";
+import Other from "./Components/Other";
 function App() {
   return (
     <>
@@ -38,6 +42,9 @@ function App() {
         <Route path={"/register"} element={<Auth register />} />
         <Route path={"/feature"} element={<Feature />} />
         <Route path={"*"} element={<Navigate to={"/"} />} />
+        <Route path={"/about"} element={<About/>} />
+        <Route path={"/feature"} element={<FeatureCard/>} />
+        
 
         {/* component of feature */}
         <Route path={"/report"} element={<Report />} />
@@ -65,6 +72,9 @@ function App() {
         <Route path={"/publicevent"} element={<PublicEvent />} />
         <Route path={"/homesecurity"} element={<HomeSecurity />} />
         <Route path={"/trackapp"} element={<TrackApp />} />
+        <Route path={"/missing"} element={<Missing />} />
+        <Route path={"/other"} element={<Other />} />
+
       </Routes>
       <Footer />
     </>

@@ -47,7 +47,7 @@ function Report() {
               </div>
 
               {/* Icon 2 */}
-              <div className="column col-md-4">
+              {/* <div className="column col-md-4">
                 <Link to="/medical">
                   <button
                     className="btn shadow-lg mb-4"
@@ -66,7 +66,7 @@ function Report() {
                     </p>
                   </button>
                 </Link>
-              </div>
+              </div> */}
 
               {/* Icon 3 */}
               <div className="column col-md-4">

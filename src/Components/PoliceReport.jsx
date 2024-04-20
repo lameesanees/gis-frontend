@@ -3,7 +3,7 @@ import { MDBAccordion, MDBAccordionItem } from "mdb-react-ui-kit";
 import { Link } from "react-router-dom";
 
 function PoliceReport() {
-  const [hoveredBtn, setHoveredBtn] = useState(null);
+
 
   return (
     <>
@@ -11,9 +11,7 @@ function PoliceReport() {
         <h1 className="text-center mt-3 mb-3">Police Report Inquiry</h1>
         <div className="button-container">
           <button
-            className={`btn ${hoveredBtn === "Access" ? "active" : ""}`}
-            onMouseEnter={() => setHoveredBtn("Access")}
-            onMouseLeave={() => setHoveredBtn(null)}
+            className="btn"
             style={{
               backgroundColor: "#6c757d",
               color: "white",
@@ -24,9 +22,7 @@ function PoliceReport() {
           </button>
           <Link to ={'/trackapp'}>
           <button
-            className={`btn ${hoveredBtn === "Track" ? "hovered" : ""}`}
-            onMouseEnter={() => setHoveredBtn("Track")}
-            onMouseLeave={() => setHoveredBtn(null)}
+            className="btn"
             style={{ marginRight: "10px" }}
           >
             Track Application

@@ -40,7 +40,7 @@ function Header() {
         <Navbar.Collapse id="responsive-navbar-nav" className={isNavOpen ? 'show' : ''}>
           <Nav className="me-auto">
             <Nav.Link
-              href="#"
+              href="/"
               style={{ color: hoveredItem === 'Home' ? 'red' : 'black', cursor: 'pointer' }}
               onMouseEnter={() => handleMouseEnter('Home')}
               onMouseLeave={handleMouseLeave}
@@ -48,15 +48,15 @@ function Header() {
               Home
             </Nav.Link>
             <Nav.Link
-              href="#"
+              href="/feature"
               style={{ color: hoveredItem === 'Features' ? 'red' : 'black', cursor: 'pointer' }}
               onMouseEnter={() => handleMouseEnter('Features')}
               onMouseLeave={handleMouseLeave}
             >
-              Features
+              Services
             </Nav.Link>
             <Nav.Link
-              href="#"
+              href="/about"
               style={{ color: hoveredItem === 'About Us' ? 'red' : 'black', cursor: 'pointer' }}
               onMouseEnter={() => handleMouseEnter('About Us')}
               onMouseLeave={handleMouseLeave}

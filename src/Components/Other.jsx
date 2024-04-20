@@ -1,22 +1,21 @@
-import React, { useState } from "react";
-import { MDBInput } from "mdb-react-ui-kit";
+import React, { useState } from 'react';
+import { MDBInput } from 'mdb-react-ui-kit';
 
-function UnknownAcc() {
+function Other() {
   const [formData, setFormData] = useState({
-    name: "",
-    location: "",
-    date: "",
-    description: "",
-    contact: "",
-    file: null,
-    aadharNumber: ""
+    incidentType: '',
+    location: '',
+    date: '',
+    description: '',
+    contact: '',
+    file: null
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
-      [name]: name === "contactNumber" ? formData.countryCode + value : value
+      [name]: value
     }));
   };
 
@@ -30,70 +29,44 @@ function UnknownAcc() {
 
   const handleClear = () => {
     setFormData({
-      name: "",
-      state: "",
-      location:"",
-      date: "",
-      description: "",
-      contact: "",
-      file: null,
-      aadharNumber: ""
+      incidentType: '',
+      location: '',
+      date: '',
+      description: '',
+      contact: '',
+      file: null
     });
   };
 
   return (
     <div className="container">
-      <h1 className="text-center mt-4">Unknown Accident Report</h1>
+      <h1 className="text-center mt-4">Other Incident Report</h1>
       <form className="mt-4">
         <div className="mb-3">
-          <label htmlFor="name" className="form-label">Full Name:</label>
-          <MDBInput
-            type="text"
-            className="form-control"
-            id="name"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="mb-3">
-          <label htmlFor="aadharNumber" className="form-label">Aadhar Number:</label>
-          <MDBInput
-            type="text"
-            className="form-control"
-            id="aadharNumber"
-            name="aadharNumber"
-            value={formData.aadharNumber}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="mb-3">
-          <label htmlFor="location" className="form-label">State:</label>
+          <label htmlFor="incidentType" className="form-label">Incident Type:</label>
           <select
             className="form-select"
-            id="state"
-            name="state"
-            value={formData.state}
+            id="incidentType"
+            name="incidentType"
+            value={formData.incidentType}
             onChange={handleChange}
           >
-            <option value="">Select State</option>
-            <option value="Andhra Pradesh">Andhra Pradesh</option>
-            <option value="Arunachal Pradesh">Arunachal Pradesh</option>
-            <option value="Assam">Assam</option>
-            <option value="Bihar">Bihar</option>
-            {/* Add options for other states */}
+            <option value="">Select Incident Type</option>
+            <option value="Thief">Theif</option>
+            <option value="Majoraccident">Major Accident</option>
+            <option value="Carstolen">Car Stolen</option>
           </select>
         </div>
         <div className="mb-3">
-        <label htmlFor="name" className="form-label">Location:</label>
-          <MDBInput
+          <label htmlFor="location" className="form-label">Location:</label>
+          <input
             type="text"
             className="form-control"
             id="location"
             name="location"
             value={formData.location}
             onChange={handleChange}
-          />  
+          />
         </div>
         <div className="mb-3">
           <label htmlFor="date" className="form-label">Date:</label>
@@ -106,7 +79,6 @@ function UnknownAcc() {
             onChange={handleChange}
           />
         </div>
-
         <div className="mb-3">
           <label htmlFor="description" className="form-label">Description:</label>
           <textarea
@@ -117,9 +89,8 @@ function UnknownAcc() {
             onChange={handleChange}
           ></textarea>
         </div>
-
         <div className="mb-3">
-        <label htmlFor="name" className="form-label">Contact:</label>
+          <label htmlFor="contact" className="form-label">Contact:</label>
           <MDBInput
             type="text"
             className="form-control"
@@ -129,9 +100,8 @@ function UnknownAcc() {
             onChange={handleChange}
           />  
         </div>
-
         <div className="mb-3">
-          <label htmlFor="file" className="form-label">Upload File:</label>
+          <label htmlFor="file" className="form-label">Upload Photo:</label>
           <MDBInput
             type="file"
             className="form-control"
@@ -149,4 +119,4 @@ function UnknownAcc() {
   );
 }
 
-export default UnknownAcc;
+export default Other;
