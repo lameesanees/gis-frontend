@@ -8,29 +8,24 @@ import Auth from "./Pages/Auth";
 import Feature from "./Pages/Feature";
 import { Navigate } from "react-router-dom";
 import Report from "./Components/Report";
-import EmergencyServices from "./Components/EmergencyServices";
 import CommunityServices from "./Components/CommunityServices";
 import TrafficServices from "./Components/TrafficServices";
 import AllServ from "./Pages/AllServ";
 import PoliceReport from "./Components/PoliceReport";
-import MedicalEmergency from "./Components/MedicalEmergency";
 import PoliceEye from "./Components/PoliceEye";
 import TouristPolice from "./Components/TouristPolice";
-import Ecrime from "./Components/Ecrime";
-import LocalPolice from "./Components/LocalPolice";
 import UnknownAcc from "./Components/UnknownAcc";
-import SmartImp from "./Components/SmartImp";
-import SimpleAcc from "./Components/SimpleAcc";
 import TrafFine from "./Components/TrafFine";
-import Volunteer from "./Components/Volunteer"
-import ServcAttach from "./Components/ServcAttach";
-import PublicEvent from "./Components/PublicEvent";
-import HomeSecurity from "./Components/HomeSecurity"
 import TrackApp from "./Components/TrackApp";
 import About from "./Components/About";
 import FeatureCard from "./Components/FeatureCard";
 import Missing from "./Components/Missing";
 import Other from "./Components/Other";
+import Dashboard from "./Pages/Dashboard";
+import Accident from "./Components/Accident";
+import Payment from "./Components/Payment";
+import SocialSupport from "./Components/SocialSupport";
+
 function App() {
   return (
     <>
@@ -44,36 +39,33 @@ function App() {
         <Route path={"*"} element={<Navigate to={"/"} />} />
         <Route path={"/about"} element={<About/>} />
         <Route path={"/feature"} element={<FeatureCard/>} />
-        
+        <Route path={"/dashboard"} element={<Dashboard/>} />
+        <Route path={"/pay"} element={<Payment/>} />
 
+
+        
         {/* component of feature */}
         <Route path={"/report"} element={<Report />} />
-        <Route path={"/emergency"} element={<EmergencyServices />} />
         <Route path={"/community"} element={<CommunityServices />} />
         <Route path={"/traffic"} element={<TrafficServices />} />
         <Route path={"/allserv"} element={<AllServ />} />
 
-        {/* component of reports */}
+        {/* component of reporting services */}
         <Route path={"/policereport"} element={<PoliceReport />} />
-        <Route path={"/medical"} element={<MedicalEmergency />} />
         <Route path={"/policeye"} element={<PoliceEye />} />
         <Route path={"/touristpolice"} element={<TouristPolice />} />
-        <Route path={"/ecrime"} element={<Ecrime />} />
-        <Route path={"/localpolice"} element={<LocalPolice />} />
-        {/* components of traffic */}
+        <Route path={"/missing"} element={<Missing />} />
+        <Route path={"/trackapp"} element={<TrackApp />} />
+        <Route path={"/other"} element={<Other />} />
+
+       
+        {/* components of traffic services */}
         <Route path={"/unknownacc"} element={<UnknownAcc />} />
-        <Route path={"/smartimp"} element={<SmartImp />} />
-        <Route path={"/simpleacc"} element={<SimpleAcc />} />
         <Route path={"/trafficfine"} element={<TrafFine />} />
+        <Route path={"/accident"} element={<Accident />} />
 
         {/* component of community */}
-        <Route path={"/volunteer"} element={<Volunteer />} />
-        <Route path={"/servattach"} element={<ServcAttach />} />
-        <Route path={"/publicevent"} element={<PublicEvent />} />
-        <Route path={"/homesecurity"} element={<HomeSecurity />} />
-        <Route path={"/trackapp"} element={<TrackApp />} />
-        <Route path={"/missing"} element={<Missing />} />
-        <Route path={"/other"} element={<Other />} />
+        <Route path={"/socialsupport"} element={<SocialSupport />} />
 
       </Routes>
       <Footer />

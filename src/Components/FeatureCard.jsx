@@ -10,10 +10,10 @@ function FeatureCard() {
         <h4 style={{ color: "#969445" }}>
           <b>What would you like to apply?</b>{" "}
         </h4>
-        <div className="card-container">
+        <div className="card-container ">
           {/* Card 1 */}
           <div
-            className="card"
+            className="card mb-4"
             onMouseEnter={() => setHoveredCard(1)}
             onMouseLeave={() => setHoveredCard(null)}
           >
@@ -38,7 +38,7 @@ function FeatureCard() {
           </div>
           {/* Card 2 */}
           <div
-            className="card"
+            className="card mb-4"
             onMouseEnter={() => setHoveredCard(2)}
             onMouseLeave={() => setHoveredCard(null)}
           >
@@ -63,34 +63,8 @@ function FeatureCard() {
           </div>
 
           {/* Card 3 */}
-          {/* <div
-            className="card"
-            onMouseEnter={() => setHoveredCard(3)}
-            onMouseLeave={() => setHoveredCard(null)}
-          >
-            <img
-              style={{ display: "block", margin: "0 auto", width: "100%" }}
-              src="https://images.pexels.com/photos/4021775/pexels-photo-4021775.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-              alt="Feature 3"
-            />
-            <div className="card-content">
-              <h5 className="mt-4">Emergency Services</h5>
-              <p
-                className={hoveredCard === 3 ? "visible" : "hidden"}
-                style={{ textAlign: "center" }}
-              >
-                Access quick response and assistance during emergencies for
-                peace of mind. <br />{" "}
-                <Link to = {"/emergency"}>
-                <button className="btn btn-dark mt-2">View</button>
-                </Link>
-              </p>
-            </div>
-          </div> */}
-
-          {/* Card 4 */}
           <div
-            className="card"
+            className="card mb-4"
             style={{ marginRight: "5px" }}
             onMouseEnter={() => setHoveredCard(4)}
             onMouseLeave={() => setHoveredCard(null)}

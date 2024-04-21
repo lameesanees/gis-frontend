@@ -91,6 +91,7 @@ function Home() {
             </video>
           </div>
           <Carousel.Caption>
+           
             <h3 className="lg-4">Enhanced Safety Measures</h3>
             <p>
               {" "}
@@ -99,7 +100,9 @@ function Home() {
             </p>
           </Carousel.Caption>
         </Carousel.Item>
+        
       </Carousel>
+     
       <div>
         <Feature />
       </div>

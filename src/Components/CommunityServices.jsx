@@ -1,9 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { MdOutlinePublic } from "react-icons/md";
-import { RiServiceFill } from "react-icons/ri";
-import { IoHomeSharp } from "react-icons/io5";
-import { MdVolunteerActivism } from "react-icons/md";
+import { TbFileUnknown } from "react-icons/tb";
+
 
 function CommunityServices() {
   return (
@@ -16,111 +14,28 @@ function CommunityServices() {
 
         {/* Content */}
         <div className="content">
-          <div className="row">
-            {/* Icons and Links */}
-            <div className="column col-md-6">
-              <div className="row">
-                {/* Icon 1 */}
-                <div className="column col-md-4 mt-5">
-                  <Link to="/volunteer">
-                    <button
-                      className="btn shadow-lg mb-4"
-                      style={{
-                        backgroundColor: "#b57957",
-                        color: "white",
-                        borderRadius: "30px",
-                        height: "200px",
-                        backgroundImage:
-                          "url('https://i.pinimg.com/736x/2d/96/a9/2d96a9e420ae6dd9cbdeca0931dad1dd.jpg')",
-                      }}
-                    >
-                      <MdVolunteerActivism style={{ fontSize: "80px" }} />
-
-                      <br />
-                      <p className="mt-3" style={{ fontSize: "15px" }}>
-                        Volunteer Platforms
-                      </p>
-                    </button>
-                  </Link>
-                </div>
-
-                {/* Icon 2 */}
-                <div className="column col-md-4 mt-5">
-                  <Link to="/servattach">
-                    <button
-                      className="btn shadow-lg mb-4"
-                      style={{
-                        color: "white",
-                        borderRadius: "30px",
-                        height: "200px",
-                        backgroundImage:
-                          "url('https://i.pinimg.com/736x/2d/96/a9/2d96a9e420ae6dd9cbdeca0931dad1dd.jpg')",
-                      }}
-                    >
-                      <RiServiceFill style={{ fontSize: "80px" }} />
-                      <br />
-                      <p className="mt-3" style={{ fontSize: "15px" }}>
-                        Service Attachment
-                      </p>
-                    </button>
-                  </Link>
-                </div>
-
-                {/* Icon 3 */}
-                <div className="column col-md-4 mt-5">
-                  <Link to="/publicevent">
-                    <button
-                      className="btn shadow-lg mb-4"
-                      style={{
-                        backgroundColor: "#b57957",
-                        color: "white",
-                        borderRadius: "30px",
-                        height: "200px",
-                        backgroundImage:
-                          "url('https://i.pinimg.com/736x/2d/96/a9/2d96a9e420ae6dd9cbdeca0931dad1dd.jpg')",
-                      }}
-                    >
-                      <MdOutlinePublic style={{ fontSize: "80px" }} />
-                      <br />
-                      <p className="mt-3" style={{ fontSize: "15px" }}>
-                        Public Event Services
-                      </p>
-                    </button>
-                  </Link>
-                </div>
-                <div className="column col-md-4">
-                  <Link to="/homesecurity">
-                    <button
-                      className="btn shadow-lg mb-4"
-                      style={{
-                        backgroundColor: "#b57957",
-                        color: "white",
-                        borderRadius: "30px",
-                        height: "200px",
-                        backgroundImage:
-                          "url('https://i.pinimg.com/736x/2d/96/a9/2d96a9e420ae6dd9cbdeca0931dad1dd.jpg')",
-                      }}
-                    >
-                      < IoHomeSharp style={{ fontSize: "80px" }} />
-
-                      <br />
-                      <p className="mt-3" style={{ fontSize: "15px" }}>
-                        Home Security
-                      </p>
-                    </button>
-                  </Link>
-                </div>
-                
-              </div>
-            </div>
-
-            {/* Big Image on the Right */}
-            <div className="column col-md-6">
-              <img
-                src="https://img.freepik.com/premium-vector/man-working-from-home_662093-1598.jpg"
-                alt="Big Image"
-                className="img-fluid w-70"
-              />
+          <div className="row justify-content-center">
+            {/* Icon 1 */}
+            <div className="col-md-4 mb-4">
+              <Link to="/socialsupport">
+                <button
+                  className="btn shadow-lg w-100"
+                  style={{
+                    backgroundColor: "#b57957",
+                    color: "white",
+                    borderRadius: "30px",
+                    height: "200px",
+                    backgroundImage:
+                      "url('https://static.vecteezy.com/system/resources/previews/005/585/798/non_2x/abstract-dark-purple-background-overlap-layer-on-dark-space-for-background-design-exclusive-wallpaper-design-for-poster-brochure-presentation-website-etc-vector.jpg')",
+                  }}
+                >
+                  <TbFileUnknown style={{ fontSize: "80px" }} />
+                  <br />
+                  <p className="mt-3" style={{ fontSize: "15px" }}>
+                    Social Support
+                  </p>
+                </button>
+              </Link>
             </div>
           </div>
         </div>
