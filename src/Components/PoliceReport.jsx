@@ -20,7 +20,7 @@ function PoliceReport() {
           >
             Access Service
           </button>
-          <Link to ={'/trackapp'}>
+          <Link to ={'/dashboard'}>
           <button
             className="btn"
             style={{ marginRight: "10px" }}

@@ -1,0 +1,44 @@
+.dashboard-container {
+    display: flex;
+    height: auto;
+  }
+  
+  .sidebar {
+    width: 200px;
+    background-color: #f5f5f5;
+    padding: 20px;
+  }
+  
+  .category-item {
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+  }
+  
+  .category-item:hover {
+    background-color: #e5e5e5;
+  }
+  
+  .active {
+    background-color: #d5d5d5;
+  }
+  
+  .content-area {
+    flex: 1;
+    padding: 20px;
+  }
+  
+  .content {
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 5px;
+  }
+  .home-content {
+    display: flex;
+    justify-content: space-between;
+    justify-content: center;
+  }
+  
+   
+  
