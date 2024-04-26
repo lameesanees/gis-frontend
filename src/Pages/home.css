@@ -26,6 +26,23 @@
   background-color: rgba(0, 0, 0, 0.5); /* Adjust the opacity as needed */
 }
 
+
+.indian-flag-text span {
+  animation: colorChange 1s infinite alternate;
+}
+
+@keyframes colorChange {
+  0% {
+    color: #ff9933; /* Saffron */
+  }
+  50% {
+    color: #fff; /* White */
+  }
+  100% {
+    color: #138808; /* Green */
+  }
+}
+
 @media screen and (max-width: 768px) {
   .video-caption {
     font-size: 2rem;
