@@ -6,7 +6,7 @@ function Auth({ register }) {
   return (
     <div
       style={{
-        background: "url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpKFSSo9e2nkh3g1CxN0erSuIhROD80Y6_YkUWvZvI80CoQDegd1TFCi1MyFke6p23AB4&usqp=CAU')",
+        background: "url('https://images.pexels.com/photos/3358507/pexels-photo-3358507.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')",
         backgroundSize: "cover",
         backgroundPosition: "center",
         minHeight: "100vh",
@@ -20,6 +20,7 @@ function Auth({ register }) {
       <div
         className="col-lg-6"
         style={{
+          color:"black",
           borderRadius: "10px",
           padding: "40px",
           boxShadow: "0 4px 6px rgba(0, 0, 0, 0.8)", // Light box shadow

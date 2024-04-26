@@ -1,87 +1,81 @@
-import React, { useState } from "react";
-import {
-  MDBCard,
-  MDBCardImage,
-  MDBCardTitle,
-  MDBCardGroup,
-  MDBCardOverlay,
-} from "mdb-react-ui-kit";
-import { FaCarCrash } from "react-icons/fa";
+import React from "react";
 import { Link } from "react-router-dom";
-import { FaFileArchive } from "react-icons/fa";
 
 function PoliceEye() {
-  const [hoveredItem, setHoveredItem] = useState(null);
-  const handleMouseLeave = () => {
-    setHoveredItem(null);
-  };
   return (
     <>
       <h2 className="m-3 p-4 text-center">Police Emergency</h2>
       <h4 className="text-center">
         If you witness any violation or emergency, please report it:
       </h4>
-      <div className="container">
-        <MDBCardGroup className="row row-cols-1 row-cols-md-3 g-4 mt-3 gap-2">
-          {/* card 1 */}
-          <MDBCard
-            className="col"
-            style={{ borderRadius: "20px", backgroundColor: "#631e13" }}
-          >
+      <div className="container" style={{ padding: "0 15px" }}>
+        <div className="row cols-md-2 g-4 mt-3 gap-2">
+          {/* Button 1 */}
+          <div className="col">
             <Link to={"/unknownacc"}>
-              <FaCarCrash
-                className="mt-1"
+              <button
+                className="btn btn-lg btn-block"
                 style={{
-                  fontSize: "160px",
-                  marginLeft: "50px",
+                  borderRadius: "20px",
+                  backgroundColor: "#631e13",
                   color: "whitesmoke",
                 }}
-              />
-
-              <p className="text-center text-white mt-2">
+                onMouseEnter={(e) =>
+                  (e.target.style.backgroundColor = "#072370")
+                } // Change background color on hover
+                onMouseLeave={(e) =>
+                  (e.target.style.backgroundColor = "#421e25")
+                } // Revert background color on mouse leave
+              >
                 Unknown Accident Report
-              </p>
-              <MDBCardOverlay></MDBCardOverlay>
+              </button>
             </Link>
-          </MDBCard>
+          </div>
 
-          <MDBCard
-            className="col"
-            style={{ borderRadius: "20px", backgroundColor: "#631e13" }}
-          >
+          {/* Button 2 */}
+          <div className="col">
             <Link to="/missing">
-              <i
-                className="fa-solid fa-person-circle-question mt-3"
+              <button
+                className="btn btn-lg btn-block"
                 style={{
-                  fontSize: "140px",
-                  marginLeft: "80px",
+                  borderRadius: "20px",
+                  backgroundColor: "#631e13",
                   color: "whitesmoke",
                 }}
-              ></i>
-              <p className="text-center text-white mt-3">Missing Cases</p>
-              <MDBCardOverlay></MDBCardOverlay>
+                onMouseEnter={(e) =>
+                  (e.target.style.backgroundColor = "#072370")
+                } // Change background color on hover
+                onMouseLeave={(e) =>
+                  (e.target.style.backgroundColor = "#421e25")
+                } // Revert background color on mouse leave
+              >
+                Missing Cases
+              </button>
             </Link>
-          </MDBCard>
+          </div>
 
-          <MDBCard
-            className="col"
-            style={{ borderRadius: "20px", backgroundColor: "#631e13 " }}
-          >
+          {/* Button 3 */}
+          <div className="col">
             <Link to="/other">
-              <FaFileArchive
-                className="mt-3"
+              <button
+                className="btn btn-lg btn-block"
                 style={{
-                  fontSize: "140px",
-                  marginLeft: "80px",
+                  borderRadius: "20px",
+                  backgroundColor: "#631e13",
                   color: "whitesmoke",
                 }}
-              />
-
-              <p className="text-center text-white mt-3">Other Information</p>
-              <MDBCardOverlay></MDBCardOverlay>
+                onMouseEnter={(e) =>
+                  (e.target.style.backgroundColor = "#072370")
+                } // Change background color on hover
+                onMouseLeave={(e) =>
+                  (e.target.style.backgroundColor = "#421e25")
+                } // Revert background color on mouse leave
+              >
+                Other Information
+              </button>
             </Link>
-          </MDBCard>
-        </MDBCardGroup>
+          </div>
+        </div>
       </div>
       {/* Back to Home Button */}
       <div className="back-to-home text-center mt-5">

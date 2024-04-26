@@ -1,28 +1,22 @@
 import React, { useState } from "react";
-import { Modal } from "react-bootstrap";
+import { Modal, Button, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 function SocialSupport() {
-  const [showFinancialModal, setShowFinancialModal] = useState(false);
-  const [showHealthModal, setShowHealthModal] = useState(false);
-  const [showEmotionalModal, setShowEmotionalModal] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [amount, setAmount] = useState("");
+  const [paymentMethod, setPaymentMethod] = useState("Credit Card");
 
-  const handleFinancialClick = () => {
-    setShowFinancialModal(true);
-  };
+  const handleClose = () => setShowModal(false);
+  const handleShow = () => setShowModal(true);
 
-  const handleHealthClick = () => {
-    setShowHealthModal(true);
-  };
-
-  const handleEmotionalClick = () => {
-    setShowEmotionalModal(true);
-  };
-
-  const handleClose = () => {
-    setShowFinancialModal(false);
-    setShowHealthModal(false);
-    setShowEmotionalModal(false);
+  const handlePay = () => {
+    // Logic to process payment
+    console.log("Payment processed!");
+    // Close the modal after payment
+    handleClose();
   };
 
   return (
@@ -78,7 +72,7 @@ function SocialSupport() {
             <button
               className="btn"
               style={{ backgroundColor: "darkGreen", color: "white" }}
-              onClick={() => window.scrollTo(0, window.innerHeight)}
+              onClick={handleShow} // Open modal when clicked
             >
               Support
             </button>
@@ -86,122 +80,78 @@ function SocialSupport() {
         </div>
       </div>
 
-      {/* Support Choices */}
-      <div className="container mt-4">
-        <h2>Choose the Type of Support:</h2>
-        <div className="row">
-          <div className="col-md-4 mt-3">
-            <button
-              style={{ backgroundColor: "#7d0a04", color: "white" }}
-              className="btn  btn-lg btn-block mb-3"
-              onClick={handleFinancialClick}
-            >
-              Shelter Support
-            </button>
-          </div>
-          <div className="col-md-4 mt-3">
-            <button
-              style={{ backgroundColor: "#7d0a04", color: "white" }}
-              className="btn btn-lg btn-block mb-3"
-              onClick={handleHealthClick}
-            >
-              Health Support
-            </button>
-          </div>
-          <div className="col-md-4 mt-3">
-            <button
-              style={{ backgroundColor: "#7d0a04", color: "white" }}
-              className="btn btn-lg btn-block mb-3"
-              onClick={handleEmotionalClick}
-            >
-              Educational Support
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* Financial Support Modal */}
-      <Modal show={showFinancialModal} onHide={handleClose}>
+      {/* Modal */}
+      <Modal show={showModal} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Financial Support Details</Modal.Title>
+          <Modal.Title>Help the needs!</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {/* Input fields */}
-          <div className="mb-3">
-            <label htmlFor="name">Name:</label>
-            <input type="text" className="form-control" id="name" />
-          </div>
-          <div className="mb-3">
-            <label htmlFor="phone">Phone Number:</label>
-            <input type="text" className="form-control" id="phone" />
-          </div>
-          <div className="mb-3">
-            <label htmlFor="location">Location:</label>
-            <input type="text" className="form-control" id="location" />
-          </div>
-          {/* Payment Button */}
-          <div className="text-center">
-            <Link to="/pay">
-              <button className="btn btn-success btn-sm mb-3">Pay Now</button>
-            </Link>
-          </div>
-        </Modal.Body>
-      </Modal>
+          <Form>
+            <Form.Group controlId="formName">
+              <Form.Label>Name</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Enter your name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+            </Form.Group>
+            <Form.Group controlId="formEmail">
+              <Form.Label>Email</Form.Label>
+              <Form.Control
+                type="email"
+                placeholder="Enter your email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </Form.Group>
+            <Form.Group controlId="formAmount">
+              <Form.Label>Amount</Form.Label>
+              <Form.Control
+                type="number"
+                placeholder="Enter amount"
+                value={amount}
+                onChange={(e) => setAmount(e.target.value)}
+              />
+            </Form.Group>
 
-      {/* Health Support Modal */}
-      <Modal show={showHealthModal} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Health Support Details</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          {/* Input fields */}
-          <div className="mb-3">
-            <label htmlFor="name">Name:</label>
-            <input type="text" className="form-control" id="name" />
-          </div>
-          <div className="mb-3">
-            <label htmlFor="phone">Phone Number:</label>
-            <input type="text" className="form-control" id="phone" />
-          </div>
-          <div className="mb-3">
-            <label htmlFor="location">Location:</label>
-            <input type="text" className="form-control" id="location" />
-          </div>
-          {/* Payment Button */}
-          <div className="text-center">
-            <Link to="/pay">
-              <button className="btn btn-success btn-sm mb-3">Pay Now</button>
-            </Link>
-          </div>
-        </Modal.Body>
-      </Modal>
+            <Form.Group>
+              <Form.Label>Charity Fund Type</Form.Label>
+              <Form.Control
+                as="select"
+              >
+                <option>Educational Support</option>
+                <option>Shelter/Home Support</option>
+                <option>Food for Orphans/others Support</option>
+              </Form.Control>
+            </Form.Group>
 
-      {/* Emotional Support Modal */}
-      <Modal show={showEmotionalModal} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Emotional Support Details</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          {/* Input fields */}
-          <div className="mb-3">
-            <label htmlFor="name">Name:</label>
-            <input type="text" className="form-control" id="name" />
-          </div>
-          <div className="mb-3">
-            <label htmlFor="phone">Phone Number:</label>
-            <input type="text" className="form-control" id="phone" />
-          </div>
-          <div className="mb-3">
-            <label htmlFor="location">Location:</label>
-            <input type="text" className="form-control" id="location" />
-          </div>
-          {/* Payment Button */}
-          <div className="text-center">
-            <Link to="/pay">
-              <button className="btn btn-success btn-sm mb-3">Pay Now</button>
-            </Link>
-          </div>
+            <Form.Group controlId="formPaymentMethod">
+              <Form.Label>Payment Method</Form.Label>
+              <Form.Control
+                as="select"
+                value={paymentMethod}
+                onChange={(e) => setPaymentMethod(e.target.value)}
+              >
+                <option>Credit Card</option>
+                <option>Wallet</option>
+                <option>UPI</option>
+                <option>Net Banking</option>
+              </Form.Control>
+            </Form.Group>
+          </Form>
         </Modal.Body>
+        <Modal.Footer>
+          <Button className="btn btn-danger" onClick={handleClose}>
+            Close
+          </Button>
+          <Link to ={'/pay'}>
+          <Button className="btn btn-success">
+            Pay
+          </Button>
+          </Link>
+          
+        </Modal.Footer>
       </Modal>
     </div>
   );

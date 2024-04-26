@@ -1,9 +1,8 @@
 import React from "react";
 import { GiPoliceOfficerHead } from "react-icons/gi";
 import { FaAmbulance } from "react-icons/fa";
-import { MdOutlineGirl } from "react-icons/md";
 import { FaHandsHoldingChild } from "react-icons/fa6";
-
+import about from "../assets/about.png"
 function About() {
   return (
     <div className="about-container p-5">
@@ -16,10 +15,10 @@ function About() {
       <div className="row">
         <div className="col-lg-6 col-md-12 mb-4">
           <img
-            src="https://adoctor.in/wp-content/uploads/2020/09/contact-1024x763.png"
+            src={about}
             alt="About Us"
             className="img-fluid mx-auto d-block"
-            style={{ maxWidth: "80%" }}
+            style={{ maxWidth: "100%" }}
           />
           {/* Replace "image-url" with the URL of your image */}
         </div>
@@ -41,7 +40,7 @@ function About() {
               us in our mission to create a safer and more vibrant future for
               all.
             </p>
-            <h5>Emergency Contacts</h5>
+            {/* <h5>Emergency Contacts</h5>
             <ul className="list-unstyled">
               <li>
                 <FaAmbulance style={{ fontSize: "20px" }} />
@@ -67,7 +66,7 @@ function About() {
                   <b> 1098 Childline</b>
                 </span>
               </li>
-            </ul>
+            </ul> */}
           </div>
         </div>
       </div>

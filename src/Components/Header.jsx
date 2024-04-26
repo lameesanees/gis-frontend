@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { Navbar, Nav, Container, Button } from "react-bootstrap";
+import { Navbar, Nav, Container } from "react-bootstrap";
 import { FaUserPlus, FaBars, FaTimes } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import logo from "../assets/logo.png";
 
 function Header() {
   const [isNavOpen, setIsNavOpen] = useState(false);
@@ -20,13 +21,13 @@ function Header() {
   };
 
   return (
-    <Navbar bg="light" expand="lg">
+    <Navbar bg="light" expand="lg" className="text-center">
       <Container>
         <Navbar.Brand>
           <Link to={"/"}>
             <img
-              src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Government_of_India_logo.svg/1200px-Government_of_India_logo.svg.png"
-              height="40"
+              src={logo}
+              height="60"
               className="d-inline-block align-top"
               alt="Logo"
             />
@@ -42,9 +43,10 @@ function Header() {
           id="responsive-navbar-nav"
           className={isNavOpen ? "show" : ""}
         >
-          <Nav className="me-auto gap-2">
-            <Link to ={"/"} className="mt-2"
-              
+          <Nav className="mx-auto align-items-center">
+            <Link
+              to={"/"}
+              className="nav-link"
               style={{
                 color: hoveredItem === "Home" ? "red" : "black",
                 cursor: "pointer",
@@ -53,8 +55,10 @@ function Header() {
               onMouseLeave={handleMouseLeave}
             >
               Home
-            </Link> 
-            <Link to ={"/feature"} className="mt-2 gap-2"
+            </Link>
+            <Link
+              to={"/feature"}
+              className="nav-link"
               style={{
                 color: hoveredItem === "Features" ? "red" : "black",
                 cursor: "pointer",
@@ -63,8 +67,10 @@ function Header() {
               onMouseLeave={handleMouseLeave}
             >
               Services
-              </Link>
-            <Link to ={"/dashboard"} className="mt-2 gap-2"
+            </Link>
+            <Link
+              to={"/about"}
+              className="nav-link"
               style={{
                 color: hoveredItem === "Contact Us" ? "red" : "black",
                 cursor: "pointer",
@@ -72,9 +78,11 @@ function Header() {
               onMouseEnter={() => handleMouseEnter("Contact Us")}
               onMouseLeave={handleMouseLeave}
             >
-              Dashboard
+              Contact
             </Link>
-            <Link to ={"/about"} className="mt-2 gap-2"
+            <Link
+              to={"/about"}
+              className="nav-link"
               style={{
                 color: hoveredItem === "About Us" ? "red" : "black",
                 cursor: "pointer",
@@ -84,15 +92,6 @@ function Header() {
             >
               About Us
             </Link>
-          </Nav>
-          <Nav className="align-items-center">
-            <Link to ="/login">
-            <Button variant="dark" className="me-2">
-              <FaUserPlus className="me-1 text-white" />
-              Sign Up/Login
-            </Button>
-            </Link>
-           
           </Nav>
         </Navbar.Collapse>
       </Container>

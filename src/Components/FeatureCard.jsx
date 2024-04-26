@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./featurecard.css"; // Import CSS file for styling
 import { Link } from "react-router-dom";
+import comm from "../assets/comm.png"
 function FeatureCard() {
   const [hoveredCard, setHoveredCard] = useState(null);
 
@@ -10,7 +11,7 @@ function FeatureCard() {
         <h4 style={{ color: "#969445" }}>
           <b>What would you like to apply?</b>{" "}
         </h4>
-        <div className="card-container ">
+        <div className="card-container mt-5 ">
           {/* Card 1 */}
           <div
             className="card mb-4"
@@ -18,12 +19,12 @@ function FeatureCard() {
             onMouseLeave={() => setHoveredCard(null)}
           >
             <img
-              style={{ display: "block", margin: "0 auto", width: "100%" }}
-              src="https://images.pexels.com/photos/3183156/pexels-photo-3183156.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-              alt="Feature 1"
+              style={{ display: "block", margin: "0 auto", width: "70%" }}
+              src="https://cdn-icons-png.flaticon.com/512/9321/9321345.png"
+              alt="Feature 1" className="img-fluid mt-3"
             />
             <div className="card-content">
-              <h5 className="mt-4">Reporting Services</h5>
+              <h5 className="mt-3">Reporting Services</h5>
               <p
                 className={hoveredCard === 1 ? "visible" : "hidden"}
                 style={{ textAlign: "center" }}
@@ -43,8 +44,8 @@ function FeatureCard() {
             onMouseLeave={() => setHoveredCard(null)}
           >
             <img
-              style={{ display: "block", margin: "0 auto", width: "100%" }}
-              src="https://images.pexels.com/photos/7715189/pexels-photo-7715189.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+              style={{ display: "block", margin: "0 auto", width: "70%"  }}
+              src="https://www.freeiconspng.com/thumbs/traffic-symbol-icon-png/traffic-icon-1.png"
               alt="Feature 2"
             />
             <div className="card-content">
@@ -70,8 +71,8 @@ function FeatureCard() {
             onMouseLeave={() => setHoveredCard(null)}
           >
             <img
-              style={{ display: "block", margin: "0 auto", width: "100%" }}
-              src="https://images.pexels.com/photos/3280130/pexels-photo-3280130.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+              style={{ display: "block", margin: "0 auto", width: "70%" }}
+              src={comm}
               alt="Feature 4"
             />
             <div className="card-content">
@@ -91,7 +92,7 @@ function FeatureCard() {
           </div>
         </div>
       <Link to ={"/allserv"}>
-      <button className="btn rounded-pill shadow-lg  text-white mt-3"style={{backgroundColor:"#797d43",color:"white"}}>View All Services</button>
+      <button className="btn rounded-pill shadow-lg  text-white"style={{backgroundColor:"#797d43",color:"white",marginTop:"100px"}}>View All Services</button>
 
       </Link>
      

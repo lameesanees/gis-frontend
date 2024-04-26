@@ -16,14 +16,21 @@ function Accident() {
         }}
       >
         <p className="text-danger" style={{ textAlign: "justify" }}>
-          *Fill out the form correctly. Any wrong information received may result in heavy charges or imprisonment.
+          *Fill out the form correctly. Any wrong information received may result in heavy fine charges or imprisonment for 1-5 year.
         </p>
+        <div style={{ marginBottom: "20px" }}>
+          <MDBInput label="Your Full Name" id="form1" type="text" />
+        </div>
         <div style={{ marginBottom: "20px" }}>
           <MDBInput label="Your Aadhar/License Number" id="form1" type="text" />
         </div>
         <div style={{ marginBottom: "20px" }}>
+          <MDBInput label="Your Contact Number" id="form1" type="text" />
+        </div>
+        <div style={{ marginBottom: "20px" }}>
           <MDBInput label="Your Number Plate" id="form2" type="text" />
         </div>
+      
         <div style={{ marginBottom: "20px" }}>
           <p><b>Insurance Company</b></p>
           <select
@@ -63,6 +70,22 @@ function Accident() {
               <span style={{ marginLeft: "5px" }}>Major Accident</span>
             </label>
           </div>
+        </div>
+        <div style={{ marginBottom: "20px" }}>
+          <MDBInput label="Date" id="form1" type="text" />
+        </div>
+        <h4>Opponent Details</h4>
+        <div style={{ marginBottom: "20px" }}>
+          <MDBInput label="Opponent Full Name" id="form1" type="text" />
+        </div>
+        <div style={{ marginBottom: "20px" }}>
+          <MDBInput label="Opponent Contact Number" id="form1" type="text" />
+        </div>
+        <div style={{ marginBottom: "20px" }}>
+          <MDBInput label="Opponent Aadhar/License Number" id="form1" type="text" />
+        </div>
+        <div style={{ marginBottom: "20px" }}>
+          <MDBInput label="Opponent vehicle's Number Plate" id="form1" type="text" />
         </div>
         <div style={{ marginBottom: "20px" }}>
           <p><b>Upload Images of Your vehicle</b></p>

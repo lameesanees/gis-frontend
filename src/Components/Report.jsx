@@ -26,7 +26,7 @@ function Report() {
                   borderRadius: "30px",
                   height: "200px",
                   backgroundImage:
-                    "url('https://static.vecteezy.com/system/resources/previews/005/585/798/non_2x/abstract-dark-purple-background-overlap-layer-on-dark-space-for-background-design-exclusive-wallpaper-design-for-poster-brochure-presentation-website-etc-vector.jpg')",
+                    "url('https://w0.peakpx.com/wallpaper/972/941/HD-wallpaper-galaxy-colour-colours-explosion-heart-pastel-plain-purple-simple-solid.jpg')",
                 }}
               >
                 <TbReport style={{ fontSize: "80px" }} />
@@ -49,7 +49,7 @@ function Report() {
                   borderRadius: "30px",
                   height: "200px",
                   backgroundImage:
-                    "url('https://static.vecteezy.com/system/resources/previews/005/585/798/non_2x/abstract-dark-purple-background-overlap-layer-on-dark-space-for-background-design-exclusive-wallpaper-design-for-poster-brochure-presentation-website-etc-vector.jpg')",
+                    "url('https://w0.peakpx.com/wallpaper/972/941/HD-wallpaper-galaxy-colour-colours-explosion-heart-pastel-plain-purple-simple-solid.jpg')",
                 }}
               >
                 <PiEyeSlashFill style={{ fontSize: "80px" }} />
@@ -72,7 +72,7 @@ function Report() {
                   borderRadius: "30px",
                   height: "200px",
                   backgroundImage:
-                    "url('https://static.vecteezy.com/system/resources/previews/005/585/798/non_2x/abstract-dark-purple-background-overlap-layer-on-dark-space-for-background-design-exclusive-wallpaper-design-for-poster-brochure-presentation-website-etc-vector.jpg')",
+                    "url('https://w0.peakpx.com/wallpaper/972/941/HD-wallpaper-galaxy-colour-colours-explosion-heart-pastel-plain-purple-simple-solid.jpg')",
                 }}
               >
                 <RiPoliceCarFill style={{ fontSize: "80px" }} />
@@ -86,17 +86,6 @@ function Report() {
         </div>
       </div>
 
-      {/* Back to Home Button */}
-      <div className="back-to-home text-center mt-5">
-        <Link to="/">
-          <button
-            className="btn"
-            style={{ backgroundColor: "#797d43", color: "white" }}
-          >
-            Back to Home
-          </button>
-        </Link>
-      </div>
     </div>
   );
 }

@@ -79,6 +79,7 @@ function Missing() {
               value={formData.age}
               onChange={handleChange}
             />
+            
           </div>
           <div className="mb-3">
             <label htmlFor="gender" className="form-label">Gender:</label>

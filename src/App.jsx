@@ -25,6 +25,11 @@ import Dashboard from "./Pages/Dashboard";
 import Accident from "./Components/Accident";
 import Payment from "./Components/Payment";
 import SocialSupport from "./Components/SocialSupport";
+import UaForm from "./Components/UaForm";
+import McForm from "./Components/McForm";
+import TpForm from "./Components/TpForm";
+import OiForm from "./Components/OiForm";
+import MmForm from "./Components/MmForm";
 
 function App() {
   return (
@@ -37,13 +42,11 @@ function App() {
         <Route path={"/register"} element={<Auth register />} />
         <Route path={"/feature"} element={<Feature />} />
         <Route path={"*"} element={<Navigate to={"/"} />} />
-        <Route path={"/about"} element={<About/>} />
-        <Route path={"/feature"} element={<FeatureCard/>} />
-        <Route path={"/dashboard"} element={<Dashboard/>} />
-        <Route path={"/pay"} element={<Payment/>} />
+        <Route path={"/about"} element={<About />} />
+        <Route path={"/feature"} element={<FeatureCard />} />
+        <Route path={"/dashboard"} element={<Dashboard />} />
+        <Route path={"/pay"} element={<Payment />} />
 
-
-        
         {/* component of feature */}
         <Route path={"/report"} element={<Report />} />
         <Route path={"/community"} element={<CommunityServices />} />
@@ -58,7 +61,6 @@ function App() {
         <Route path={"/trackapp"} element={<TrackApp />} />
         <Route path={"/other"} element={<Other />} />
 
-       
         {/* components of traffic services */}
         <Route path={"/unknownacc"} element={<UnknownAcc />} />
         <Route path={"/trafficfine"} element={<TrafFine />} />
@@ -66,6 +68,13 @@ function App() {
 
         {/* component of community */}
         <Route path={"/socialsupport"} element={<SocialSupport />} />
+
+        {/* filled form report */}
+        <Route path={"/uaform"} element={<UaForm />} />
+        <Route path={"/mcform"} element={<McForm />} />
+        <Route path={"/tpform"} element={<TpForm />} />
+        <Route path={"/oiform"} element={<OiForm />} />
+        <Route path={"/Mmform"} element={<MmForm />} />
 
       </Routes>
       <Footer />

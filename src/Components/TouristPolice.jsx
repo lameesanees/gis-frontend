@@ -43,12 +43,17 @@ function TouristPolice() {
           <h2>File a Complaint:</h2>
           <form>
             <div className="form-group">
-              <label htmlFor="complaint">Complaint Details:</label>
+            <input type="text" placeholder="Name" className="form-control mb-2" name="" id="" />
+              <input type="text" placeholder="Contact" className="form-control" name="" id="" />
+              <label htmlFor="complaint" className="mt-4">Complaint Details:</label>
               <textarea
-                className="form-control"
+                className="form-control mb-2"
                 id="complaint"
                 rows="4"
               ></textarea>
+             
+              
+
             </div>
             <div className="text-center">
             <button type="submit" className="btn btn-dark  mt-4">

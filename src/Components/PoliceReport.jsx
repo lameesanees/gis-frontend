@@ -3,8 +3,6 @@ import { MDBAccordion, MDBAccordionItem } from "mdb-react-ui-kit";
 import { Link } from "react-router-dom";
 
 function PoliceReport() {
-
-
   return (
     <>
       <div className="container">

@@ -1,29 +1,32 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./Dashboard.css";
 import logo from "../assets/logo.png";
 import dashimg from "../assets/dashimg.png";
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import { faSearch } from '@fortawesome/free-solid-svg-icons';
-
+import { FaArrowAltCircleDown } from "react-icons/fa";
+import { Link } from "react-router-dom";
+import Modal from "react-bootstrap/Modal";
+import Card from "react-bootstrap/Card";
+import { Button, Form, ModalFooter } from "react-bootstrap";
 function Dashboard() {
   const [selectedCategory, setSelectedCategory] = useState(1); // Set default selected category to 1 (Home)
-  const [tableData, setTableData] = useState([]);
+  const [showModal, setShowModal] = useState(false);
 
-  useEffect(() => {
-    // Fetch data from backend here and update tableData state
-    // Example fetch code:
-    // fetch('backend_url')
-    //   .then(response => response.json())
-    //   .then(data => setTableData(data));
-  }, []);
+  const handleClose = () => setShowModal(false);
+  const handleShow = () => setShowModal(true);
+
+  const handleSubmit = (e) => {
+    handleClose();
+  };
 
   const categories = [
-    { id: 1, name: "Home" },
-    { id: 2, name: "Your Application", content: "Your Reports" },
-    { id: 3, name: "Traffic Fines", content: "Traffic Fines" },
-    { id: 4, name: "Police Services", content: "Content for Police Report" },
-    { id: 5, name: "Traffic Services", content: "Content for Traffic Report" },
-    { id: 6, name: "Community Services", content: "Community Services" },
+    { id: 1, name: "Update Profile" },
+    { id: 2, name: "Police Services", content: "Update Profile" },
+    { id: 3, name: "Traffic Services", content: "Content for Police Report" },
+    {
+      id: 4,
+      name: "Community Services",
+      content: "Content for Traffic Report",
+    },
   ];
 
   const handleCategoryClick = (categoryId) => {
@@ -69,12 +72,12 @@ function Dashboard() {
             {/* home */}
             {selectedCategory === 1 && (
               <div className="row home-content mb-3 m-5">
-                <img
+                {/* <img
                   src={dashimg}
                   className="img-fluid"
                   style={{ width: "300px" }}
                   alt=""
-                />
+                /> */}
                 <div className="col">
                   <h2
                     className="m-3 text-danger"
@@ -88,87 +91,210 @@ function Dashboard() {
                     Informed.
                   </p>
                 </div>
-                <div className="mt-4 mb-3 input-group">
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Search By Reference Number"
-                  />
+                <div className="col">
+                  <div className="table-responsive shadow-lg mb-2 bg-light  text-center">
+                    <label>
+                      <input type="file" style={{ display: "none" }} />
+                      <img
+                        src="https://cdn-icons-png.flaticon.com/512/65/65049.png"
+                        alt=""
+                        className="img-fluid  mt-4 "
+                        style={{ width: "20%" }}
+                      />
+                    </label>
+                    <div className="text-center m-4 ">
+                      <input
+                        type="text"
+                        placeholder="Albert Joy"
+                        className="form-control mb-3"
+                      />
+                      <input
+                        type="text"
+                        placeholder="7854123658"
+                        className="form-control mb-3"
+                      />
+                      <input
+                        type="text"
+                        placeholder="albertjoy@gmail.com"
+                        className="form-control mb-3"
+                      />
+                    </div>
+                  </div>
                 </div>
-                <div className="table-responsive shadow-lg mb-2 bg-light m-2">
-                  <table className="table table-bordered-none mt-2">
-                    <thead>
-                      <tr style={{ backgroundColor: "#f8f9fa" }}>
-                        <th style={{ color: "#007bff" }}>Ref.no</th>
-                        <th style={{ color: "#007bff" }}>Name</th>
-                        <th style={{ color: "#007bff" }}>Application Type</th>
-                        <th style={{ color: "#007bff" }}>
-                          Aadhar/License Number
-                        </th>
-                        <th style={{ color: "#007bff" }}>Remarks</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>458965</td>
-                        <td>Abcdef</td>
-                        <td>Major Accident</td>
-                        <td>987412533 </td>
-                        <td>Verified</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            )}
-
-            {/* your app */}
-            {selectedCategory === 2 && (
-              <div className="row home-content mb-3 m-5">
-                <h2 className="m-3 text-danger" style={{ textAlign: "center" }}>
-                  Your Application
-                </h2>
-                {/* Add your content for "Your Application" here */}
-              </div>
-            )}
-
-            {/* traffic fine */}
-            {selectedCategory === 3 && (
-              <div className="row home-content mb-3 m-5">
-                <h2 className="m-3 text-danger" style={{ textAlign: "center" }}>
-                  Traffic Fines
-                </h2>
-                {/* Add your content for "Your Application" here */}
               </div>
             )}
 
             {/* police services */}
-            {selectedCategory === 4 && (
-              <div className="row home-content mb-3 m-5">
-                <h2 className="m-3 text-danger" style={{ textAlign: "center" }}>
-                  Police Services
+            {selectedCategory === 2 && (
+              <div className="row home-content mb-3 mx-5">
+                <h2 className="m-1 text-danger text-center w-100">
+                  Police Services Report
                 </h2>
-                {/* Add your content for "Your Application" here */}
+                {/* Card 1: Unknown Accident Report */}
+                <h4 className="m-2 text-center">
+                  Get your filled report copy from here &nbsp;
+                  <FaArrowAltCircleDown />
+                </h4>
+                {/* Responsive 4-column button layout */}
+                <div className="row mt-3">
+                  <div className="col-md-3 mb-3">
+                    <Link to={"/uaform"}>
+                      <button className="btn btn-primary btn-lg btn-block">
+                        Unknown Accident Report
+                      </button>
+                    </Link>
+                  </div>
+                  <div className="col-md-3 mb-3">
+                    <Link to={"/mcform"}>
+                      <button className="btn btn-secondary btn-lg btn-block">
+                        Missing Case Report
+                      </button>
+                    </Link>
+                  </div>
+                  <div className="col-md-3 mb-3">
+                    <Link to={"/oiform"}>
+                      <button className="btn btn-success btn-lg btn-block">
+                        Other Information Report
+                      </button>
+                    </Link>
+                  </div>
+                  <div className="col-md-3 mb-3">
+                    <Link to={"/tpform"}>
+                      <button className="btn btn-warning btn-lg btn-block">
+                        Tourist Police Report
+                      </button>
+                    </Link>
+                  </div>
+                </div>
               </div>
             )}
 
             {/* traffic services */}
-            {selectedCategory === 5 && (
-              <div className="row home-content mb-3 m-5">
-                <h2 className="m-3 text-danger" style={{ textAlign: "center" }}>
-                  Traffic Services
+            {selectedCategory === 3 && (
+              <div className="row home-content mb-3 mx-5">
+                <h2 className="m-1 text-danger text-center w-100">
+                  Traffic Services Report
                 </h2>
-                {/* Add your content for "Your Application" here */}
+                {/* Card 1: Unknown Accident Report */}
+                <h4 className="m-2 text-center">
+                  Get your filled report copy from here &nbsp;
+                  <FaArrowAltCircleDown />
+                </h4>
+                {/* Responsive 3-column button layout */}
+                <div className="row mt-3">
+                  <div className="col-md-4 mb-3">
+                    <Link to={"/uaform"}>
+                      <button className="btn btn-primary btn-lg btn-block">
+                        Unknown Accident Report
+                      </button>
+                    </Link>
+                  </div>
+                  <div className="col-md-4 mb-3">
+                    <Link to={"/trafficfine"}>
+                      <button className="btn btn-secondary btn-lg btn-block">
+                        Traffic Fine
+                      </button>
+                    </Link>
+                  </div>
+                  <div className="col-md-4 mb-3">
+                    <Link to={"/mmform"}>
+                      <button className="btn btn-success btn-lg btn-block">
+                        Minor/Major Accident
+                      </button>
+                    </Link>
+                  </div>
+                </div>
               </div>
             )}
 
             {/* community services */}
-            {selectedCategory === 6 && (
-              <div className="row home-content mb-3 m-5">
-                <h2 className="m-3 text-danger" style={{ textAlign: "center" }}>
-                  Community Services
-                </h2>
-                {/* Add your content for "Your Application" here */}
+            {selectedCategory === 4 && (
+              <div className="container">
+                <div className="row home-content mb-3 m-5">
+                  <h2
+                    className="m-3 text-danger"
+                    style={{ textAlign: "center" }}
+                  >
+                    Community Services
+                  </h2>
+                  <h4 className="m-2 text-center">
+                  Get your filled report copy from here &nbsp;
+                  <FaArrowAltCircleDown />
+                </h4>
+                  <div>
+                    <Card
+                      style={{
+                        width: "18rem",
+                        backgroundColor: "green",
+                        color: "white",
+                      }}
+                      onClick={handleShow}
+                      className="mx-auto mt-4 shadow-lg"
+                    >
+                      <Card.Body>
+                        <Card.Title style={{ cursor: "pointer" }}>
+                          Educational Support
+                        </Card.Title>
+                        <Card.Title style={{ cursor: "pointer" }}>
+                          10/01/2023
+                        </Card.Title>
+                      </Card.Body>
+                      <ModalFooter></ModalFooter>
+                    </Card>
+
+                    <Modal show={showModal} onHide={handleClose}>
+                      <Modal.Header closeButton>
+                        <Modal.Title>Charity Details</Modal.Title>
+                      </Modal.Header>
+                      <Modal.Body>
+                        <Form onSubmit={handleSubmit}>
+                          <Form.Group
+                            className="mt-2"
+                            style={{ textAlign: "justify" }}
+                          >
+                            <Form.Label>
+                              Name:{" "}
+                              <span className="text-danger">
+                                Mohammed Suhan
+                              </span>
+                            </Form.Label>
+                            <br />
+                            <Form.Label>
+                              Email:{" "}
+                              <span className="text-danger">
+                                mohammeduhsna@gmail.com
+                              </span>
+                            </Form.Label>
+                            <br />
+                            <Form.Label>
+                              Amount:{" "}
+                              <span className="text-danger"> 25,000/-</span>
+                            </Form.Label>{" "}
+                            <br />
+                            <Form.Label>
+                              Charity Type:{" "}
+                              <span className="text-danger">
+                                {" "}
+                                Educational support
+                              </span>
+                            </Form.Label>{" "}
+                            <br />
+                            <Form.Label>
+                              Payment method:{" "}
+                              <span className="text-danger"> Credit card</span>
+                            </Form.Label>
+                          </Form.Group>
+                        </Form>
+                      </Modal.Body>
+                      <Modal.Footer>
+                        <Button className="btn btn-dark">Delete</Button>
+                        <Button className="btn btn-dark" onClick={handleClose}>
+                          Close
+                        </Button>
+                      </Modal.Footer>
+                    </Modal>
+                  </div>
+                </div>
               </div>
             )}
           </div>
