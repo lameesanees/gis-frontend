@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import video1 from "../assets/video1.mp4";
 import "./home.css";
 import Feature from "./Feature";
@@ -8,6 +8,18 @@ import { Link } from "react-router-dom";
 import { FaUserPlus } from "react-icons/fa";
 
 function Home() {
+
+  const [isLoggedIn,setIsLoggedIn]=useState(false)
+
+  useEffect(()=>{
+    if(sessionStorage.getItem("token")){
+      setIsLoggedIn(true)
+    }
+    else{
+      setIsLoggedIn(false)
+    }
+  })
+
   return (
     <>
       <div className="video-container position-relative">
@@ -34,23 +46,33 @@ function Home() {
             <span>E</span>
             <span>V</span>
             <span>A</span>
-            <span>&nbsp;</span>
-    !
+            <span>&nbsp;</span>!
           </h2>
           <p className="video-description">
             Efficiently report accidents and file cases with our user-friendly
             platform.
           </p>
           <Nav className="d-flex justify-content-center">
-            <Link to="/login">
-              <Button
+            {
+              isLoggedIn?
+              <Link to="/dashboard">
+              <button
                 className="btn"
-                style={{ backgroundColor: "black", color: "white" }}
+                style={{ backgroundColor: "darkGreen", color: "white" }}
               >
-                <FaUserPlus className="me-2 text-white" />
-                Get Started
-              </Button>
-            </Link>
+                Manage your Dashboard
+              </button>
+            </Link>:
+            <Link to="/login">
+            <button
+              className="btn"
+              style={{ backgroundColor: "darkGreen", color: "white" }}
+            >
+              <FaUserPlus className="me-2 text-white" />
+              Get Started
+            </button>
+          </Link>
+            }
           </Nav>
         </div>
       </div>

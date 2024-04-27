@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Dashboard.css";
 import logo from "../assets/logo.png";
-import dashimg from "../assets/dashimg.png";
 import { FaArrowAltCircleDown } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import Modal from "react-bootstrap/Modal";
@@ -33,10 +32,19 @@ function Dashboard() {
     setSelectedCategory(categoryId);
   };
 
+  const [username,setUsername]= useState("")
+  useEffect(()=>{
+    if(sessionStorage.getItem("username")){
+      setUsername(sessionStorage.getItem("username"))
+    }
+    else{
+      setUsername("")
+    }
+  })
   return (
     <>
       <h1 className="mt-2 p-2 m-3">
-        Welcome Back <span style={{ color: "red" }}>User</span>
+        Welcome Back <span style={{ color: "red" }}>{username}</span>
       </h1>
       <div className="dashboard-container">
         <div
@@ -44,12 +52,12 @@ function Dashboard() {
           style={{ borderRadius: "20px", marginLeft: "10px" }}
         >
           {/* Logo */}
-          <div className="logo">
+          <div className="logo text-center">
             <img
               src={logo}
               alt="Logo"
               className="mb-3"
-              style={{ maxWidth: "80%", height: "auto" }}
+              style={{ maxWidth: "60%", height: "auto" }}
             />
           </div>
 
@@ -91,15 +99,17 @@ function Dashboard() {
                     Informed.
                   </p>
                 </div>
+
+                {/* update user */}
                 <div className="col">
                   <div className="table-responsive shadow-lg mb-2 bg-light  text-center">
                     <label>
                       <input type="file" style={{ display: "none" }} />
                       <img
-                        src="https://cdn-icons-png.flaticon.com/512/65/65049.png"
+                        src="https://t4.ftcdn.net/jpg/02/24/86/95/360_F_224869519_aRaeLneqALfPNBzg0xxMZXghtvBXkfIA.jpg"
                         alt=""
-                        className="img-fluid  mt-4 "
-                        style={{ width: "20%" }}
+                        className="img-fluid rounded-circle  mt-4 "
+                        style={{ width: "80%", height: "150px" }}
                       />
                     </label>
                     <div className="text-center m-4 ">
@@ -218,9 +228,9 @@ function Dashboard() {
                     Community Services
                   </h2>
                   <h4 className="m-2 text-center">
-                  Get your filled report copy from here &nbsp;
-                  <FaArrowAltCircleDown />
-                </h4>
+                    Get your filled report copy from here &nbsp;
+                    <FaArrowAltCircleDown />
+                  </h4>
                   <div>
                     <Card
                       style={{
