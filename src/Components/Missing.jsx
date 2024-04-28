@@ -10,14 +10,14 @@ function Missing() {
     date: "",
     description: "",
     contact: "",
-    file: null
+    file: null,
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
-      [name]: value
+      [name]: value,
     }));
   };
 
@@ -25,7 +25,7 @@ function Missing() {
     const file = e.target.files[0];
     setFormData((prevData) => ({
       ...prevData,
-      file: file
+      file: file,
     }));
   };
 
@@ -38,7 +38,7 @@ function Missing() {
       date: "",
       description: "",
       contact: "",
-      file: null
+      file: null,
     });
   };
 
@@ -56,10 +56,29 @@ function Missing() {
         }}
       >
         <form className="mt-4">
+          <div className="mb-3 text-center">
+            <label>
+              <input type="file" style={{ display: "none" }} />
+              <img
+                src="https://tnpcbhwt.cgg.gov.in/Images/Uploading-GIF2.gif"
+                className="img-fluid mb-2"
+                style={{ width: "50%" }}
+              />
+              <p className="text-danger">
+                Please Upload following image extension (png,jpg,jpeg) only
+              </p>
+            </label>
+          </div>
           <div className="mb-3">
-          <p className="text-danger" style={{textAlign:"justify"}}> *Fill out the form correctly. Any wrong information recieved heavy charges may be applied with imprisonment.</p>
+            <p className="text-danger" style={{ textAlign: "justify" }}>
+              {" "}
+              *Fill out the form correctly. Any wrong information recieved heavy
+              charges may be applied with imprisonment.
+            </p>
 
-            <label htmlFor="name" className="form-label">Full Name:</label>
+            <label htmlFor="name" className="form-label">
+              Full Name:
+            </label>
             <MDBInput
               type="text"
               className="form-control"
@@ -70,7 +89,9 @@ function Missing() {
             />
           </div>
           <div className="mb-3">
-            <label htmlFor="age" className="form-label">Age:</label>
+            <label htmlFor="age" className="form-label">
+              Age:
+            </label>
             <MDBInput
               type="number"
               className="form-control"
@@ -79,10 +100,11 @@ function Missing() {
               value={formData.age}
               onChange={handleChange}
             />
-            
           </div>
           <div className="mb-3">
-            <label htmlFor="gender" className="form-label">Gender:</label>
+            <label htmlFor="gender" className="form-label">
+              Gender:
+            </label>
             <select
               className="form-select"
               id="gender"
@@ -97,7 +119,9 @@ function Missing() {
             </select>
           </div>
           <div className="mb-3">
-            <label htmlFor="location" className="form-label">Last Known Location:</label>
+            <label htmlFor="location" className="form-label">
+              Last Known Location:
+            </label>
             <input
               type="text"
               className="form-control"
@@ -108,7 +132,9 @@ function Missing() {
             />
           </div>
           <div className="mb-3">
-            <label htmlFor="date" className="form-label">Date:</label>
+            <label htmlFor="date" className="form-label">
+              Date:
+            </label>
             <input
               type="date"
               className="form-control"
@@ -119,7 +145,9 @@ function Missing() {
             />
           </div>
           <div className="mb-3">
-            <label htmlFor="description" className="form-label">Description:</label>
+            <label htmlFor="description" className="form-label">
+              Description:
+            </label>
             <textarea
               className="form-control"
               id="description"
@@ -129,7 +157,9 @@ function Missing() {
             ></textarea>
           </div>
           <div className="mb-3">
-            <label htmlFor="contact" className="form-label">Contact:</label>
+            <label htmlFor="contact" className="form-label">
+              Contact:
+            </label>
             <MDBInput
               type="text"
               className="form-control"
@@ -137,21 +167,19 @@ function Missing() {
               name="contact"
               value={formData.contact}
               onChange={handleChange}
-            />  
-          </div>
-          <div className="mb-3">
-            <label htmlFor="file" className="form-label">Upload Photo:</label>
-            <MDBInput
-              type="file"
-              className="form-control"
-              id="file"
-              name="file"
-              onChange={handleFileChange}
             />
           </div>
-          <div className="text-center mb-4 mt-2" >
-            <button type="submit" className="btn btn-dark me-2">Submit</button>
-            <button type="button" className="btn btn-dark" onClick={handleClear}>Clear</button>
+          <div className="text-center mb-4 mt-2">
+            <button type="submit" className="btn btn-dark me-2">
+              Submit
+            </button>
+            <button
+              type="button"
+              className="btn btn-dark"
+              onClick={handleClear}
+            >
+              Clear
+            </button>
           </div>
         </form>
       </div>

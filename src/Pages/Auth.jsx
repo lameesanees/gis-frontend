@@ -4,7 +4,7 @@ import { MDBInput } from "mdb-react-ui-kit";
 import { loginAPI, registerAPI } from "../Services/allAPI";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
-
+import logo from "../assets/logo.png";
 function Auth({ register }) {
   const navigate = useNavigate();
   const [userData, setUserData] = useState({
@@ -74,9 +74,8 @@ function Auth({ register }) {
       const result = await loginAPI(userData);
       console.log(result);
       if (result.status === 200) {
-
-        sessionStorage.setItem("username",result.data.existingUser.username)
-        sessionStorage.setItem("token",result.data.token)
+        sessionStorage.setItem("username", result.data.existingUser.username);
+        sessionStorage.setItem("token", result.data.token);
         Swal.fire({
           title: "Success!",
           text: "Login Successfull",
@@ -100,7 +99,7 @@ function Auth({ register }) {
     }
     console.log(userData);
   };
-  
+
   return (
     <div
       style={{
@@ -129,7 +128,31 @@ function Auth({ register }) {
       >
         <form>
           <h2 className="text-center mb-4">
-            {register ? "Register" : "Login"}
+            {register ? (
+              <div>
+                <img
+                  src={logo}
+                  alt=""
+                  className="img-fluid"
+                  style={{ width: "10%" }}
+                />
+                <h4>Welcome to <br />
+                 <b style={{fontSize:"30px",color:"green"}}> GuardIndiaSeva.com </b>
+                 </h4>
+              </div>
+            ) : (
+              <div>
+                <img
+                  src={logo}
+                  alt=""
+                  className="img-fluid"
+                  style={{ width: "10%" }}
+                />
+                <h4>Welcome Back <br />
+                 <b style={{fontSize:"30px",color:"green"}}> GuardIndiaSeva.com </b>
+                 </h4>
+              </div>
+            )}
           </h2>
 
           {register && (
@@ -176,19 +199,20 @@ function Auth({ register }) {
 
           {!register && (
             <div>
-              <MDBInput 
-              onChange={(e) =>
-                setUserData({ ...userData, email: e.target.value })}
+              <MDBInput
+                onChange={(e) =>
+                  setUserData({ ...userData, email: e.target.value })
+                }
                 value={userData.email}
                 label="Email"
                 className="mb-3"
                 style={{ backgroundColor: "#f8f9fa" }}
               />
               <MDBInput
-              onChange={(e) =>
-                setUserData({ ...userData, password: e.target.value })
-              }
-              value={userData.password}
+                onChange={(e) =>
+                  setUserData({ ...userData, password: e.target.value })
+                }
+                value={userData.password}
                 type="password"
                 label="Password"
                 className="mb-3"
@@ -206,7 +230,7 @@ function Auth({ register }) {
                 <p>
                   Already Registered?
                   <Link
-                    to={"/login"} 
+                    to={"/login"}
                     className="text-danger text-decoration-underline"
                   >
                     Login Here
@@ -215,7 +239,9 @@ function Auth({ register }) {
               </div>
             ) : (
               <div className="text-center">
-                <button onClick={handleLogin} className="btn btn-dark mb-5">Login</button>
+                <button onClick={handleLogin} className="btn btn-dark mb-5">
+                  Login
+                </button>
                 <p>
                   New to Here?
                   <Link

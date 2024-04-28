@@ -1,124 +1,99 @@
-import React, { useState } from "react";
-import Modal from "react-bootstrap/Modal";
+import React, { useEffect, useState } from "react";
 import Card from "react-bootstrap/Card";
-import { Button, Form, ModalFooter } from "react-bootstrap";
+import { getAReportAPI } from "../Services/allAPI";
+import { serverURL } from "../Services/serverURL";
 
 function UaForm() {
-  const [showModal, setShowModal] = useState(false);
-  const [inputs, setInputs] = useState({
-    fullName: "",
-    aadharNumber: "",
-    state: "",
-    location: "",
-    date: "",
-    description: "",
-    contact: "",
-    file: null,
-  });
+  const [userReport, setUserReport] = useState([]);
 
-  const handleClose = () => setShowModal(false);
-  const handleShow = () => setShowModal(true);
+  const getaReport = async () => {
+    if (sessionStorage.getItem("token")) {
+      const token = sessionStorage.getItem("token");
 
-  const handleSubmit = (e) => {
-    handleClose();
+      const reqHeader = {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      };
+
+      try {
+        const result = await getAReportAPI(reqHeader);
+        setUserReport(result.data);
+      } catch (error) {
+        console.error("Error fetching reports:", error);
+      }
+    }
   };
 
+  useEffect(() => {
+    getaReport();
+  }, []);
+
   return (
-    <>
-    <div>
-    <input
+    <div className="container">
+      <div>
+        <input
           type="text"
           style={{ width: "400px" }}
-          placeholder="Search By Location"
+          placeholder="Search"
+          onChange={(e) => setSearchKey(e.target.value)}
           className="form-control m-5 mx-auto"
         />
+      </div>
+
+      <div className="row">
+        {userReport.length > 0 ? (
+          userReport.map((item, index) => (
+            <div className="col" key={index}>
+              <Card style={{ width: "18rem" }} className="h-100">
+                <div style={{ height: "200px", overflow: "hidden" }}>
+                  <img
+                    variant="top"
+                    src={
+                      item
+                        ? `${serverURL}/uploads/${item.uaImage}`
+                        : "https://www.hindustantimes.com/ht-img/img/2023/11/27/1600x900/The-mangled-car-on-Monday---HT-Photo-_1701110057428.jpeg"
+                    }
+                    className="card-img-top"
+                    alt="Report Image"
+                    style={{ objectFit: "cover", height: "100%", width: "100%" }}
+                  />
+                </div>
+                <Card.Body>
+                  <Card.Title className="text-center text-primary">
+                    <b>{item.fullname}</b>
+                  </Card.Title>
+                  <Card.Title className="text-center text-success">
+                    {item.location}, {item.state}
+                  </Card.Title>
+                  <Card.Text>
+                    <p>
+                      <b>Description: </b> {item.description}
+                    </p>
+                    <p>
+                      <b>Aadhaar: </b>
+                      {item.aadhaar}
+                    </p>
+                    <p>
+                      <b>Contact: </b>
+                      {item.contact}
+                    </p>
+                    <p>
+                      <b>Date: </b>
+                      {item.date}
+                    </p>
+                  </Card.Text>
+                </Card.Body>
+                <div className="text-center mb-3">
+                  <button className="btn btn-danger">Delete</button>
+                </div>
+              </Card>
+            </div>
+          ))
+        ) : (
+          <div className="col">No Reports</div>
+        )}
+      </div>
     </div>
-      <Card
-        style={{ width: "18rem",backgroundColor:"#252b2b",color:"white" }}
-        onClick={handleShow}
-        className="mx-auto mt-4 shadow-lg" 
-      >
-        <Card.Img
-          variant="top"
-          src="https://www.johnfoy.com/wp-content/uploads/2019/02/faqs-what-happens-to-your-body-in-a-car-crash-2.jpg"
-          alt="Placeholder"
-        />
-        <Card.Body>
-          <Card.Title style={{ cursor: "pointer" }}>Kumbala,Kasaragod</Card.Title>
-          <Card.Title style={{ cursor: "pointer" }}>10/01/2023</Card.Title>
-        </Card.Body>
-        <ModalFooter>
-
-        </ModalFooter>
-      </Card>
-
-      <Modal show={showModal} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Filled Details</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form onSubmit={handleSubmit}>
-            <Form.Group controlId="fullName">
-              <Form.Label className="text-center">
-                <img
-                  src="https://www.johnfoy.com/wp-content/uploads/2019/02/faqs-what-happens-to-your-body-in-a-car-crash-2.jpg"
-                  className="img-fluid"
-                  style={{ width: "50%" }}
-                  alt=""
-                />
-              </Form.Label>
-            </Form.Group>
-
-            <Form.Group className="mt-2" style={{textAlign:"justify"}} >
-              <Form.Label>
-                Full Name: <span className="text-danger">John Doe</span>
-              </Form.Label>{" "}
-              <br />
-              <Form.Label>
-                Aadhar Number: <span className="text-danger">7854125632</span>
-              </Form.Label>{" "}
-              <br />
-              <Form.Label>
-                State: <span className="text-danger">Kerala</span>
-              </Form.Label>{" "}
-              <br />
-              <Form.Label>
-                Location: <span className="text-danger">Kumbla,Kasaragod</span>
-              </Form.Label>{" "}
-              <br />
-              <Form.Label>
-                Date: <span className="text-danger">10/01/2023</span>
-              </Form.Label>{" "}
-              <br />
-              <Form.Label>
-                Description:{" "}
-                <span className="text-danger">
-                  Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quam
-                  aliquid, vitae suscipit voluptatem similique perferendis
-                  atque!
-                </span>
-              </Form.Label>
-              <br />
-              <Form.Label>
-                Contact: <span className="text-danger">985631457</span>
-              </Form.Label>{" "}
-              <br />
-            </Form.Group>
-          </Form>
-        </Modal.Body>
-        <Modal.Footer>
-           
-            <Button className="btn btn-dark">
-            Delete
-          </Button>
-          <Button className="btn btn-dark" onClick={handleClose}>
-            Close
-          </Button>
-        
-          
-        </Modal.Footer>
-      </Modal>
-    </>
   );
 }
 

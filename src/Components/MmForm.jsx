@@ -1,132 +1,135 @@
 import React, { useState } from "react";
+import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import Card from "react-bootstrap/Card";
-import { Button, Form, ModalFooter } from "react-bootstrap";
 function MmForm() {
-  const [showModal, setShowModal] = useState(false);
-  const [inputs, setInputs] = useState({
-    fullName: "",
-    aadharNumber: "",
-    state: "",
-    location: "",
-    date: "",
-    description: "",
-    contact: "",
-    file: null,
-  });
+  const [show, setShow] = useState(false);
 
-  const handleClose = () => setShowModal(false);
-  const handleShow = () => setShowModal(true);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
-  const handleSubmit = (e) => {
-    handleClose();
-  };
   return (
     <>
-      <div>
-        <input
-          type="text"
-          style={{ width: "400px" }}
-          placeholder="Search By Location"
-          className="form-control m-5 mx-auto"
-        />
+      <div className="container">
+        <div>
+          <input
+            type="text"
+            style={{ width: "400px" }}
+            placeholder="Search"
+            onChange={(e) => setSearchKey(e.target.value)}
+            className="form-control m-5 mx-auto"
+          />
+        </div>
+
+        <div className="row">
+          <div className="col">
+            <div className="p-4 shadow-lg rounded">
+              <div className="table-responsive">
+                <table className="table table-borderless">
+                  <thead>
+                    <tr className="text-danger">
+                      <th scope="col">Name</th>
+                      <th scope="col">Location</th>
+                      <th scope="col">Date</th>
+                      <th scope="col">Remarks</th>
+                      <th scope="col">View Details</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>John Doe</td>
+                      <td>Kasaragod, India</td>
+                      <td>10/12/2023</td>
+                      <td className="text-warning">Verifying...</td>
+                      <td>
+                        <Button variant="success" onClick={handleShow}>
+                          Click Here
+                        </Button>
+
+                        <Modal show={show} onHide={handleClose}>
+                          <Modal.Header closeButton>
+                            <Modal.Title>Unknown Accident Report</Modal.Title>
+                          </Modal.Header>
+                          <Modal.Body>
+                            <div className="row">
+                              <div className="col">
+                                <img
+                                  src="https://www.morellilaw.com/wp-content/uploads/2021/10/slight-fender-bender.jpeg"
+                                  alt=""
+                                  className="img-fluid"
+                                  style={{ width: "100%" }}
+                                />
+                              </div>
+
+                              <div className="col">
+                                <h4
+                                  className="text-center"
+                                  style={{ fontSize: "40px" }}
+                                >
+                                  John Doe
+                                </h4>
+                                <h4 className="text-danger text-center">
+                                  Kozhikode, Kerala
+                                </h4>
+                              </div>
+                              <div
+                                className="row shadow-lg p-2 mt-3"
+                                style={{
+                                  textAlign: "justify",
+                                  margin: "0px auto",
+                                  justifyContent: "center",
+                                }}
+                              >
+                                <table>
+                                  <tr>
+                                    <td className="text-danger">
+                                      Aadhaar/License:
+                                    </td>
+                                    <td>785412369</td>
+                                  </tr>
+                                  <tr>
+                                    <td className="text-danger">State: </td>
+                                    <td>Kerala</td>
+                                  </tr>
+                                  <tr>
+                                    <td className="text-danger">Date: </td>
+                                    <td>10/04/2023</td>
+                                  </tr>
+                                  <tr>
+                                    <td className="text-danger">Contact: </td>
+                                    <td>9874521362</td>
+                                  </tr>
+                                  <tr>
+                                    <td className="text-danger">
+                                      Description:
+                                    </td>
+                                    <td>
+                                      Lorem ipsum dolor, sit amet consectetur
+                                      adipisicing elit. Voluptates eaque omnis
+                                      eveniet.
+                                    </td>
+                                  </tr>
+                                </table>
+                              </div>
+                            </div>
+                          </Modal.Body>
+                          <Modal.Footer>
+                            <button className="btn btn-danger">
+                              Delete
+                            </button>
+                            <button className="btn btn-success" onClick={handleClose}>
+                              Back
+                            </button>
+                          </Modal.Footer>
+                        </Modal>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <Card
-        style={{ width: "18rem", backgroundColor: "#252b2b", color: "white" }}
-        onClick={handleShow}
-        className="mx-auto mt-4 shadow-lg"
-      >
-        <Card.Img
-          variant="top"
-          src="https://www.gowithalvarez.com/images/imported/1gq_na0qpx_.jpeg"
-          className="img-fluid"
-          alt="Placeholder"
-        />
-        <Card.Body>
-          <Card.Title style={{ cursor: "pointer" }}>Major Accident</Card.Title>
-          <Card.Title style={{ cursor: "pointer" }}>10/01/2023</Card.Title>
-        </Card.Body>
-        <ModalFooter></ModalFooter>
-      </Card>
-
-      <Modal show={showModal} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Filled Details</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form onSubmit={handleSubmit}>
-            <Form.Group controlId="fullName">
-              <Form.Label className="text-center">
-                <img
-                  src="https://www.gowithalvarez.com/images/imported/1gq_na0qpx_.jpeg"
-                  className="img-fluid"
-                  style={{ width: "50%" }}
-                  alt=""
-                />
-              </Form.Label>
-            </Form.Group>
-
-            <Form.Group className="mt-2" style={{ textAlign: "justify" }}>
-              <Form.Label>
-                Full Name: <span className="text-danger">Priya George</span>
-              </Form.Label>{" "}
-              <br />
-              <Form.Label>
-                Aadhar/License:{" "}
-                <span className="text-danger">785412365</span>
-              </Form.Label>{" "}
-              <br />
-              <Form.Label>
-                Contact: <span className="text-danger">5621548556</span>
-              </Form.Label>{" "}
-              <br />
-              <Form.Label>
-                Number Plate: <span className="text-danger">KL 52 N 8951</span>
-              </Form.Label>{" "}
-              <br />
-              <Form.Label>
-                Insurance Company:{" "}
-                <span className="text-danger">Reliance</span>
-              </Form.Label>{" "}
-              <br />
-              <Form.Label>
-                Accident Type: <span className="text-danger">Major</span>
-              </Form.Label>{" "}
-              <br />
-              <Form.Label>
-                Date: <span className="text-danger">10/12/2023</span>
-              </Form.Label>{" "}
-              <br />
-              <Form.Label>
-                Opponent Full Name:{" "}
-                <span className="text-danger">Paul Mathew</span>
-              </Form.Label>{" "}
-              <br />
-              <Form.Label>
-                Opponent Contact:{" "}
-                <span className="text-danger">4562122365</span>
-              </Form.Label>{" "}
-              <br />
-              <Form.Label>
-                Opponent Aadhar/License:{" "}
-                <span className="text-danger">8965232</span>
-              </Form.Label>{" "}
-              <br />
-              <Form.Label>
-                Opponent Number Plate:{" "}
-                <span className="text-danger">KL 65 M 7854</span>
-              </Form.Label>{" "}
-              <br />
-            </Form.Group>
-          </Form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button className="btn btn-dark">Delete</Button>
-          <Button className="btn btn-dark" onClick={handleClose}>
-            Close
-          </Button>
-        </Modal.Footer>
-      </Modal>
     </>
   );
 }

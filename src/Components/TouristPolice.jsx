@@ -1,4 +1,5 @@
 import React from "react";
+import { MDBInput } from "mdb-react-ui-kit";
 
 function TouristPolice() {
   return (
@@ -18,18 +19,17 @@ function TouristPolice() {
 
         {/* Image */}
         <div className="text-center mt-0">
-        <p className="text-danger" style={{ textAlign: "justify" }}>
-          {" "}
-          *Fill out the form correctly. Any wrong information recieved heavy
-          charges may be applied with imprisonment.
-        </p>
+          <p className="text-danger" style={{ textAlign: "justify" }}>
+            {" "}
+            *Fill out the form correctly. Any wrong information recieved heavy
+            charges may be applied with imprisonment.
+          </p>
           <img
             src="https://i.pinimg.com/474x/1a/26/4a/1a264a7023b456721e2a5b062ae23c68.jpg"
             alt="Tourist Police"
             style={{ maxWidth: "20%", height: "auto" }}
           />
         </div>
-        
 
         {/* Contact Information */}
         <div className="container mt-3">
@@ -41,26 +41,49 @@ function TouristPolice() {
         {/* Complaint Form */}
         <div className="container mt-5">
           <h2>File a Complaint:</h2>
+          <div className="mb-3 text-center">
+            <label>
+              <input type="file" style={{ display: "none" }} />
+              <img
+                src="https://tnpcbhwt.cgg.gov.in/Images/Uploading-GIF2.gif"
+                className="img-fluid mb-2"
+                style={{ width: "50%" }}
+              />
+              <p className="text-danger">
+                Please Upload following image extension (png,jpg,jpeg) only
+              </p>
+            </label>
+          </div>
           <form>
             <div className="form-group">
-            <input type="text" placeholder="Name" className="form-control mb-2" name="" id="" />
-              <input type="text" placeholder="Contact" className="form-control" name="" id="" />
-              <label htmlFor="complaint" className="mt-4">Complaint Details:</label>
+              <label className="form-label">
+                Full Name:
+              </label>
+              <MDBInput
+                type="text"
+                className="form-control"
+              />
+             <label className="form-label mt-2">
+                Contact:
+              </label>
+              <MDBInput
+                type="text"
+                className="form-control"
+              />
+              <label className="mt-2 text-muted ">
+                Complaint Details:
+              </label>
               <textarea
                 className="form-control mb-2"
                 id="complaint"
                 rows="4"
               ></textarea>
-             
-              
-
             </div>
             <div className="text-center">
-            <button type="submit" className="btn btn-dark  mt-4">
-              Submit
-            </button>
+              <button type="submit" className="btn btn-dark  mt-4">
+                Submit
+              </button>
             </div>
-            
           </form>
         </div>
       </div>

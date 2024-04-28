@@ -8,6 +8,22 @@
   </head>
   <body>
     <div id="root"></div>
+    <!-- Your components go here -->
+    
+    <script>
+      // Define a global event listener for buttons
+      document.addEventListener('click', function(event) {
+        // Check if the clicked element is a button
+        if (event.target.tagName === 'BUTTON') {
+          // Scroll smoothly to the top of the page
+          window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+          });
+        }
+      });
+    </script>
+
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

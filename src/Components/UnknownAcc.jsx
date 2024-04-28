@@ -1,77 +1,190 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { MDBInput } from "mdb-react-ui-kit";
+import { GiCloudUpload } from "react-icons/gi";
+import { addUaAPI } from "../Services/allAPI";
+import {useNavigate} from 'react-router-dom';
+import Swal from 'sweetalert2'
 
 function UnknownAcc() {
+  const navigate = useNavigate()
   const [formData, setFormData] = useState({
-    name: "",
+    fullname: "",
+    aadhaar: "",
+    state: "",
     location: "",
     date: "",
     description: "",
     contact: "",
-    file: null,
-    aadharNumber: ""
+    uaImage: "",
   });
+  console.log(formData);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: name === "contactNumber" ? formData.countryCode + value : value
-    }));
+  const handleAddReport = async (e) => {
+    e.preventDefault(); // Prevent default form submission
+
+    // data passing through state
+    const {
+      fullname,
+      aadhaar,
+      state,
+      location,
+      date,
+      description,
+      contact,
+      uaImage,
+    } = formData;
+
+    // Check if any field is empty
+    if (
+      !fullname ||
+      !aadhaar ||
+      !state ||
+      !location ||
+      !date ||
+      !description ||
+      !contact ||
+      !uaImage
+    ) {
+      Swal.fire({
+        title: 'Warning!',
+        text: 'Please fill the form',
+        icon: 'warning',
+        confirmButtonText: 'Back'
+      })
+    } else {
+      const reqBody = new FormData();
+      reqBody.append("fullname", fullname);
+      reqBody.append("aadhaar", aadhaar);
+      reqBody.append("state", state);
+      reqBody.append("location", location);
+      reqBody.append("date", date);
+      reqBody.append("description", description);
+      reqBody.append("contact", contact);
+      reqBody.append("uaImage", uaImage);
+
+      if (token) {
+        const reqHeader = {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`,
+        };
+
+        // api call
+        const result = await addUaAPI(reqBody, reqHeader);
+        console.log(result);
+        if (result.status == 200) {
+          Swal.fire({
+            title: 'Success!',
+            text: 'Report Submitted Successfully',
+            icon: 'success',
+            confirmButtonText: 'Back'
+          })
+          navigate('/policeye')
+          setFormData({
+            fullname: "",
+            aadhaar:"",
+            state:"",
+            location:"",
+            date:"",
+            description:"",
+            contact:"",
+            uaImage:"",
+          });
+          setPreview("")
+        } else {
+          alert(result.response.data);
+        }
+      }
+    }
   };
 
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    setFormData((prevData) => ({
-      ...prevData,
-      file: file
-    }));
-  };
+  const [fileStatus, setFileStatus] = useState(false);
+  const [preview, setPreview] = useState("");
 
-  const handleClear = () => {
-    setFormData({
-      name: "",
-      state: "",
-      location:"",
-      date: "",
-      description: "",
-      contact: "",
-      file: null,
-      aadharNumber: ""
-    });
-  };
+  useEffect(() => {
+    console.log(formData.uaImage.type);
+    if (
+      formData.uaImage.type == "image/png" ||
+      formData.uaImage.type == "image/jpeg" ||
+      formData.uaImage.type == "image/jpg"
+    ) {
+      console.log("generate image url");
+
+      // url conversion
+      console.log(URL.createObjectURL(formData.uaImage));
+      setPreview(URL.createObjectURL(formData.uaImage));
+      setFileStatus(false);
+    } else {
+      setFileStatus(true);
+      console.log(
+        "Please Upload following image extension (png,jpg,jpeg) only"
+      );
+    }
+  }, [formData.uaImage]);
+
+  // to hold token
+  const [token, setToken] = useState("");
+
+  useEffect(() => {
+    if (sessionStorage.getItem("token")) {
+      setToken(sessionStorage.getItem("token"));
+    } else {
+      setToken("");
+    }
+  }, []);
+  console.log(token);
 
   return (
     <div className="container">
-      <h1 className="text-center mt-4">Unknown Accident Report</h1>
+      <h1 className="text-center mt-3">Unknown Accident Report</h1>
       <div
-        className="p-4"
+        className="p-4 shadow-lg"
         style={{
           maxWidth: "600px",
-          margin: "50px auto",
+          margin: "40px auto",
           borderRadius: "10px",
           boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
           backgroundColor: "#f8f9fa",
         }}
       >
-        <form className="mt-4">
-          <div className="mb-3">
-            <p className="text-danger" style={{ textAlign: "justify" }}>
-              *Fill out the form correctly. Any wrong information recieved
-              heavy charges may be applied with imprisonment.
-            </p>
+        <form className="mt-1">
+          <div className="mb-3"></div>
+          <div className="mb-3 text-center">
+            <label>
+              <input
+                onChange={(e) =>
+                  setFormData({ ...formData, uaImage: e.target.files[0] })
+                }
+                type="file"
+                style={{ display: "none" }}
+              />
+              <img
+                src={
+                  preview
+                    ? preview
+                    : "https://tnpcbhwt.cgg.gov.in/Images/Uploading-GIF2.gif"
+                }
+                className="img-fluid mb-2"
+                style={{ width: "50%" }}
+              />
+              {fileStatus && (
+                <p className="text-danger">
+                  Please Upload following image extension (png,jpg,jpeg) only
+                </p>
+              )}
+            </label>
           </div>
           <div className="mb-3">
             <label htmlFor="name" className="form-label">
               Full Name:
             </label>
             <MDBInput
+              onChange={(e) =>
+                setFormData({ ...formData, fullname: e.target.value })
+              }
               type="text"
               className="form-control"
               id="name"
               name="name"
-              value={formData.name}
-              onChange={handleChange}
             />
           </div>
           <div className="mb-3">
@@ -79,12 +192,13 @@ function UnknownAcc() {
               Aadhar Number:
             </label>
             <MDBInput
+              onChange={(e) =>
+                setFormData({ ...formData, aadhaar: e.target.value })
+              }
               type="text"
               className="form-control"
               id="aadharNumber"
               name="aadharNumber"
-              value={formData.aadharNumber}
-              onChange={handleChange}
             />
           </div>
           <div className="mb-3">
@@ -95,15 +209,15 @@ function UnknownAcc() {
               className="form-select"
               id="state"
               name="state"
-              value={formData.state}
-              onChange={handleChange}
+              onChange={(e) =>
+                setFormData({ ...formData, state: e.target.value })
+              }
             >
               <option value="">Select State</option>
               <option value="Andhra Pradesh">Andhra Pradesh</option>
               <option value="Arunachal Pradesh">Arunachal Pradesh</option>
               <option value="Assam">Assam</option>
               <option value="Bihar">Bihar</option>
-              {/* Add options for other states */}
             </select>
           </div>
           <div className="mb-3">
@@ -111,12 +225,13 @@ function UnknownAcc() {
               Location:
             </label>
             <MDBInput
+              onChange={(e) =>
+                setFormData({ ...formData, location: e.target.value })
+              }
               type="text"
               className="form-control"
               id="location"
               name="location"
-              value={formData.location}
-              onChange={handleChange}
             />
           </div>
           <div className="mb-3">
@@ -124,12 +239,13 @@ function UnknownAcc() {
               Date:
             </label>
             <input
+              onChange={(e) =>
+                setFormData({ ...formData, date: e.target.value })
+              }
               type="date"
               className="form-control"
               id="date"
               name="date"
-              value={formData.date}
-              onChange={handleChange}
             />
           </div>
           <div className="mb-3">
@@ -137,11 +253,12 @@ function UnknownAcc() {
               Description:
             </label>
             <textarea
+              onChange={(e) =>
+                setFormData({ ...formData, description: e.target.value })
+              }
               className="form-control"
               id="description"
               name="description"
-              value={formData.description}
-              onChange={handleChange}
             ></textarea>
           </div>
           <div className="mb-3">
@@ -149,33 +266,29 @@ function UnknownAcc() {
               Contact:
             </label>
             <MDBInput
+              onChange={(e) =>
+                setFormData({ ...formData, contact: e.target.value })
+              }
               type="text"
               className="form-control"
               id="contact"
               name="contact"
-              value={formData.contact}
-              onChange={handleChange}
             />
           </div>
-          <div className="mb-3">
-            <label htmlFor="file" className="form-label">
-              Upload File:
-            </label>
-            <MDBInput
-              type="file"
-              className="form-control"
-              id="file"
-              name="file"
-              onChange={handleFileChange}
-            />
-          </div>
+
           <div className="text-center mb-4 mt-2">
-            <button type="submit" className="btn btn-dark me-2">
+            <button
+              onClick={handleAddReport}
+              type="submit"
+              className="btn btn-dark me-2"
+            >
               Submit
             </button>
-            <button type="button" className="btn btn-dark" onClick={handleClear}>
-              Clear
-            </button>
+
+            <p className="text-danger mt-3" style={{ textAlign: "justify" }}>
+              "Please fill out the form correctly. Anyone misusing the site may
+              be charged heavy fines and face imprisonment."
+            </p>
           </div>
         </form>
       </div>

@@ -16,8 +16,22 @@ function Accident() {
         }}
       >
         <p className="text-danger" style={{ textAlign: "justify" }}>
-          *Fill out the form correctly. Any wrong information received may result in heavy fine charges or imprisonment for 1-5 year.
+          *Fill out the form correctly. Any wrong information received may
+          result in heavy fine charges or imprisonment for 1-5 year.
         </p>
+        <div className="mb-3 text-center">
+          <label>
+            <input type="file" style={{ display: "none" }} />
+            <img
+              src="https://tnpcbhwt.cgg.gov.in/Images/Uploading-GIF2.gif"
+              className="img-fluid mb-2"
+              style={{ width: "50%" }}
+            />
+            <p className="text-danger">
+              Please Upload following image extension (png,jpg,jpeg) only
+            </p>
+          </label>
+        </div>
         <div style={{ marginBottom: "20px" }}>
           <MDBInput label="Your Full Name" id="form1" type="text" />
         </div>
@@ -30,9 +44,11 @@ function Accident() {
         <div style={{ marginBottom: "20px" }}>
           <MDBInput label="Your Number Plate" id="form2" type="text" />
         </div>
-      
+
         <div style={{ marginBottom: "20px" }}>
-          <p><b>Insurance Company</b></p>
+          <p>
+            <b>Insurance Company</b>
+          </p>
           <select
             style={{
               width: "100%",
@@ -47,7 +63,9 @@ function Accident() {
           </select>
         </div>
         <div style={{ marginBottom: "20px" }}>
-          <p><b>Accident Type</b></p>
+          <p>
+            <b>Accident Type</b>
+          </p>
           <div>
             <label>
               <input
@@ -82,35 +100,50 @@ function Accident() {
           <MDBInput label="Opponent Contact Number" id="form1" type="text" />
         </div>
         <div style={{ marginBottom: "20px" }}>
-          <MDBInput label="Opponent Aadhar/License Number" id="form1" type="text" />
+          <MDBInput
+            label="Opponent Aadhar/License Number"
+            id="form1"
+            type="text"
+          />
         </div>
         <div style={{ marginBottom: "20px" }}>
-          <MDBInput label="Opponent vehicle's Number Plate" id="form1" type="text" />
+          <MDBInput
+            label="Opponent vehicle's Number Plate"
+            id="form1"
+            type="text"
+          />
         </div>
-        <div style={{ marginBottom: "20px" }}>
-          <p><b>Upload Images of Your vehicle</b></p>
-          <label htmlFor="aadhar-upload" style={{ cursor: "pointer", color: "#007bff" }}>
-            <div
-              style={{
-                border: "1px dashed #ced4da",
-                borderRadius: "5px",
-                padding: "20px",
-              }}
-            >
-              <input id="aadhar-upload" type="file" accept="image/*" style={{ display: "none" }} />
-              Click here to choose file
-            </div>
-          </label>
-        </div>
+
         <p className="text-danger" style={{ textAlign: "justify" }}>
-          *If the opponent is not willing to fill out the application, call the police using the button below. Heavy fines may be applied to the person at fault if the case is decided by the police.
+          *If the opponent is not willing to fill out the application, call the
+          police using the button below. Heavy fines may be applied to the
+          person at fault if the case is decided by the police.
         </p>
         <div className="text-center">
-          <button className="btn bg-dark" style={{ padding: "10px 20px", backgroundColor: "#007bff", color: "#fff", border: "none", borderRadius: "5px", cursor: "pointer" }}>
+          <button
+            className="btn bg-dark"
+            style={{
+              padding: "10px 20px",
+              backgroundColor: "#007bff",
+              color: "#fff",
+              border: "none",
+              borderRadius: "5px",
+              cursor: "pointer",
+            }}
+          >
             Submit
           </button>
           &nbsp;
-          <button className="btn bg-danger" style={{ padding: "10px 20px", color: "#fff", border: "none", borderRadius: "5px", cursor: "pointer" }}>
+          <button
+            className="btn bg-danger"
+            style={{
+              padding: "10px 20px",
+              color: "#fff",
+              border: "none",
+              borderRadius: "5px",
+              cursor: "pointer",
+            }}
+          >
             Call Police
           </button>
         </div>
