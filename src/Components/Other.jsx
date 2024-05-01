@@ -1,42 +1,121 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { MDBInput } from "mdb-react-ui-kit";
-
+import { addOiAPI } from "../Services/allAPI";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 function Other() {
-  const [formData, setFormData] = useState({
-    incidentType: "",
+  const navigate = useNavigate();
+  const [formOIData, setOIFormData] = useState({
+    infotype: "",
     location: "",
     date: "",
     description: "",
     contact: "",
-    file: null,
+    oiImage: "",
   });
+  console.log(formOIData);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
+ // Inside the handleAddOIReport function
+const handleAddOIReport = async (e) => {
+  e.preventDefault(); // Prevent default form submission
 
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    setFormData((prevData) => ({
-      ...prevData,
-      file: file,
-    }));
-  };
+  // data passing through state
+  const { infotype, location, date, description, contact, oiImage } = formOIData;
 
-  const handleClear = () => {
-    setFormData({
-      incidentType: "",
-      location: "",
-      date: "",
-      description: "",
-      contact: "",
-      file: null,
+  // Check if any field is empty
+  if (!infotype || !location || !date || !description || !contact || !oiImage) {
+    Swal.fire({
+      title: "Warning!",
+      text: "Please fill the form",
+      icon: "warning",
+      confirmButtonText: "Back",
     });
-  };
+  } else {
+    // Check if token is available
+    if (token) {
+      const reqBody = new FormData();
+      reqBody.append("infotype", infotype);
+      reqBody.append("location", location);
+      reqBody.append("date", date);
+      reqBody.append("description", description);
+      reqBody.append("contact", contact);
+      reqBody.append("oiImage", oiImage);
+
+      const reqHeader = {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${token}`,
+      };
+
+      // api call
+      try {
+        const result = await addOiAPI(reqBody, reqHeader);
+        console.log(result);
+        if (result.status === 200) {
+          Swal.fire({
+            title: "Success!",
+            text: "Report Submitted Successfully",
+            icon: "success",
+            confirmButtonText: "Back",
+          });
+          navigate("/policeye");
+          setOIFormData({
+            infotype: "",
+            location: "",
+            date: "",
+            description: "",
+            contact: "",
+            oiImage: "",
+          });
+          setPreview("");
+        } else {
+          alert(result.response.data);
+        }
+      } catch (error) {
+        // Handle Axios error
+        console.error("Axios error:", error);
+      }
+    } else {
+      // Handle token not available
+      console.error("Authentication token not available");
+    }
+  }
+};
+
+  const [fileStatus, setFileStatus] = useState(false);
+  const [preview, setPreview] = useState("");
+
+  useEffect(() => {
+    console.log(formOIData.oiImage.type);
+    if (
+      formOIData.oiImage.type == "image/png" ||
+      formOIData.oiImage.type == "image/jpeg" ||
+      formOIData.oiImage.type == "image/jpg"
+    ) {
+      console.log("generate image url");
+
+      // url conversion
+      console.log(URL.createObjectURL(formOIData.oiImage));
+      setPreview(URL.createObjectURL(formOIData.oiImage));
+      setFileStatus(false);
+    } else {
+      setFileStatus(true);
+      console.log(
+        "Please Upload following image extension (png,jpg,jpeg) only"
+      );
+    }
+  }, [formOIData.oiImage]);
+
+  // to hold token
+  const [token, setToken] = useState("");
+
+  useEffect(() => {
+    if (sessionStorage.getItem("token")) {
+      setToken(sessionStorage.getItem("token"));
+    } else {
+      setToken("");
+    }
+  }, []);
+  console.log(token);
 
   return (
     <>
@@ -54,16 +133,28 @@ function Other() {
       >
         <form className="mt-4">
           <div className="mb-3 text-center">
-            <label>
-              <input type="file" style={{ display: "none" }} />
+          <label>
+              <input
+                onChange={(e) =>
+                  setOIFormData({ ...formOIData, oiImage: e.target.files[0] })
+                }
+                type="file"
+                style={{ display: "none" }}
+              />
               <img
-                src="https://tnpcbhwt.cgg.gov.in/Images/Uploading-GIF2.gif"
+                src={
+                  preview
+                    ? preview
+                    : "https://tnpcbhwt.cgg.gov.in/Images/Uploading-GIF2.gif"
+                }
                 className="img-fluid mb-2"
                 style={{ width: "50%" }}
               />
-              <p className="text-danger">
-                Please Upload following image extension (png,jpg,jpeg) only
-              </p>
+              {fileStatus && (
+                <p className="text-danger">
+                  Please Upload following image extension (png,jpg,jpeg) only
+                </p>
+              )}
             </label>
           </div>
           <div className="mb-3">
@@ -77,11 +168,13 @@ function Other() {
               Information Type:
             </label>
             <select
+            onChange={(e) =>
+              setOIFormData({ ...formOIData, infotype: e.target.value })
+            }
               className="form-select"
               id="incidentType"
               name="incidentType"
-              value={formData.incidentType}
-              onChange={handleChange}
+          
             >
               <option value="">Select Information Type</option>
               <option value="Thief">Thief</option>
@@ -94,12 +187,14 @@ function Other() {
               Location:
             </label>
             <input
+            onChange={(e) =>
+              setOIFormData({ ...formOIData, location: e.target.value })
+            }
               type="text"
               className="form-control"
               id="location"
               name="location"
-              value={formData.location}
-              onChange={handleChange}
+            
             />
           </div>
           <div className="mb-3">
@@ -107,12 +202,14 @@ function Other() {
               Date:
             </label>
             <input
+            onChange={(e) =>
+              setOIFormData({ ...formOIData, date: e.target.value })
+            }
               type="date"
               className="form-control"
               id="date"
               name="date"
-              value={formData.date}
-              onChange={handleChange}
+
             />
           </div>
           <div className="mb-3">
@@ -120,11 +217,13 @@ function Other() {
               Description:
             </label>
             <textarea
+            onChange={(e) =>
+              setOIFormData({ ...formOIData, description: e.target.value })
+            }
               className="form-control"
               id="description"
               name="description"
-              value={formData.description}
-              onChange={handleChange}
+           
             ></textarea>
           </div>
           <div className="mb-3">
@@ -132,26 +231,30 @@ function Other() {
               Contact:
             </label>
             <MDBInput
+            onChange={(e) =>
+              setOIFormData({ ...formOIData, contact: e.target.value })
+            }
               type="text"
               className="form-control"
               id="contact"
               name="contact"
-              value={formData.contact}
-              onChange={handleChange}
+
             />
           </div>
 
           <div className="text-center mb-4 mt-2">
-            <button type="submit" className="btn btn-dark me-2">
+            <button
+              onClick={handleAddOIReport}
+              type="submit"
+              className="btn btn-dark me-2"
+            >
               Submit
             </button>
-            <button
-              type="button"
-              className="btn btn-dark"
-              onClick={handleClear}
-            >
-              Clear
-            </button>
+
+            <p className="text-danger mt-3" style={{ textAlign: "justify" }}>
+              "Please fill out the form correctly. Anyone misusing the site may
+              be charged heavy fines and face imprisonment."
+            </p>
           </div>
         </form>
       </div>

@@ -102,6 +102,7 @@ function Header() {
                 >
                   About Us
                 </Link>
+                
               </Nav>
               <p>Logout</p>
             </Navbar.Collapse>
@@ -180,6 +181,7 @@ function Header() {
                   About Us
                 </Link>
               </Nav>
+              
             </Navbar.Collapse>
           </Container>
         </Navbar>

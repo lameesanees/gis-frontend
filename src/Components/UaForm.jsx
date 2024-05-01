@@ -16,7 +16,7 @@ function UaForm() {
       };
 
       try {
-        const result = await getAReportAPI(reqHeader);
+        const result = await getAReportAPI(searchKey,reqHeader);
         setUserReport(result.data);
       } catch (error) {
         console.error("Error fetching reports:", error);
@@ -24,9 +24,10 @@ function UaForm() {
     }
   };
 
+  const[searchKey,setSearchKey]=useState("")
   useEffect(() => {
     getaReport();
-  }, []);
+  }, [searchKey]);
 
   return (
     <div className="container">
@@ -34,8 +35,8 @@ function UaForm() {
         <input
           type="text"
           style={{ width: "400px" }}
-          placeholder="Search"
-          onChange={(e) => setSearchKey(e.target.value)}
+          placeholder="Search by location"
+          onChange={e => setSearchKey(e.target.value)}
           className="form-control m-5 mx-auto"
         />
       </div>

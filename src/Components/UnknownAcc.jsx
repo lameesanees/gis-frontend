@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { MDBInput } from "mdb-react-ui-kit";
-import { GiCloudUpload } from "react-icons/gi";
 import { addUaAPI } from "../Services/allAPI";
 import {useNavigate} from 'react-router-dom';
 import Swal from 'sweetalert2'

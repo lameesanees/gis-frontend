@@ -52,6 +52,36 @@
       width: calc(33.333% - 20px); /* Adjust width to fit three cards per row */
     }
   }
+  .card {
+    position: relative;
+  }
+  
+  .card-content {
+    position: absolute;
+    top: 50%; /* Position content at the vertical center */
+    left: 50%; /* Position content at the horizontal center */
+    transform: translate(-50%, -50%); /* Center content */
+    text-align: center; /* Center text horizontally */
+    opacity: 0; /* Initially hide the content */
+    transition: opacity 0.3s ease; /* Smooth transition for opacity */
+    color: black; /* Text color */
+  }
+  
+  .card:hover .card-content {
+    opacity: 1; /* Show content on hover */
+  }
+  
+  .card img {
+    transition: opacity 0.5s ease; /* Smooth transition for opacity */
+  }
+  
+  .card:hover img {
+    opacity: 0.2; /* Reduce opacity of image to fade to black on hover */
+  }
+  
+  .card-content p {
+    margin: 0; /* Remove default margin */
+  }
   
   /* Hidden paragraph */
   .hidden {

@@ -1,46 +1,136 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { MDBInput } from "mdb-react-ui-kit";
+import { addMcAPI } from "../Services/allAPI";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 function Missing() {
-  const [formData, setFormData] = useState({
-    name: "",
+  const navigate = useNavigate();
+  const [formMCData, setMCFormData] = useState({
+    fullname: "",
     age: "",
     gender: "",
-    location: "",
+    lastlocation: "",
     date: "",
     description: "",
     contact: "",
-    file: null,
+    mcImage: "",
   });
+  console.log(formMCData);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
+  const handleAddMCReport = async (e) => {
+    e.preventDefault(); // Prevent default form submission
+
+    // data passing through state
+    const {
+      fullname,
+      age,
+      gender,
+      lastlocation,
+      date,
+      description,
+      contact,
+      mcImage,
+    } = formMCData;
+
+    // Check if any field is empty
+    if (
+      !fullname ||
+      !age ||
+      !gender ||
+      !lastlocation ||
+      !date ||
+      !description ||
+      !contact ||
+      !mcImage
+    ) {
+      Swal.fire({
+        title: "Warning!",
+        text: "Please fill the form",
+        icon: "warning",
+        confirmButtonText: "Back",
+      });
+    } else {
+      const reqBody = new FormData();
+      reqBody.append("fullname", fullname);
+      reqBody.append("age", age);
+      reqBody.append("gender", gender);
+
+      reqBody.append("lastlocation", lastlocation);
+      reqBody.append("date", date);
+      reqBody.append("description", description);
+      reqBody.append("contact", contact);
+      reqBody.append("mcImage", mcImage);
+
+      if (token) {
+        const reqHeader = {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`,
+        };
+
+        // api call
+        const result = await addMcAPI(reqBody, reqHeader);
+        console.log(result);
+        if (result.status == 200) {
+          Swal.fire({
+            title: "Success!",
+            text: "Report Submitted Successfully",
+            icon: "success",
+            confirmButtonText: "Back",
+          });
+          navigate("/policeye");
+          setMCFormData({
+            fullname: "",
+            age: "",
+            lastlocation: "",
+            date: "",
+            description: "",
+            contact: "",
+            mcImage: "",
+          });
+          setPreview("");
+        } else {
+          alert(result.response.data);
+        }
+      }
+    }
   };
 
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    setFormData((prevData) => ({
-      ...prevData,
-      file: file,
-    }));
-  };
+  const [fileStatus, setFileStatus] = useState(false);
+  const [preview, setPreview] = useState("");
 
-  const handleClear = () => {
-    setFormData({
-      name: "",
-      age: "",
-      gender: "",
-      location: "",
-      date: "",
-      description: "",
-      contact: "",
-      file: null,
-    });
-  };
+  useEffect(() => {
+    console.log(formMCData.mcImage.type);
+    if (
+      formMCData.mcImage.type == "image/png" ||
+      formMCData.mcImage.type == "image/jpeg" ||
+      formMCData.mcImage.type == "image/jpg"
+    ) {
+      console.log("generate image url");
+
+      // url conversion
+      console.log(URL.createObjectURL(formMCData.mcImage));
+      setPreview(URL.createObjectURL(formMCData.mcImage));
+      setFileStatus(false);
+    } else {
+      setFileStatus(true);
+      console.log(
+        "Please Upload following image extension (png,jpg,jpeg) only"
+      );
+    }
+  }, [formMCData.mcImage]);
+
+  // to hold token
+  const [token, setToken] = useState("");
+
+  useEffect(() => {
+    if (sessionStorage.getItem("token")) {
+      setToken(sessionStorage.getItem("token"));
+    } else {
+      setToken("");
+    }
+  }, []);
+  console.log(token);
 
   return (
     <div className="container">
@@ -58,15 +148,27 @@ function Missing() {
         <form className="mt-4">
           <div className="mb-3 text-center">
             <label>
-              <input type="file" style={{ display: "none" }} />
+              <input
+                onChange={(e) =>
+                  setMCFormData({ ...formMCData, mcImage: e.target.files[0] })
+                }
+                type="file"
+                style={{ display: "none" }}
+              />
               <img
-                src="https://tnpcbhwt.cgg.gov.in/Images/Uploading-GIF2.gif"
+                src={
+                  preview
+                    ? preview
+                    : "https://tnpcbhwt.cgg.gov.in/Images/Uploading-GIF2.gif"
+                }
                 className="img-fluid mb-2"
                 style={{ width: "50%" }}
               />
-              <p className="text-danger">
-                Please Upload following image extension (png,jpg,jpeg) only
-              </p>
+              {fileStatus && (
+                <p className="text-danger">
+                  Please Upload following image extension (png,jpg,jpeg) only
+                </p>
+              )}
             </label>
           </div>
           <div className="mb-3">
@@ -80,12 +182,13 @@ function Missing() {
               Full Name:
             </label>
             <MDBInput
+              onChange={(e) =>
+                setMCFormData({ ...formMCData, fullname: e.target.value })
+              }
               type="text"
               className="form-control"
               id="name"
               name="name"
-              value={formData.name}
-              onChange={handleChange}
             />
           </div>
           <div className="mb-3">
@@ -93,12 +196,13 @@ function Missing() {
               Age:
             </label>
             <MDBInput
+              onChange={(e) =>
+                setMCFormData({ ...formMCData, age: e.target.value })
+              }
               type="number"
               className="form-control"
               id="age"
               name="age"
-              value={formData.age}
-              onChange={handleChange}
             />
           </div>
           <div className="mb-3">
@@ -106,11 +210,12 @@ function Missing() {
               Gender:
             </label>
             <select
+              onChange={(e) =>
+                setMCFormData({ ...formMCData, gender: e.target.value })
+              }
               className="form-select"
               id="gender"
               name="gender"
-              value={formData.gender}
-              onChange={handleChange}
             >
               <option value="">Select Gender</option>
               <option value="Male">Male</option>
@@ -123,12 +228,13 @@ function Missing() {
               Last Known Location:
             </label>
             <input
+              onChange={(e) =>
+                setMCFormData({ ...formMCData, lastlocation: e.target.value })
+              }
               type="text"
               className="form-control"
               id="location"
               name="location"
-              value={formData.location}
-              onChange={handleChange}
             />
           </div>
           <div className="mb-3">
@@ -136,12 +242,13 @@ function Missing() {
               Date:
             </label>
             <input
+              onChange={(e) =>
+                setMCFormData({ ...formMCData, date: e.target.value })
+              }
               type="date"
               className="form-control"
               id="date"
               name="date"
-              value={formData.date}
-              onChange={handleChange}
             />
           </div>
           <div className="mb-3">
@@ -149,11 +256,12 @@ function Missing() {
               Description:
             </label>
             <textarea
+              onChange={(e) =>
+                setMCFormData({ ...formMCData, description: e.target.value })
+              }
               className="form-control"
               id="description"
               name="description"
-              value={formData.description}
-              onChange={handleChange}
             ></textarea>
           </div>
           <div className="mb-3">
@@ -161,25 +269,27 @@ function Missing() {
               Contact:
             </label>
             <MDBInput
+              onChange={(e) =>
+                setMCFormData({ ...formMCData, contact: e.target.value })
+              }
               type="text"
               className="form-control"
               id="contact"
               name="contact"
-              value={formData.contact}
-              onChange={handleChange}
             />
           </div>
           <div className="text-center mb-4 mt-2">
-            <button type="submit" className="btn btn-dark me-2">
+            <button
+              onClick={handleAddMCReport}
+              type="submit"
+              className="btn btn-dark me-2"
+            >
               Submit
             </button>
-            <button
-              type="button"
-              className="btn btn-dark"
-              onClick={handleClear}
-            >
-              Clear
-            </button>
+            <p className="text-danger mt-3" style={{ textAlign: "justify" }}>
+              "Please fill out the form correctly. Anyone misusing the site may
+              be charged heavy fines and face imprisonment."
+            </p>
           </div>
         </form>
       </div>
