@@ -91,15 +91,12 @@ function Dashboard() {
                     Informed Decisions. Unlock Insights, Manage Tasks, and Stay
                     Informed.
                   </p>
-                  <div className=" d-flex text-center justify-content-center">
-                    <Link to ={'/trackapp'}>
-                    <button className=" btn btn-success">
-                    Track Application
-                  </button>
-                    </Link>
                   
-                  </div>
                   
+                </div>
+                <div className="col">
+                  <img src="https://cdn-icons-png.flaticon.com/512/4012/4012375.png" 
+                 className="img-fluid d-flex" style={{width:"50%",marginLeft:"50px"}} alt="" />
                 </div>
 
                 {/* update user */}
@@ -149,7 +146,7 @@ function Dashboard() {
                 </h2>
                 {/* Card 1: Unknown Accident Report */}
                 <h4 className="m-2 text-center">
-                  Get your filled report copy from here &nbsp;
+                 Track your report from the below categories you have applied for &nbsp;
                   <FaArrowAltCircleDown />
                 </h4>
                 {/* Responsive 4-column button layout */}
@@ -194,7 +191,7 @@ function Dashboard() {
                 </h2>
                 {/* Card 1: Unknown Accident Report */}
                 <h4 className="m-2 text-center">
-                  Get your filled report copy from here &nbsp;
+                Track your report from the below categories you have applied for &nbsp;
                   <FaArrowAltCircleDown />
                 </h4>
                 {/* Responsive 3-column button layout */}

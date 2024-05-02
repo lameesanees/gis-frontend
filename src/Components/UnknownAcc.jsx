@@ -8,7 +8,7 @@ function UnknownAcc() {
   const navigate = useNavigate()
   const [formData, setFormData] = useState({
     fullname: "",
-    aadhaar: "",
+    numberplate: "",
     state: "",
     location: "",
     date: "",
@@ -24,7 +24,7 @@ function UnknownAcc() {
     // data passing through state
     const {
       fullname,
-      aadhaar,
+      numberplate,
       state,
       location,
       date,
@@ -36,7 +36,7 @@ function UnknownAcc() {
     // Check if any field is empty
     if (
       !fullname ||
-      !aadhaar ||
+      !numberplate ||
       !state ||
       !location ||
       !date ||
@@ -53,7 +53,7 @@ function UnknownAcc() {
     } else {
       const reqBody = new FormData();
       reqBody.append("fullname", fullname);
-      reqBody.append("aadhaar", aadhaar);
+      reqBody.append("numberplate", numberplate);
       reqBody.append("state", state);
       reqBody.append("location", location);
       reqBody.append("date", date);
@@ -80,7 +80,7 @@ function UnknownAcc() {
           navigate('/policeye')
           setFormData({
             fullname: "",
-            aadhaar:"",
+            numberplate:"",
             state:"",
             location:"",
             date:"",

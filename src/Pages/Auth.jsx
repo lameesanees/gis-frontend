@@ -13,6 +13,7 @@ function Auth({ register }) {
     email: "",
     password: "",
     aadhaar: "",
+    role:""
   });
 
   const handleRegister = async (e) => {

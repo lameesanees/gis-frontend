@@ -16,7 +16,6 @@ import PoliceEye from "./Components/PoliceEye";
 import TouristPolice from "./Components/TouristPolice";
 import UnknownAcc from "./Components/UnknownAcc";
 import TrafFine from "./Components/TrafFine";
-import TrackApp from "./Components/TrackApp";
 import About from "./Components/About";
 import FeatureCard from "./Components/FeatureCard";
 import Missing from "./Components/Missing";
@@ -30,6 +29,8 @@ import McForm from "./Components/McForm";
 import TpForm from "./Components/TpForm";
 import OiForm from "./Components/OiForm";
 import MmForm from "./Components/MmForm";
+import DashboardAdmin from "./Components/DashboardAdmin";
+
 
 function App() {
   return (
@@ -46,6 +47,7 @@ function App() {
         <Route path={"/feature"} element={<FeatureCard />} />
         <Route path={"/dashboard"} element={<Dashboard />} />
         <Route path={"/pay"} element={<Payment />} />
+        <Route path={"/dashadmin"} element={<DashboardAdmin />} />
 
         {/* component of feature */}
         <Route path={"/report"} element={<Report />} />
@@ -58,7 +60,6 @@ function App() {
         <Route path={"/policeye"} element={<PoliceEye />} />
         <Route path={"/touristpolice"} element={<TouristPolice />} />
         <Route path={"/missing"} element={<Missing />} />
-        <Route path={"/trackapp"} element={<TrackApp />} />
         <Route path={"/other"} element={<Other />} />
 
         {/* components of traffic services */}

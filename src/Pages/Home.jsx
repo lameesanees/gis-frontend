@@ -3,7 +3,7 @@ import video1 from "../assets/video1.mp4";
 import "./home.css";
 import Feature from "./Feature";
 import About from "../Components/About";
-import { Navbar, Nav, Button } from "react-bootstrap";
+import {Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { FaUserPlus } from "react-icons/fa";
 
@@ -60,7 +60,7 @@ function Home() {
                 className="btn"
                 style={{ backgroundColor: "darkGreen", color: "white" }}
               >
-                Manage your Dashboard
+                Track your application
               </button>
             </Link>:
             <Link to="/login">
