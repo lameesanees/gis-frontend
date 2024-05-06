@@ -1,77 +1,56 @@
 import React, { useEffect, useState } from "react";
 import { MDBInput } from "mdb-react-ui-kit";
-import { addMcAPI } from "../Services/allAPI";
+import { addOiAPI } from "../../Services/allAPI";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-
-function Missing() {
+function Other() {
   const navigate = useNavigate();
-  const [formMCData, setMCFormData] = useState({
-    fullname: "",
-    age: "",
-    gender: "",
-    lastlocation: "",
+  const [formOIData, setOIFormData] = useState({
+    infotype: "",
+    location: "",
     date: "",
     description: "",
     contact: "",
-    mcImage: "",
+    oiImage: "",
   });
-  console.log(formMCData);
+  console.log(formOIData);
 
-  const handleAddMCReport = async (e) => {
-    e.preventDefault(); // Prevent default form submission
+ // Inside the handleAddOIReport function
+const handleAddOIReport = async (e) => {
+  e.preventDefault(); // Prevent default form submission
 
-    // data passing through state
-    const {
-      fullname,
-      age,
-      gender,
-      lastlocation,
-      date,
-      description,
-      contact,
-      mcImage,
-    } = formMCData;
+  // data passing through state
+  const { infotype, location, date, description, contact, oiImage } = formOIData;
 
-    // Check if any field is empty
-    if (
-      !fullname ||
-      !age ||
-      !gender ||
-      !lastlocation ||
-      !date ||
-      !description ||
-      !contact ||
-      !mcImage
-    ) {
-      Swal.fire({
-        title: "Warning!",
-        text: "Please fill the form",
-        icon: "warning",
-        confirmButtonText: "Back",
-      });
-    } else {
+  // Check if any field is empty
+  if (!infotype || !location || !date || !description || !contact || !oiImage) {
+    Swal.fire({
+      title: "Warning!",
+      text: "Please fill the form",
+      icon: "warning",
+      confirmButtonText: "Back",
+    });
+  } else {
+    // Check if token is available
+    if (token) {
       const reqBody = new FormData();
-      reqBody.append("fullname", fullname);
-      reqBody.append("age", age);
-      reqBody.append("gender", gender);
-
-      reqBody.append("lastlocation", lastlocation);
+      reqBody.append("infotype", infotype);
+      reqBody.append("location", location);
       reqBody.append("date", date);
       reqBody.append("description", description);
       reqBody.append("contact", contact);
-      reqBody.append("mcImage", mcImage);
+      reqBody.append("oiImage", oiImage);
 
-      if (token) {
-        const reqHeader = {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${token}`,
-        };
+      const reqHeader = {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${token}`,
+      };
 
-        // api call
-        const result = await addMcAPI(reqBody, reqHeader);
+      // api call
+      try {
+        const result = await addOiAPI(reqBody, reqHeader);
         console.log(result);
-        if (result.status == 200) {
+        if (result.status === 200) {
           Swal.fire({
             title: "Success!",
             text: "Report Submitted Successfully",
@@ -79,38 +58,44 @@ function Missing() {
             confirmButtonText: "Back",
           });
           navigate("/policeye");
-          setMCFormData({
-            fullname: "",
-            age: "",
-            lastlocation: "",
+          setOIFormData({
+            infotype: "",
+            location: "",
             date: "",
             description: "",
             contact: "",
-            mcImage: "",
+            oiImage: "",
           });
           setPreview("");
         } else {
           alert(result.response.data);
         }
+      } catch (error) {
+        // Handle Axios error
+        console.error("Axios error:", error);
       }
+    } else {
+      // Handle token not available
+      console.error("Authentication token not available");
     }
-  };
+  }
+};
 
   const [fileStatus, setFileStatus] = useState(false);
   const [preview, setPreview] = useState("");
 
   useEffect(() => {
-    console.log(formMCData.mcImage.type);
+    console.log(formOIData.oiImage.type);
     if (
-      formMCData.mcImage.type == "image/png" ||
-      formMCData.mcImage.type == "image/jpeg" ||
-      formMCData.mcImage.type == "image/jpg"
+      formOIData.oiImage.type == "image/png" ||
+      formOIData.oiImage.type == "image/jpeg" ||
+      formOIData.oiImage.type == "image/jpg"
     ) {
       console.log("generate image url");
 
       // url conversion
-      console.log(URL.createObjectURL(formMCData.mcImage));
-      setPreview(URL.createObjectURL(formMCData.mcImage));
+      console.log(URL.createObjectURL(formOIData.oiImage));
+      setPreview(URL.createObjectURL(formOIData.oiImage));
       setFileStatus(false);
     } else {
       setFileStatus(true);
@@ -118,7 +103,7 @@ function Missing() {
         "Please Upload following image extension (png,jpg,jpeg) only"
       );
     }
-  }, [formMCData.mcImage]);
+  }, [formOIData.oiImage]);
 
   // to hold token
   const [token, setToken] = useState("");
@@ -133,13 +118,14 @@ function Missing() {
   console.log(token);
 
   return (
-    <div className="container">
-      <h1 className="text-center mt-4">Missing Person Report</h1>
+    <>
+      <h1 className="text-center mt-4">Other Report</h1>
+
       <div
-        className="p-4"
         style={{
           maxWidth: "600px",
-          margin: "50px auto",
+          margin: "30px auto",
+          padding: "30px",
           borderRadius: "10px",
           boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
           backgroundColor: "#f8f9fa",
@@ -147,10 +133,10 @@ function Missing() {
       >
         <form className="mt-4">
           <div className="mb-3 text-center">
-            <label>
+          <label>
               <input
                 onChange={(e) =>
-                  setMCFormData({ ...formMCData, mcImage: e.target.files[0] })
+                  setOIFormData({ ...formOIData, oiImage: e.target.files[0] })
                 }
                 type="file"
                 style={{ display: "none" }}
@@ -178,63 +164,37 @@ function Missing() {
               charges may be applied with imprisonment.
             </p>
 
-            <label htmlFor="name" className="form-label">
-              Full Name:
-            </label>
-            <MDBInput
-              onChange={(e) =>
-                setMCFormData({ ...formMCData, fullname: e.target.value })
-              }
-              type="text"
-              className="form-control"
-              id="name"
-              name="name"
-            />
-          </div>
-          <div className="mb-3">
-            <label htmlFor="age" className="form-label">
-              Age:
-            </label>
-            <MDBInput
-              onChange={(e) =>
-                setMCFormData({ ...formMCData, age: e.target.value })
-              }
-              type="number"
-              className="form-control"
-              id="age"
-              name="age"
-            />
-          </div>
-          <div className="mb-3">
-            <label htmlFor="gender" className="form-label">
-              Gender:
+            <label htmlFor="incidentType" className="form-label">
+              Information Type:
             </label>
             <select
-              onChange={(e) =>
-                setMCFormData({ ...formMCData, gender: e.target.value })
-              }
+            onChange={(e) =>
+              setOIFormData({ ...formOIData, infotype: e.target.value })
+            }
               className="form-select"
-              id="gender"
-              name="gender"
+              id="incidentType"
+              name="incidentType"
+          
             >
-              <option value="">Select Gender</option>
-              <option value="Male">Male</option>
-              <option value="Female">Female</option>
-              <option value="Other">Other</option>
+              <option value="">Select Information Type</option>
+              <option value="Thief">Thief</option>
+              <option value="Majoraccident">Major Accident</option>
+              <option value="Carstolen">Leaving home for a trip</option>
             </select>
           </div>
           <div className="mb-3">
             <label htmlFor="location" className="form-label">
-              Last Known Location:
+              Location:
             </label>
             <input
-              onChange={(e) =>
-                setMCFormData({ ...formMCData, lastlocation: e.target.value })
-              }
+            onChange={(e) =>
+              setOIFormData({ ...formOIData, location: e.target.value })
+            }
               type="text"
               className="form-control"
               id="location"
               name="location"
+            
             />
           </div>
           <div className="mb-3">
@@ -242,13 +202,14 @@ function Missing() {
               Date:
             </label>
             <input
-              onChange={(e) =>
-                setMCFormData({ ...formMCData, date: e.target.value })
-              }
+            onChange={(e) =>
+              setOIFormData({ ...formOIData, date: e.target.value })
+            }
               type="date"
               className="form-control"
               id="date"
               name="date"
+
             />
           </div>
           <div className="mb-3">
@@ -256,12 +217,13 @@ function Missing() {
               Description:
             </label>
             <textarea
-              onChange={(e) =>
-                setMCFormData({ ...formMCData, description: e.target.value })
-              }
+            onChange={(e) =>
+              setOIFormData({ ...formOIData, description: e.target.value })
+            }
               className="form-control"
               id="description"
               name="description"
+           
             ></textarea>
           </div>
           <div className="mb-3">
@@ -269,23 +231,26 @@ function Missing() {
               Contact:
             </label>
             <MDBInput
-              onChange={(e) =>
-                setMCFormData({ ...formMCData, contact: e.target.value })
-              }
+            onChange={(e) =>
+              setOIFormData({ ...formOIData, contact: e.target.value })
+            }
               type="text"
               className="form-control"
               id="contact"
               name="contact"
+
             />
           </div>
+
           <div className="text-center mb-4 mt-2">
             <button
-              onClick={handleAddMCReport}
+              onClick={handleAddOIReport}
               type="submit"
               className="btn btn-dark me-2"
             >
               Submit
             </button>
+
             <p className="text-danger mt-3" style={{ textAlign: "justify" }}>
               "Please fill out the form correctly. Anyone misusing the site may
               be charged heavy fines and face imprisonment."
@@ -293,8 +258,8 @@ function Missing() {
           </div>
         </form>
       </div>
-    </div>
+    </>
   );
 }
 
-export default Missing;
+export default Other;

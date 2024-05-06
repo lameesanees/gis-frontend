@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { MDBInput } from "mdb-react-ui-kit";
-import { addMaAPI } from "../Services/allAPI";
+import { addMaAPI } from "../../Services/allAPI";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 

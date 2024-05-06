@@ -1,13 +1,17 @@
 import React, { useState } from "react";
-import logo from "../assets/logo.png";
+import logo from "../Admin/logo.png" 
 import { FaUsers } from "react-icons/fa";
 import { AiFillFileUnknown } from "react-icons/ai";
 import { FaPersonCircleQuestion } from "react-icons/fa6";
 import { FaBook } from "react-icons/fa6";
 import { FaMapLocation } from "react-icons/fa6";
-import { FaCarCrash } from "react-icons/fa";
-
-
+import { FaCar } from "react-icons/fa";
+import Active from './Active';
+import UaDash from './UaDash';
+import McDash from "./McDash";
+import OiDash from "./OiDash";
+import TpDash from "./TpDash";
+import AcDash from "./AcDash";
 function DashboardAdmin() {
   const [showOptions, setShowOptions] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
@@ -23,39 +27,33 @@ function DashboardAdmin() {
   // Content for each option
   const optionContent = {
     "Active Users": {
-      content: <div>Content for Option 1</div>,
-      icon: <FaUsers />
-      ,
+      content: <Active />,
+      icon: <FaUsers />,
     },
     "Unknown Accident Reports": {
-      content: <div>Content for Option 2</div>,
-      icon: <AiFillFileUnknown />
-
+      content: <UaDash />,
+      icon: <AiFillFileUnknown />,
     },
     "Missing Reports": {
-      content: <div>Content for Option 3</div>,
-      icon: <FaPersonCircleQuestion />
-
+      content: <div><McDash/></div>,
+      icon: <FaPersonCircleQuestion />,
     },
     "Other Information Reports": {
-      content: <div>Content for Option 4</div>,
-      icon: <FaBook />
+      content: <div><OiDash/></div>,
+      icon: <FaBook />,
     },
     "Tourist Reports": {
-      content: <div>Content for Option 5</div>,
-      icon: <FaMapLocation />
-
+      content: <div><TpDash/></div>,
+      icon: <FaMapLocation />,
     },
     "Accident Reports": {
-      content: <div>Content for Option 6</div>,
-      icon: <FaCarCrash />
-    },
+      content: <div><AcDash/></div>,
+      icon: <FaCar />,
+    }
   };
 
   return (
-    <div
-      style={{ display: "flex", height: "100vh", backgroundColor: "#f5f5f5" }}
-    >
+    <div style={{ display: "flex", height: "100vh", backgroundColor: "#f5f5f5" }}>
       {/* Side panel */}
       <div
         style={{
@@ -63,6 +61,7 @@ function DashboardAdmin() {
           backgroundColor: "#1c1b18",
           color: "#fff",
           padding: "20px",
+          overflowY: "auto", // Add scrollbar for overflow
         }}
       >
         <h4>
@@ -95,7 +94,15 @@ function DashboardAdmin() {
               {Object.keys(optionContent).map((option) => (
                 <li
                   key={option}
-                  style={{ marginBottom: "10px", cursor: "pointer" }}
+                  style={{
+                    marginBottom: "10px",
+                    cursor: "pointer",
+                    // Highlight selected option
+                    backgroundColor:
+                      selectedOption === option ? "#333" : "transparent",
+                    padding: "5px",
+                    borderRadius: "5px",
+                  }}
                   onClick={() => handleOptionSelect(option)}
                 >
                   <span>
@@ -109,7 +116,7 @@ function DashboardAdmin() {
       </div>
 
       {/* Main content */}
-      <div style={{ flex: 1, padding: "20px" }}>
+      <div style={{ flex: 1, padding: "20px", overflowY: "auto" }}>
         <h1>Admin Dashboard</h1>
         {/* Render selected option content */}
         {selectedOption && (

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
-import { addCharityAPI } from "../Services/allAPI";
 import Swal from "sweetalert2";
 import { Link, useNavigate } from "react-router-dom";
 

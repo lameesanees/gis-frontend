@@ -55,11 +55,8 @@ export const addMaAPI = async(reqBody,reqHeader)=>{
   return await commonAPI("post",`${serverURL}/accidentreport/accident-report`,reqBody,reqHeader)
 }
 
-// charity
-export const getACharityAPI =async(searchKey,reqHeader)=>{
-  return await commonAPI("get",`${serverURL}/charityreport/get-charity-report?search=${searchKey}`,"",reqHeader)
-}
 
-export const addCharityAPI = async(reqBody,reqHeader)=>{
-  return await commonAPI("post",`${serverURL}/charityreport/charity-report`,reqBody,reqHeader)
+// Get all users with search functionality
+export const getUsersAPI = async(searchKey,reqHeader)=>{
+  return await commonAPI("get",`${serverURL}/users?search=${searchKey}`,"",reqHeader)
 }

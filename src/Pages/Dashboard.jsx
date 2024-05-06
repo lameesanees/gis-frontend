@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "./Dashboard.css";
-import logo from "../assets/logo.png";
+import logo from "../Components/Admin/logo.png";
 import { FaArrowAltCircleDown } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { getACharityAPI } from "../Services/allAPI";
 function Dashboard() {
   const [selectedCategory, setSelectedCategory] = useState(1); // Set default selected category to 1 (Home)
   const [showModal, setShowModal] = useState(false);

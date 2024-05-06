@@ -1,7 +1,7 @@
 import React from "react";
-import Report from "../Components/Report";
-import TrafficServices from "../Components/TrafficServices";
-import CommunityServices from "../Components/CommunityServices";
+import Report from "../Components/Features/Report";
+import TrafficServices from "../Components/Features/TrafficServices";
+import CommunityServices from "../Components/Features/CommunityServices";
 
 function AllServ() {
   return (

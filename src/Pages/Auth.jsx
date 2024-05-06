@@ -4,7 +4,8 @@ import { MDBInput } from "mdb-react-ui-kit";
 import { loginAPI, registerAPI } from "../Services/allAPI";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
-import logo from "../assets/logo.png";
+import logo from "../Components/Admin/logo.png";
+
 function Auth({ register }) {
   const navigate = useNavigate();
   const [userData, setUserData] = useState({
@@ -13,7 +14,7 @@ function Auth({ register }) {
     email: "",
     password: "",
     aadhaar: "",
-    role:""
+    role: ""
   });
 
   const handleRegister = async (e) => {
@@ -28,7 +29,7 @@ function Auth({ register }) {
         title: "Warning!",
         text: "Please fill the details",
         icon: "warning",
-        confirmButtonText: "Back",
+        confirmButtonText: "Back"
       });
     } else {
       // api calling to register
@@ -39,13 +40,13 @@ function Auth({ register }) {
           title: "Success!",
           text: "Successfully Registered",
           icon: "success",
-          confirmButtonText: "Back",
+          confirmButtonText: "Back"
         });
         setUserData({
           username: "",
           email: "",
           password: "",
-          aadhaar: "",
+          aadhaar: ""
         });
         // to navigate
         navigate("/login");
@@ -54,7 +55,7 @@ function Auth({ register }) {
           title: "Error!",
           text: result.response.data,
           icon: "error",
-          confirmButtonText: "Back",
+          confirmButtonText: "Back"
         });
       }
     }
@@ -63,42 +64,49 @@ function Auth({ register }) {
 
   const handleLogin = async (e) => {
     e.preventDefault();
+
+    // Validate form fields
     if (!userData.email || !userData.password) {
       Swal.fire({
         title: "Warning!",
-        text: "Please fill the details",
+        text: "Please fill in all the details",
         icon: "warning",
-        confirmButtonText: "Back",
+        confirmButtonText: "Back"
       });
-    } else {
-      // api calling to register
-      const result = await loginAPI(userData);
-      console.log(result);
-      if (result.status === 200) {
-        sessionStorage.setItem("username", result.data.existingUser.username);
-        sessionStorage.setItem("token", result.data.token);
-        Swal.fire({
-          title: "Success!",
-          text: "Login Successfull",
-          icon: "success",
-          confirmButtonText: "Back",
-        });
-        setUserData({
-          email: "",
-          password: "",
-        });
-        // to navigate
-        navigate("/");
-      } else if (result.response.status === 404) {
-        Swal.fire({
-          title: "Error!",
-          text: result.response.data,
-          icon: "error",
-          confirmButtonText: "Back",
-        });
-      }
+      return;
     }
-    console.log(userData);
+
+    // Perform login API request
+    const result = await loginAPI(userData);
+    console.log(result);
+    if (result.status === 200) {
+      sessionStorage.setItem("username", result.data.existingUser.username);
+      sessionStorage.setItem("token", result.data.token);
+      Swal.fire({
+        title: "Success!",
+        text: "Login Successful",
+        icon: "success",
+        confirmButtonText: "Back"
+      });
+      setUserData({
+        email: "",
+        password: ""
+      });
+      // Check if the logged-in user is an admin
+      if (result.data.existingUser.role === "admin") {
+        navigate("/dashadmin"); // Redirect to the dashboard
+        return; // Return here to prevent further execution
+      } else {
+        navigate("/"); // Redirect to the home page
+      }
+    } else if (result.response.status === 404) {
+      Swal.fire({
+        title: "Error!",
+        text: result.response.data,
+        icon: "error",
+        confirmButtonText: "Back"
+      });
+    }
   };
 
   return (
@@ -113,7 +121,7 @@ function Auth({ register }) {
         justifyContent: "center",
         alignItems: "center",
         padding: "20px",
-        backgroundRepeat: "repeat",
+        backgroundRepeat: "repeat"
       }}
     >
       <div
@@ -124,7 +132,7 @@ function Auth({ register }) {
           padding: "40px",
           boxShadow: "0 4px 6px rgba(0, 0, 0, 0.8)", // Light box shadow
           maxWidth: "500px",
-          background: "rgba(255, 255, 255, 0.3)", // Transparent box
+          background: "rgba(255, 255, 255, 0.3)" // Transparent box
         }}
       >
         <form>
@@ -137,9 +145,14 @@ function Auth({ register }) {
                   className="img-fluid"
                   style={{ width: "10%" }}
                 />
-                <h4>Welcome to <br />
-                 <b style={{fontSize:"30px",color:"green"}}> GuardIndiaSeva.com </b>
-                 </h4>
+                <h4>
+                  Welcome to
+                  <br />
+                  <b style={{ fontSize: "30px", color: "green" }}>
+                    {" "}
+                    GuardIndiaSeva.com{" "}
+                  </b>
+                </h4>
               </div>
             ) : (
               <div>
@@ -149,9 +162,14 @@ function Auth({ register }) {
                   className="img-fluid"
                   style={{ width: "10%" }}
                 />
-                <h4>Welcome Back <br />
-                 <b style={{fontSize:"30px",color:"green"}}> GuardIndiaSeva.com </b>
-                 </h4>
+                <h4>
+                  Welcome Back
+                  <br />
+                  <b style={{ fontSize: "30px", color: "green" }}>
+                    {" "}
+                    GuardIndiaSeva.com{" "}
+                  </b>
+                </h4>
               </div>
             )}
           </h2>
@@ -255,6 +273,8 @@ function Auth({ register }) {
               </div>
             )}
           </div>
+
+          
         </form>
       </div>
     </div>

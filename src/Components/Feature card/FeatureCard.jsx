@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./featurecard.css"; // Import CSS file for styling
 import { Link } from "react-router-dom";
-import comm from "../assets/comm.png"
+import comm from "./comm.png"
 function FeatureCard() {
   const [hoveredCard, setHoveredCard] = useState(null);
 

@@ -44,48 +44,6 @@ function Payment() {
             </button>
           </div>
 
-          {/* wallet pay */}
-          <div className="col-md-4 mb-4">
-            <button
-              className="btn btn-light"
-              style={{
-                border: "2px solid #777",
-                borderRadius: "10px",
-                padding: "20px",
-                width: "100%",
-              }}
-              onClick={() => setPaymentMethod("Wallet")}
-            >
-              <FaWallet
-                className="mb-2"
-                style={{ color: "#bf6d0f", fontSize: "40px" }}
-              />
-              <br />
-              <span style={{ fontSize: "1.2rem" }}>Wallet</span>
-            </button>
-          </div>
-
-          {/* net banking */}
-          <div className="col-md-4 mb-4">
-            <button
-              className="btn btn-light"
-              style={{
-                border: "2px solid #777",
-                borderRadius: "10px",
-                padding: "20px",
-                width: "100%",
-              }}
-              onClick={() => setPaymentMethod("Net Banking")}
-            >
-              <BsBank2
-                className="mb-2"
-                style={{ color: "darkBlue", fontSize: "40px" }}
-              />
-              <br />
-              <span style={{ fontSize: "1.2rem" }}>Net Banking</span>
-            </button>
-          </div>
-
           {/* upi payment */}
           <div className="col-md-4 mb-4">
             <button
@@ -113,7 +71,8 @@ function Payment() {
         <div className="container mt-4 mb-5">
           <div
             style={{
-              background: "linear-gradient(to bottom, rgba(128, 128, 128, 0.6), rgba(0, 0, 0, 0.6))",
+              background:
+                "linear-gradient(to bottom, rgba(128, 128, 128, 0.6), rgba(0, 0, 0, 0.6))",
               borderRadius: "10px",
               padding: "20px",
               boxShadow: "0 4px 6px rgba(0, 0, 0, 0.8)",
@@ -131,13 +90,21 @@ function Payment() {
                   type="text"
                   placeholder="Card Number"
                   className="form-control mb-3"
-                  style={{ width: "100%", marginBottom: "10px", padding: "10px" }}
+                  style={{
+                    width: "100%",
+                    marginBottom: "10px",
+                    padding: "10px",
+                  }}
                 />
                 <input
                   type="text"
                   placeholder="Card Holder Name"
                   className="form-control mb-3"
-                  style={{ width: "100%", marginBottom: "10px", padding: "10px" }}
+                  style={{
+                    width: "100%",
+                    marginBottom: "10px",
+                    padding: "10px",
+                  }}
                 />
 
                 <InputGroup>
@@ -174,13 +141,21 @@ function Payment() {
                   type="text"
                   placeholder="Wallet ID/Number"
                   className="form-control mb-3"
-                  style={{ width: "100%", marginBottom: "10px", padding: "10px" }}
+                  style={{
+                    width: "100%",
+                    marginBottom: "10px",
+                    padding: "10px",
+                  }}
                 />
                 <input
                   type="text"
                   placeholder="OTP"
                   className="form-control mb-3"
-                  style={{ width: "100%", marginBottom: "10px", padding: "10px" }}
+                  style={{
+                    width: "100%",
+                    marginBottom: "10px",
+                    padding: "10px",
+                  }}
                 />
               </div>
             )}
@@ -193,19 +168,31 @@ function Payment() {
                   type="text"
                   placeholder="Bank Name"
                   className="form-control mb-3"
-                  style={{ width: "100%", marginBottom: "10px", padding: "10px" }}
+                  style={{
+                    width: "100%",
+                    marginBottom: "10px",
+                    padding: "10px",
+                  }}
                 />
                 <input
                   type="text"
                   placeholder="Account Number"
                   className="form-control mb-3"
-                  style={{ width: "100%", marginBottom: "10px", padding: "10px" }}
+                  style={{
+                    width: "100%",
+                    marginBottom: "10px",
+                    padding: "10px",
+                  }}
                 />
                 <input
                   type="text"
                   placeholder="Password"
                   className="form-control mb-3"
-                  style={{ width: "100%", marginBottom: "10px", padding: "10px" }}
+                  style={{
+                    width: "100%",
+                    marginBottom: "10px",
+                    padding: "10px",
+                  }}
                 />
               </div>
             )}
@@ -218,13 +205,21 @@ function Payment() {
                   type="text"
                   placeholder="UPI ID"
                   className="form-control mb-3"
-                  style={{ width: "100%", marginBottom: "10px", padding: "10px" }}
+                  style={{
+                    width: "100%",
+                    marginBottom: "10px",
+                    padding: "10px",
+                  }}
                 />
                 <input
                   type="text"
                   placeholder="OTP"
                   className="form-control mb-3"
-                  style={{ width: "100%", marginBottom: "10px", padding: "10px" }}
+                  style={{
+                    width: "100%",
+                    marginBottom: "10px",
+                    padding: "10px",
+                  }}
                 />
               </div>
             )}

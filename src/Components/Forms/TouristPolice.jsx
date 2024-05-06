@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { MDBInput } from "mdb-react-ui-kit";
-import { addTpAPI } from "../Services/allAPI";
+import { addTpAPI } from "../../Services/allAPI";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 function TouristPolice() {

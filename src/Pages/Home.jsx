@@ -3,22 +3,22 @@ import video1 from "../assets/video1.mp4";
 import "./home.css";
 import Feature from "./Feature";
 import About from "../Components/About";
-import {Nav } from "react-bootstrap";
+import { Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { FaUserPlus } from "react-icons/fa";
 
 function Home() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const [isLoggedIn,setIsLoggedIn]=useState(false)
-
-  useEffect(()=>{
-    if(sessionStorage.getItem("token")){
-      setIsLoggedIn(true)
+  useEffect(() => {
+    const token = sessionStorage.getItem("token");
+    if (token) {
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
     }
-    else{
-      setIsLoggedIn(false)
-    }
-  })
+    console.log("isLoggedIn:", isLoggedIn);
+  }, []);
 
   return (
     <>
@@ -53,26 +53,26 @@ function Home() {
             platform.
           </p>
           <Nav className="d-flex justify-content-center">
-            {
-              isLoggedIn?
+            {isLoggedIn ? (
               <Link to="/dashboard">
-              <button
-                className="btn"
-                style={{ backgroundColor: "darkGreen", color: "white" }}
-              >
-                Track your application
-              </button>
-            </Link>:
-            <Link to="/login">
-            <button
-              className="btn"
-              style={{ backgroundColor: "darkGreen", color: "white" }}
-            >
-              <FaUserPlus className="me-2 text-white" />
-              Get Started
-            </button>
-          </Link>
-            }
+                <button
+                  className="btn"
+                  style={{ backgroundColor: "darkGreen", color: "white" }}
+                >
+                  Track your application
+                </button>
+              </Link>
+            ) : (
+              <Link to="/login">
+                <button
+                  className="btn"
+                  style={{ backgroundColor: "darkGreen", color: "white" }}
+                >
+                  <FaUserPlus className="me-2 text-white" />
+                  Get Started
+                </button>
+              </Link>
+            )}
           </Nav>
         </div>
       </div>

@@ -7,31 +7,28 @@ import Home from "./Pages/Home";
 import Auth from "./Pages/Auth";
 import Feature from "./Pages/Feature";
 import { Navigate } from "react-router-dom";
-import Report from "./Components/Report";
-import CommunityServices from "./Components/CommunityServices";
-import TrafficServices from "./Components/TrafficServices";
+import Report from "./Components/Features/Report";
+import CommunityServices from "./Components/Features/CommunityServices";
+import TrafficServices from "./Components/Features/TrafficServices";
 import AllServ from "./Pages/AllServ";
-import PoliceReport from "./Components/PoliceReport";
-import PoliceEye from "./Components/PoliceEye";
-import TouristPolice from "./Components/TouristPolice";
-import UnknownAcc from "./Components/UnknownAcc";
-import TrafFine from "./Components/TrafFine";
+import PoliceReport from "./Components/Main services/PoliceReport";
+import PoliceEye from "./Components/Main services/PoliceEye";
+import TouristPolice from "./Components/Forms/TouristPolice";
+import UnknownAcc from "./Components/Forms/UnknownAcc";
 import About from "./Components/About";
-import FeatureCard from "./Components/FeatureCard";
-import Missing from "./Components/Missing";
-import Other from "./Components/Other";
+import FeatureCard from "./Components/Feature card/FeatureCard";
+import Missing from "./Components/Forms/Missing";
+import Other from "./Components/Forms/Other";
 import Dashboard from "./Pages/Dashboard";
-import Accident from "./Components/Accident";
+import Accident from "./Components/Forms/Accident";
 import Payment from "./Components/Payment";
-import SocialSupport from "./Components/SocialSupport";
-import UaForm from "./Components/UaForm";
-import McForm from "./Components/McForm";
-import TpForm from "./Components/TpForm";
-import OiForm from "./Components/OiForm";
-import MmForm from "./Components/MmForm";
-import DashboardAdmin from "./Components/DashboardAdmin";
-
-
+import SocialSupport from "./Components/Features/SocialSupport";
+import UaForm from "./Components/View Form/UaForm";
+import McForm from "./Components/View Form/McForm";
+import TpForm from "./Components/View Form/TpForm";
+import OiForm from "./Components/View Form/OiForm";
+import MmForm from "./Components/View Form/MmForm";
+import DashboardAdmin from "./Components/Admin/DashboardAdmin";
 function App() {
   return (
     <>
@@ -64,7 +61,6 @@ function App() {
 
         {/* components of traffic services */}
         <Route path={"/unknownacc"} element={<UnknownAcc />} />
-        <Route path={"/trafficfine"} element={<TrafFine />} />
         <Route path={"/accident"} element={<Accident />} />
 
         {/* component of community */}

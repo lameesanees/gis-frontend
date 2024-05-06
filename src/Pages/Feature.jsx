@@ -1,5 +1,5 @@
 import React from 'react'
-import FeatureCard from '../Components/FeatureCard'
+import FeatureCard from '../Components/Feature card/FeatureCard'
 
 function Feature() {
   return (
