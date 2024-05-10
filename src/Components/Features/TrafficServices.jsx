@@ -53,7 +53,7 @@ function TrafficServices() {
 
           {/* Icon 2 */}
           <div className="col-md-4 mb-4">
-            <Link to="/trafficfine">
+            <Link to="/trafficrule">
               <button
                 className="btn shadow-lg w-100"
                 style={{
@@ -68,7 +68,7 @@ function TrafficServices() {
                 <MdPayments style={{ fontSize: "80px" }} />
                 <br />
                 <p className="mt-3" style={{ fontSize: "15px" }}>
-                  Traffic Fines
+                  Traffic Rules
                 </p>
               </button>
             </Link>

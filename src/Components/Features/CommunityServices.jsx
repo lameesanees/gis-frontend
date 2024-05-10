@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { TbFileUnknown } from "react-icons/tb";
+import { MdConnectWithoutContact } from "react-icons/md";
 
 
 function CommunityServices() {
@@ -29,7 +30,7 @@ function CommunityServices() {
         <div className="row justify-content-center">
           {/* Icon 1 */}
           <div className="col-md-4 mb-4">
-            <Link to="/socialsupport">
+            <Link to="/event">
               <button
                 className="btn shadow-lg w-100"
                 style={{
@@ -41,10 +42,10 @@ function CommunityServices() {
                     "url('https://w0.peakpx.com/wallpaper/972/941/HD-wallpaper-galaxy-colour-colours-explosion-heart-pastel-plain-purple-simple-solid.jpg')",
                 }}
               >
-                <TbFileUnknown style={{ fontSize: "80px" }} />
+                <MdConnectWithoutContact  style={{ fontSize: "80px" }} />
                 <br />
                 <p className="mt-3" style={{ fontSize: "15px" }}>
-                  Social Support
+                  Connect without Contact
                 </p>
               </button>
             </Link>

@@ -3,6 +3,7 @@ import "./Dashboard.css";
 import logo from "../Components/Admin/logo.png";
 import { FaArrowAltCircleDown } from "react-icons/fa";
 import { Link } from "react-router-dom";
+
 function Dashboard() {
   const [selectedCategory, setSelectedCategory] = useState(1); // Set default selected category to 1 (Home)
   const [showModal, setShowModal] = useState(false);
@@ -16,7 +17,7 @@ function Dashboard() {
 
   const categories = [
     { id: 1, name: "Home" },
-    { id: 2, name: "Update Profile" },
+    // { id: 2, name: "Certificate" },
     { id: 3, name: "Police Services", content: "Update Profile" },
     { id: 4, name: "Traffic Services", content: "Content for Police Report" },
   ];
@@ -105,35 +106,6 @@ function Dashboard() {
             {selectedCategory === 2 && (
              
                 <div className="table-responsive shadow-lg mb-2 bg-light p-5 m-3  text-center">
-                  <label>
-                    <input type="file" style={{ display: "none" }} />
-                    <img
-                      src="https://t4.ftcdn.net/jpg/02/24/86/95/360_F_224869519_aRaeLneqALfPNBzg0xxMZXghtvBXkfIA.jpg"
-                      alt=""
-                      className="img-fluid rounded-circle  mt-4 "
-                      style={{ width: "80%", height: "150px" }}
-                    />
-                  </label>
-                  <div className="text-center m-4 ">
-                    <input
-                      type="text"
-                      placeholder="Albert Joy"
-                      className="form-control mb-3"
-                    />
-                    <input
-                      type="text"
-                      placeholder="7854123658"
-                      className="form-control mb-3"
-                    />
-                    <input
-                      type="text"
-                      placeholder="albertjoy@gmail.com"
-                      className="form-control mb-3"
-                    />
-                  </div>
-                  <div>
-                    <button className="btn btn-success">Update</button>
-                  </div>
                 </div>
             )}
 

@@ -93,3 +93,4 @@ export const updateOiAPI = async (otherId, reqBody, reqHeader) => {
 export const updateMaAPI = async (accidentId, reqBody, reqHeader) => {
   return await commonAPI("put", `${serverURL}/report/update-acc/${accidentId}`, reqBody, reqHeader);
 };
+

@@ -61,7 +61,7 @@ function SocialSupport() {
             Join Us in Making a Positive Impact on Lives
           </h3>
           <div className="text-center mt-3">
-            <Link to ={'/pay'}>
+            <Link to ={'/event'}>
             <button
               className="btn"
               style={{ backgroundColor: "darkGreen", color: "white" }}

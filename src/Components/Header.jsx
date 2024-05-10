@@ -100,7 +100,7 @@ function Header() {
                   Services
                 </Link>
                 <Link
-                  to={"/about"}
+                  to={"/contact"}
                   className="nav-link"
                   style={{
                     color: hoveredItem === "Contact Us" ? "red" : "black",
