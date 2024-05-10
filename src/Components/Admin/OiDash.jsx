@@ -1,11 +1,46 @@
 import React, { useEffect, useState } from "react";
 import { serverURL } from "../../Services/serverURL";
-import { getAOtherInfoAPI } from "../../Services/allAPI";
+import { deleteOiAPI, getAOtherInfoAPI,updateOiAPI } from "../../Services/allAPI";
 import { FaTrash, FaEdit } from "react-icons/fa"; // Importing Font Awesome icons
+import Swal from "sweetalert2";
 
 function OiDash() {
   const [userReport, setUserReport] = useState([]);
   const [searchKey, setSearchKey] = useState("");
+  const [selectedStatus, setSelectedStatus] = useState({}); // State to store selected status for each report
+  const handleStatusChange = (otherId, newStatus) => {
+    setSelectedStatus((prevStatus) => ({
+      ...prevStatus,
+      [otherId]: newStatus,
+    }));
+  };
+
+  const handleSubmit = async (otherId) => {
+    try {
+      const status = selectedStatus[otherId];
+      if (!status) {
+        return Swal.fire("Error!", "Please select a status.", "error");
+      }
+
+      const token = sessionStorage.getItem("token");
+      const reqHeader = {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      };
+
+      await updateOiAPI(otherId, { status }, reqHeader);
+
+      // After updating, fetch the updated report list
+      getaReport();
+
+      // Show success alert
+      Swal.fire("Success!", "Status updated successfully.", "success");
+    } catch (error) {
+      console.error("Error submitting changes:", error);
+      // Show error alert if submission fails
+      Swal.fire("Error!", "Failed to update status.", "error");
+    }
+  };
 
   const getaReport = async () => {
     if (sessionStorage.getItem("token")) {
@@ -24,7 +59,43 @@ function OiDash() {
       }
     }
   };
+  const handleDelete = async (otherId) => {
+    // Display a confirmation dialog before proceeding with deletion
+    const confirmDelete = await Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, delete it!",
+      cancelButtonText: "No, cancel!",
+    });
 
+    if (confirmDelete.isConfirmed) {
+      try {
+        const token = sessionStorage.getItem("token");
+
+        const reqHeader = {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
+        };
+
+        // Call deleteMcAPI function to delete the report
+        await deleteOiAPI(otherId, reqHeader);
+
+        // After successful deletion, refresh the report list
+        getaReport();
+
+        // Show success message after deletion
+        Swal.fire("Deleted!", "Your report has been deleted.", "success");
+      } catch (error) {
+        console.error("Error deleting report:", error);
+        // Show error message if deletion fails
+        Swal.fire("Error!", "Failed to delete the report.", "error");
+      }
+    }
+  };
   useEffect(() => {
     getaReport();
   }, [searchKey]);
@@ -69,21 +140,43 @@ function OiDash() {
                     <td>{item.description}</td>
                     <td>{item.contact}</td>
                     <td>{item.date}</td>
-                    <td></td>
                     <td>
-                      <button
-                        className="btn btn-danger me-2"
-                      >
-                        <FaTrash />
-                      </button>
-                    </td>
-                    <td>
-                      <button
-                        className="btn btn-primary"
-                      >
-                        <FaEdit />
-                      </button>
-                    </td>
+                  <div className="mb-3">
+                    <label htmlFor="" className="form-label">
+                      Status:
+                    </label>
+                    <select
+                      className="form-select"
+                      value={selectedStatus[item._id] || ""}
+                      onChange={(e) =>
+                        handleStatusChange(item._id, e.target.value)
+                      }
+                    >
+                      <option value="">Select status</option>
+                      <option value="pending">Pending</option>
+                      <option value="approved">Approved</option>
+                      <option value="rejected">Rejected</option>
+                      <option value="in-progress">In Progress</option>
+                      <option value="completed">Completed</option>
+                    </select>
+                  </div>
+                </td>
+                <td>
+                  <button
+                    className="btn btn-danger me-2"
+                    onClick={() => handleDelete(item._id)}
+                  >
+                    <FaTrash />
+                  </button>
+                </td>
+                <td>
+                  <button
+                    className="btn btn-primary"
+                    onClick={() => handleSubmit(item._id)}
+                  >
+                    Update
+                  </button>
+                </td>
                   </tr>
                 ))}
               </tbody>

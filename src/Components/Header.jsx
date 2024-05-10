@@ -124,12 +124,14 @@ function Header() {
                   About Us
                 </Link>
               </Nav>
-              <div onClick={handleLogout} className="mt-3 display-flex-end">
+              <div onClick={handleLogout} className=" display-flex-end">
+                <button className="btn btn-secondary shadow-sm">
                 <img
                   src="https://cdn-icons-png.freepik.com/512/9653/9653907.png"
-                  alt=""className="img-fluid " style={{width:"40px"}}
-                />{" "}Logout
-             
+                  alt=""className="img-fluid " style={{width:"20px"}}
+                />logout
+            
+                </button>
               </div>
             </Navbar.Collapse>
           </Container>

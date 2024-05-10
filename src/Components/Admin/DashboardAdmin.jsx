@@ -12,13 +12,9 @@ import McDash from "./McDash";
 import OiDash from "./OiDash";
 import TpDash from "./TpDash";
 import AcDash from "./AcDash";
-function DashboardAdmin() {
-  const [showOptions, setShowOptions] = useState(false);
-  const [selectedOption, setSelectedOption] = useState(null);
 
-  const toggleOptions = () => {
-    setShowOptions(!showOptions);
-  };
+function DashboardAdmin() {
+  const [selectedOption, setSelectedOption] = useState(null);
 
   const handleOptionSelect = (option) => {
     setSelectedOption(option);
@@ -68,51 +64,32 @@ function DashboardAdmin() {
           <img src={logo} style={{ width: "20%" }} alt="" /> Admin Panel <br />
         </h4>
 
-        <div className="d-flex justify-content-center text-center mt-2">
-          <button
-            className="btn"
-            style={{
-              backgroundColor: "white",
-              color: "black",
-              padding: "10px",
-              border: "none",
-              cursor: "pointer",
-              marginBottom: "20px",
-            }}
-            onClick={toggleOptions}
-          >
-            {showOptions ? "Hide Options" : "Show Options"}
-          </button>
+        <div>
+          <h3>
+            Reports
+          </h3>
+          <ul style={{ listStyle: "none", padding: 0 }}>
+            {Object.keys(optionContent).map((option) => (
+              <li
+                key={option}
+                style={{
+                  marginBottom: "10px",
+                  cursor: "pointer",
+                  // Highlight selected option
+                  backgroundColor:
+                    selectedOption === option ? "#333" : "transparent",
+                  padding: "5px",
+                  borderRadius: "5px",
+                }}
+                onClick={() => handleOptionSelect(option)}
+              >
+                <span>
+                  {optionContent[option].icon} {option}
+                </span>
+              </li>
+            ))}
+          </ul>
         </div>
-        {/* Render options only if showOptions is true */}
-        {showOptions && (
-          <div>
-            <h3>
-              Reports
-            </h3>
-            <ul style={{ listStyle: "none", padding: 0 }}>
-              {Object.keys(optionContent).map((option) => (
-                <li
-                  key={option}
-                  style={{
-                    marginBottom: "10px",
-                    cursor: "pointer",
-                    // Highlight selected option
-                    backgroundColor:
-                      selectedOption === option ? "#333" : "transparent",
-                    padding: "5px",
-                    borderRadius: "5px",
-                  }}
-                  onClick={() => handleOptionSelect(option)}
-                >
-                  <span>
-                    {optionContent[option].icon} {option}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
       </div>
 
       {/* Main content */}

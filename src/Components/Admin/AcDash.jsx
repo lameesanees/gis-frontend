@@ -1,12 +1,46 @@
 import React, { useEffect, useState } from "react";
-import { getAMaReportAPI } from "../../Services/allAPI";
+import { deleteMaAPI, getAMaReportAPI,updateMaAPI } from "../../Services/allAPI";
 import { serverURL } from "../../Services/serverURL";
 import { FaTrash, FaEdit } from "react-icons/fa"; // Importing Font Awesome icons
+import Swal from "sweetalert2";
 
 function AcDash() {
   const [userReport, setUserReport] = useState([]);
   const [searchKey, setSearchKey] = useState("");
+  const [selectedStatus, setSelectedStatus] = useState({}); // State to store selected status for each report
+  const handleStatusChange = (accidentId, newStatus) => {
+    setSelectedStatus((prevStatus) => ({
+      ...prevStatus,
+      [accidentId]: newStatus,
+    }));
+  };
 
+  const handleSubmit = async (accidentId) => {
+    try {
+      const status = selectedStatus[accidentId];
+      if (!status) {
+        return Swal.fire("Error!", "Please select a status.", "error");
+      }
+
+      const token = sessionStorage.getItem("token");
+      const reqHeader = {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      };
+
+      await updateMaAPI(accidentId, { status }, reqHeader);
+
+      // After updating, fetch the updated report list
+      getMaReport();
+
+      // Show success alert
+      Swal.fire("Success!", "Status updated successfully.", "success");
+    } catch (error) {
+      console.error("Error submitting changes:", error);
+      // Show error alert if submission fails
+      Swal.fire("Error!", "Failed to update status.", "error");
+    }
+  };
   const getMaReport = async () => {
     if (sessionStorage.getItem("token")) {
       const token = sessionStorage.getItem("token");
@@ -24,7 +58,43 @@ function AcDash() {
       }
     }
   };
+  const handleDelete = async (accidentId) => {
+    // Display a confirmation dialog before proceeding with deletion
+    const confirmDelete = await Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, delete it!",
+      cancelButtonText: "No, cancel!",
+    });
 
+    if (confirmDelete.isConfirmed) {
+      try {
+        const token = sessionStorage.getItem("token");
+
+        const reqHeader = {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
+        };
+
+        // Call deleteMcAPI function to delete the report
+        await deleteMaAPI(accidentId, reqHeader);
+
+        // After successful deletion, refresh the report list
+        getMaReport();
+
+        // Show success message after deletion
+        Swal.fire("Deleted!", "Your report has been deleted.", "success");
+      } catch (error) {
+        console.error("Error deleting report:", error);
+        // Show error message if deletion fails
+        Swal.fire("Error!", "Failed to delete the report.", "error");
+      }
+    }
+  };
   useEffect(() => {
     getMaReport();
   }, [searchKey]);
@@ -71,23 +141,43 @@ function AcDash() {
                     <td>{item.accidentype}</td>
                     <td>{item.oppfullname}</td>
                     <td>{item.oppcontact}</td>
-                    <td></td>
                     <td>
-                      <button
-                        className="btn btn-danger me-2"
-                        onClick={() => handleDelete(item.id)}
-                      >
-                        <FaTrash />
-                      </button>
-                    </td>
-                    <td>
-                      <button
-                        className="btn btn-primary"
-                        onClick={() => handleEdit(item.id)}
-                      >
-                        <FaEdit />
-                      </button>
-                    </td>
+                  <div className="mb-3">
+                    <label htmlFor="" className="form-label">
+                      Status:
+                    </label>
+                    <select
+                      className="form-select"
+                      value={selectedStatus[item._id] || ""}
+                      onChange={(e) =>
+                        handleStatusChange(item._id, e.target.value)
+                      }
+                    >
+                      <option value="">Select status</option>
+                      <option value="pending">Pending</option>
+                      <option value="approved">Approved</option>
+                      <option value="rejected">Rejected</option>
+                      <option value="in-progress">In Progress</option>
+                      <option value="completed">Completed</option>
+                    </select>
+                  </div>
+                </td>
+                <td>
+                  <button
+                    className="btn btn-danger me-2"
+                    onClick={() => handleDelete(item._id)}
+                  >
+                    <FaTrash />
+                  </button>
+                </td>
+                <td>
+                  <button
+                    className="btn btn-primary"
+                    onClick={() => handleSubmit(item._id)}
+                  >
+                    Update
+                  </button>
+                </td>
                   </tr>
                 ))}
               </tbody>

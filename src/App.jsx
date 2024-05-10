@@ -29,6 +29,8 @@ import TpForm from "./Components/View Form/TpForm";
 import OiForm from "./Components/View Form/OiForm";
 import MmForm from "./Components/View Form/MmForm";
 import DashboardAdmin from "./Components/Admin/DashboardAdmin";
+import EditUa from "./Components/Admin/EditUa";
+
 function App() {
   return (
     <>
@@ -45,6 +47,7 @@ function App() {
         <Route path={"/dashboard"} element={<Dashboard />} />
         <Route path={"/pay"} element={<Payment />} />
         <Route path={"/dashadmin"} element={<DashboardAdmin />} />
+        <Route path={"/edit-ua-report/:userId"} element={<EditUa />} />
 
         {/* component of feature */}
         <Route path={"/report"} element={<Report />} />

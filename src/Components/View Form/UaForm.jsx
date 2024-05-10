@@ -61,15 +61,13 @@ function UaForm() {
       )}
 
       {!searching && searchKey.trim() === "" && (
-        <div className="row d-flex justify-content-center align-items-center mt-5">
-          <img
-            src="https://liveimages.algoworks.com/new-algoworks/wp-content/uploads/2021/06/03152843/field-tracking-app.png"
-            style={{ width: "40%" }}
+        <div className="d-flex justify-content-center align-items-center mt-5">
+         <img
+            src="https://png.pngtree.com/png-clipart/20230825/original/pngtree-mobile-payment-transfer-flat-vector-illustration-picture-image_8704858.png"
+            style={{ width: "45%" }}
             alt=""
           />
-          <div className="col text-align-justify" style={{ fontSize: "30px" }}>
-            Track your reports with effortless task management and productivity enhancement. With our intuitive interface and powerful features, you'll stay on top of your tasks like never before.
-          </div>
+          
         </div>
       )}
 
@@ -111,7 +109,7 @@ function UaForm() {
                     <td>{item.aadhaar}</td>
                     <td>{item.contact}</td>
                     <td>{item.date}</td>
-                    <td></td>
+                    <td>{item.status}</td>
                   </tr>
                 ))}
               </tbody>

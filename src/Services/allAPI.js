@@ -55,8 +55,41 @@ export const addMaAPI = async(reqBody,reqHeader)=>{
   return await commonAPI("post",`${serverURL}/accidentreport/accident-report`,reqBody,reqHeader)
 }
 
-
 // Get all users with search functionality
 export const getUsersAPI = async(searchKey,reqHeader)=>{
   return await commonAPI("get",`${serverURL}/users?search=${searchKey}`,"",reqHeader)
 }
+export const deleteUserAPI = async(usersId,reqHeader)=>{
+  return await commonAPI("delete",`${serverURL}/delete-user/${usersId}`,{},reqHeader)
+}
+export const deleteUaAPI = async(unknownId,reqHeader)=>{
+  return await commonAPI("delete",`${serverURL}/delete-unknown-accident/${unknownId}`,{},reqHeader)
+}
+export const deleteMcAPI = async(missingId,reqHeader)=>{
+  return await commonAPI("delete",`${serverURL}/delete-missing/${missingId}`,{},reqHeader)
+}
+export const deleteOiAPI = async(otherId,reqHeader)=>{
+  return await commonAPI("delete",`${serverURL}/delete-other/${otherId}`,{},reqHeader)
+}
+export const deleteTpAPI = async(touristId,reqHeader)=>{
+  return await commonAPI("delete",`${serverURL}/delete-tourist/${touristId}`,{},reqHeader)
+}
+export const deleteMaAPI = async(accidentId,reqHeader)=>{
+  return await commonAPI("delete",`${serverURL}/delete-accident/${accidentId}`,{},reqHeader)
+}
+// Update an unknown accident report
+export const updateUaAPI = async (unknownId, reqBody, reqHeader) => {
+  return await commonAPI("put", `${serverURL}/report/update-unknown-accident/${unknownId}`, reqBody, reqHeader);
+};
+export const updateMcAPI = async (missingId, reqBody, reqHeader) => {
+  return await commonAPI("put", `${serverURL}/report/update-missing/${missingId}`, reqBody, reqHeader);
+};
+export const updatetpAPI = async (touristId, reqBody, reqHeader) => {
+  return await commonAPI("put", `${serverURL}/report/update-tourist/${touristId}`, reqBody, reqHeader);
+};
+export const updateOiAPI = async (otherId, reqBody, reqHeader) => {
+  return await commonAPI("put", `${serverURL}/report/update-other/${otherId}`, reqBody, reqHeader);
+};
+export const updateMaAPI = async (accidentId, reqBody, reqHeader) => {
+  return await commonAPI("put", `${serverURL}/report/update-acc/${accidentId}`, reqBody, reqHeader);
+};

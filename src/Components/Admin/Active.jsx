@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { getUsersAPI } from "../../Services/allAPI";
+import { deleteUserAPI, getUsersAPI } from "../../Services/allAPI"; // Import deleteUserAPI
+import Swal from "sweetalert2";
 
 function Active() {
   const [users, setUsers] = useState([]);
@@ -34,8 +35,24 @@ function Active() {
   };
 
   const deleteUser = async (userId) => {
-    // Add logic to delete user by userId
-    console.log("Delete user with ID:", userId);
+    const token = sessionStorage.getItem("token");
+    if (token) {
+      const reqHeader = {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      };
+      const result = await deleteUserAPI(userId, reqHeader);
+      console.log(result);
+      Swal.fire({
+        position: "top",
+        icon: "success",
+        title: "User deleted successfully!!",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      // Refresh the user list after deletion
+      getUsers();
+    }
   };
 
   return (

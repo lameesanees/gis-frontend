@@ -57,15 +57,13 @@ function McForm() {
         </div>
       )}
       {!searching && !searchKey.trim() && (
-        <div className="row d-flex justify-content-center align-items-center">
+        <div className=" d-flex justify-content-center align-items-center">
           <img
-            src="https://liveimages.algoworks.com/new-algoworks/wp-content/uploads/2021/06/03152843/field-tracking-app.png"
-            style={{ width: "40%" }}
+            src="https://png.pngtree.com/png-clipart/20230825/original/pngtree-mobile-payment-transfer-flat-vector-illustration-picture-image_8704858.png"
+            style={{ width: "45%" }}
             alt=""
           />
-          <div className="col text-align-justify" style={{ fontSize: "30px" }}>
-            Track your reports with effortless task management and productivity enhancement. With our intuitive interface and powerful features, you'll stay on top of your tasks like never before.
-          </div>
+          
         </div>
       )}
       {!searching && searchKey.trim() && (
@@ -104,7 +102,7 @@ function McForm() {
                     <td>{item.gender}</td>
                     <td>{item.contact}</td>
                     <td>{item.date}</td>
-                    <td></td> {/* Status set to "Verifying" */}
+                    <td>{item.status}</td>
                   </tr>
                 ))}
               </tbody>
