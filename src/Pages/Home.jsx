@@ -57,7 +57,7 @@ function Home() {
               <Link to="/dashboard">
                 <button
                   className="btn"
-                  style={{ backgroundColor: "darkGreen", color: "white" }}
+                  style={{ backgroundColor: "#354a33", color: "white" }}
                 >
                   Track your application
                 </button>

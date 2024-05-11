@@ -95,7 +95,7 @@ function FeatureCard() {
           </div>
         </div>
       <Link to ={"/allserv"}>
-      <button className="btn rounded-pill shadow-lg  text-white"style={{backgroundColor:"#357a0d",color:"white",marginTop:"20px"}}>View All Services</button>
+      <button className="btn btn-sm rounded-pill shadow-lg  text-white"style={{backgroundColor:"#357a77",color:"white",marginTop:"20px"}}>View All Services</button>
 
       </Link>
      

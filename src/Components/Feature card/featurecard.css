@@ -24,6 +24,7 @@
   
   .card img {
     width: 100%;
+    max-width: 200px; /* Adjust the maximum width as needed */
     height: auto;
   }
   
@@ -94,4 +95,8 @@
       width: calc(50% - 20px); /* Adjust width to fit two cards per row */
     }
   }
-  
+  @media (max-width: 576px) {
+    .card img {
+      max-width: 150px; /* Adjust the maximum width for smaller screens */
+    }
+  }
