@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getAMaReportAPI } from "../../Services/allAPI";
 import { serverURL } from "../../Services/serverURL";
+import "./loading.css";
 
 function MmForm() {
   const [userReport, setUserReport] = useState([]);
@@ -53,8 +54,15 @@ function MmForm() {
       />
       {searching && (
         <div className="text-center mt-3">
-          <p>Loading search results...</p>
-        </div>
+ <div class="loader mt-5">
+            <p class="heading">Loading</p>
+            <div class="loading">
+              <div class="load"></div>
+              <div class="load"></div>
+              <div class="load"></div>
+              <div class="load"></div>
+            </div>
+          </div>        </div>
       )}
       {!searching && !searchKey.trim() && (
         <div className=" d-flex justify-content-center align-items-center">

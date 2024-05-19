@@ -45,7 +45,11 @@ function DashboardAdmin() {
     "Accident Reports": {
       content: <div><AcDash/></div>,
       icon: <FaCar />,
-    }
+    },
+    "Traffic Fine": {
+      content: <div><AcDash/></div>,
+      icon: <FaCar />,
+    },
   };
 
   return (

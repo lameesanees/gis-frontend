@@ -3,6 +3,7 @@ import Swal from "sweetalert2";
 import { deleteMcAPI, getAMissingReportAPI, updateMcAPI } from "../../Services/allAPI";
 import { serverURL } from "../../Services/serverURL";
 import { FaTrash } from "react-icons/fa";
+import "../View Form/loading.css"
 
 function McDash() {
   const [userMCReport, setUserMCReport] = useState([]);
@@ -186,8 +187,15 @@ function McDash() {
               </tbody>
             </table>
           ) : (
-            <div className="col text-center">No Reports</div>
-          )}
+<div class="loader">
+  <p class="heading">Loading</p>
+  <div class="loading">
+    <div class="load"></div>
+    <div class="load"></div>
+    <div class="load"></div>
+    <div class="load"></div>
+  </div>
+</div>          )}
         </div>
       </div>
     </div>

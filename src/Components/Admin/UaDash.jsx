@@ -3,6 +3,7 @@ import { getAReportAPI, deleteUaAPI, updateUaAPI } from "../../Services/allAPI";
 import { serverURL } from "../../Services/serverURL";
 import { FaTrash } from "react-icons/fa";
 import Swal from "sweetalert2";
+import "../View Form/loading.css";
 
 function UaDash() {
   const [usersReport, setUsersReport] = useState([]);
@@ -187,7 +188,15 @@ function UaDash() {
           </tbody>
         </table>
       ) : (
-        <div className="text-center">No Reports</div>
+        <div class="loader">
+          <p class="heading">Loading</p>
+          <div class="loading">
+            <div class="load"></div>
+            <div class="load"></div>
+            <div class="load"></div>
+            <div class="load"></div>
+          </div>
+        </div>
       )}
     </div>
   );

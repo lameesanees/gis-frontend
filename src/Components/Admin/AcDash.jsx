@@ -3,7 +3,7 @@ import { deleteMaAPI, getAMaReportAPI,updateMaAPI } from "../../Services/allAPI"
 import { serverURL } from "../../Services/serverURL";
 import { FaTrash, FaEdit } from "react-icons/fa"; // Importing Font Awesome icons
 import Swal from "sweetalert2";
-
+import "../View Form/loading.css"
 function AcDash() {
   const [userReport, setUserReport] = useState([]);
   const [searchKey, setSearchKey] = useState("");
@@ -154,11 +154,11 @@ function AcDash() {
                       }
                     >
                       <option value="">Select status</option>
-                      <option value="pending">Pending</option>
-                      <option value="approved">Approved</option>
-                      <option value="rejected">Rejected</option>
-                      <option value="in-progress">In Progress</option>
-                      <option value="completed">Completed</option>
+                      <option value="pending"style={{color:"yellow"}}><b>Pending</b> </option>
+                      <option value="approved"style={{color:"green"}}><b>Approved</b></option>
+                      <option value="rejected"style={{color:"red"}}><b>Rejected</b></option>
+                      <option value="in-progress"style={{color:"primary"}}><b>In Progress</b></option>
+                      <option value="completed"style={{color:"yellow"}}><b>Visit nearby police station</b></option>
                     </select>
                   </div>
                 </td>
@@ -183,7 +183,15 @@ function AcDash() {
               </tbody>
             </table>
           ) : (
-            <div className="col text-center">No Reports</div>
+            <div class="loader">
+  <p class="heading">Loading</p>
+  <div class="loading">
+    <div class="load"></div>
+    <div class="load"></div>
+    <div class="load"></div>
+    <div class="load"></div>
+  </div>
+</div>
           )}
         </div>
       </div>

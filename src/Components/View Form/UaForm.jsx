@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getAReportAPI } from "../../Services/allAPI";
 import { serverURL } from "../../Services/serverURL";
-
+import "./loading.css";
 function UaForm() {
   const [userReport, setUserReport] = useState([]);
   const [searchKey, setSearchKey] = useState("");
@@ -55,19 +55,26 @@ function UaForm() {
       </div>
 
       {searching && (
-        <div className="text-center mt-3">
-          <p>Loading search results...</p>
+        <div className="mt-3">
+          <div class="loader mt-5">
+            <p class="heading">Loading</p>
+            <div class="loading">
+              <div class="load"></div>
+              <div class="load"></div>
+              <div class="load"></div>
+              <div class="load"></div>
+            </div>
+          </div>
         </div>
       )}
 
       {!searching && searchKey.trim() === "" && (
         <div className="d-flex justify-content-center align-items-center mt-5">
-         <img
+          <img
             src="https://png.pngtree.com/png-clipart/20230825/original/pngtree-mobile-payment-transfer-flat-vector-illustration-picture-image_8704858.png"
             style={{ width: "45%" }}
             alt=""
           />
-          
         </div>
       )}
 

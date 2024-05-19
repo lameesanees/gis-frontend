@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { serverURL } from "../../Services/serverURL";
 import { getAOtherInfoAPI } from "../../Services/allAPI";
+import "./loading.css";
 
 function OiForm() {
   const [userReport, setUserReport] = useState([]);
@@ -54,8 +55,15 @@ function OiForm() {
 
       {searching && (
         <div className="text-center mt-3">
-          <p>Loading search results...</p>
-        </div>
+ <div class="loader mt-5">
+            <p class="heading">Loading</p>
+            <div class="loading">
+              <div class="load"></div>
+              <div class="load"></div>
+              <div class="load"></div>
+              <div class="load"></div>
+            </div>
+          </div>        </div>
       )}
 
       {!searching && !searchKey.trim() && (
