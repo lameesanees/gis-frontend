@@ -7,7 +7,6 @@ import {
 import { serverURL } from "../../Services/serverURL";
 import { FaTrash, FaEdit } from "react-icons/fa"; // Importing Font Awesome icons
 import Swal from "sweetalert2";
-import "../View Form/loading.css"
 
 function TpDash() {
   const [userReport, setUserReport] = useState([]);
@@ -188,15 +187,8 @@ function TpDash() {
               </tbody>
             </table>
           ) : (
-<div class="loader">
-  <p class="heading">Loading</p>
-  <div class="loading">
-    <div class="load"></div>
-    <div class="load"></div>
-    <div class="load"></div>
-    <div class="load"></div>
-  </div>
-</div>          )}
+            <p>No Reports</p>
+          )}
         </div>
       </div>
     </div>

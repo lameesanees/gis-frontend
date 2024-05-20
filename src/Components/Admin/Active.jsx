@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { deleteUserAPI, getUsersAPI } from "../../Services/allAPI"; // Import deleteUserAPI
 import Swal from "sweetalert2";
-import "../View Form/loading.css"
 
 function Active() {
   const [users, setUsers] = useState([]);
@@ -93,15 +92,8 @@ function Active() {
               </tr>
             ))
           ) : (
-            <div class="loader">
-  <p class="heading">Loading</p>
-  <div class="loading">
-    <div class="load"></div>
-    <div class="load"></div>
-    <div class="load"></div>
-    <div class="load"></div>
-  </div>
-</div>
+            <p>No Reports</p>
+
           )}
         </tbody>
       </table>

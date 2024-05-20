@@ -1,116 +1,102 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
+import { addTrafficAPI } from "../../Services/allAPI";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import { MDBInput } from "mdb-react-ui-kit";
-import { addUaAPI } from "../../Services/allAPI";
-import {useNavigate} from 'react-router-dom';
-import Swal from 'sweetalert2';
 
-function UnknownAcc() {
-  const navigate = useNavigate()
+function TrafficFine() {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
-    fullname: "",
-    aadhaar:"",
-    state: "",
+    vehicleNumber: "",
+    fineAmount: "",
+    violationType: "",
     location: "",
     date: "",
-    description: "",
-    contact: "",
-    uaImage: "",
+    tImage: "",
   });
   console.log(formData);
 
   const handleAddReport = async (e) => {
     e.preventDefault(); // Prevent default form submission
-
+  
     // data passing through state
-    const {
-      fullname,
-      aadhaar,
-      state,
-      location,
-      date,
-      description,
-      contact,
-      uaImage,
-    } = formData;
-
+    const { vehicleNumber, fineAmount, violationType, location, date, tImage } =
+      formData;
+  
     // Check if any field is empty
     if (
-      !fullname ||
-      ! aadhaar ||
-      !state ||
+      !vehicleNumber ||
+      !fineAmount ||
+      !violationType ||
       !location ||
       !date ||
-      !description ||
-      !contact ||
-      !uaImage
+      !tImage
     ) {
       Swal.fire({
-        title: 'Warning!',
-        text: 'Please fill the form',
-        icon: 'warning',
-        confirmButtonText: 'Back'
-      })
+        title: "Warning!",
+        text: "Please fill the form",
+        icon: "warning",
+        confirmButtonText: "Back",
+      });
     } else {
       const reqBody = new FormData();
-      reqBody.append("fullname", fullname);
-      reqBody.append("aadhaar", aadhaar);
-      reqBody.append("state", state);
+      reqBody.append("vehicleNumber", vehicleNumber);
+      reqBody.append("fineAmount", fineAmount);
+      reqBody.append("violationType", violationType);
       reqBody.append("location", location);
       reqBody.append("date", date);
-      reqBody.append("description", description);
-      reqBody.append("contact", contact);
-      reqBody.append("uaImage", uaImage);
-
+      reqBody.append("tImage", tImage);
+  
       if (token) {
         const reqHeader = {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${token}`,
         };
-
+  
         // api call
-        const result = await addUaAPI(reqBody, reqHeader);
+        const result = await addTrafficAPI(reqBody, reqHeader);
         console.log(result);
         if (result.status == 200) {
           Swal.fire({
-            title: 'Success!',
-            text: 'Report Submitted Successfully',
-            icon: 'success',
-            confirmButtonText: 'Back'
-          })
-          navigate('/policeye')
-          setFormData({
-            fullname: "",
-            aadhaar:"",
-            state:"",
-            location:"",
-            date:"",
-            description:"",
-            contact:"",
-            uaImage:"",
+            title: "Success!",
+            text: "Report Submitted Successfully",
+            icon: "success",
+            confirmButtonText: "Back",
           });
-          setPreview("")
+          navigate("/dashadmin");
+          // Reset form data
+          setFormData({
+            vehicleNumber: "",
+            fineAmount: "",
+            violationType: "",
+            location: "",
+            date: "",
+            tImage: "",
+          });
+          setPreview("");
         } else {
           alert(result.response.data);
         }
       }
     }
   };
-
+  
   const [fileStatus, setFileStatus] = useState(false);
   const [preview, setPreview] = useState("");
 
   useEffect(() => {
-    console.log(formData.uaImage.type);
+    console.log(formData.tImage.type);
     if (
-      formData.uaImage.type == "image/png" ||
-      formData.uaImage.type == "image/jpeg" ||
-      formData.uaImage.type == "image/jpg"
+      formData.tImage.type == "image/png" ||
+      formData.tImage.type == "image/jpeg" ||
+      formData.tImage.type == "image/jpg"
     ) {
       console.log("generate image url");
 
       // url conversion
-      console.log(URL.createObjectURL(formData.uaImage));
-      setPreview(URL.createObjectURL(formData.uaImage));
+      console.log(URL.createObjectURL(formData.tImage));
+      setPreview(URL.createObjectURL(formData.tImage));
       setFileStatus(false);
     } else {
       setFileStatus(true);
@@ -118,7 +104,7 @@ function UnknownAcc() {
         "Please Upload following image extension (png,jpg,jpeg) only"
       );
     }
-  }, [formData.uaImage]);
+  }, [formData.tImage]);
 
   // to hold token
   const [token, setToken] = useState("");
@@ -134,7 +120,7 @@ function UnknownAcc() {
 
   return (
     <div className="container">
-      <h1 className="text-center mt-3">Unknown Accident Report</h1>
+      <h1 className="text-center mt-3">Traffic Fine</h1>
       <div
         className="p-4 shadow-lg"
         style={{
@@ -151,7 +137,7 @@ function UnknownAcc() {
             <label>
               <input
                 onChange={(e) =>
-                  setFormData({ ...formData, uaImage: e.target.files[0] })
+                  setFormData({ ...formData, tImage: e.target.files[0] })
                 }
                 type="file"
                 style={{ display: "none" }}
@@ -174,42 +160,39 @@ function UnknownAcc() {
           </div>
           <div className="mb-3">
             <label htmlFor="name" className="form-label">
-              Full Name:
+              Vehicle Number:
             </label>
             <MDBInput
               onChange={(e) =>
-                setFormData({ ...formData, fullname: e.target.value })
+                setFormData({ ...formData, vehicleNumber: e.target.value })
               }
               type="text"
               className="form-control"
-              id="name"
-              name="name"
             />
           </div>
           <div className="mb-3">
             <label htmlFor="aadharNumber" className="form-label">
-              Aadhar Number:
+              Fine Amount:{" "}
             </label>
             <MDBInput
               onChange={(e) =>
-                setFormData({ ...formData, aadhaar: e.target.value })
+                setFormData({ ...formData, fineAmount: e.target.value })
               }
               type="text"
               className="form-control"
-              id="aadharNumber"
-              name="aadharNumber"
+             
             />
           </div>
           <div className="mb-3">
             <label htmlFor="location" className="form-label">
-              State:
+              Violation Type:
             </label>
             <select
               className="form-select"
               id="state"
               name="state"
               onChange={(e) =>
-                setFormData({ ...formData, state: e.target.value })
+                setFormData({ ...formData, violationType: e.target.value })
               }
             >
               <option value="">Select State</option>
@@ -247,33 +230,6 @@ function UnknownAcc() {
               name="date"
             />
           </div>
-          <div className="mb-3">
-            <label htmlFor="description" className="form-label">
-              Description:
-            </label>
-            <textarea
-              onChange={(e) =>
-                setFormData({ ...formData, description: e.target.value })
-              }
-              className="form-control"
-              id="description"
-              name="description"
-            ></textarea>
-          </div>
-          <div className="mb-3">
-            <label htmlFor="name" className="form-label">
-              Contact:
-            </label>
-            <MDBInput
-              onChange={(e) =>
-                setFormData({ ...formData, contact: e.target.value })
-              }
-              type="text"
-              className="form-control"
-              id="contact"
-              name="contact"
-            />
-          </div>
 
           <div className="text-center mb-4 mt-2">
             <button
@@ -295,4 +251,5 @@ function UnknownAcc() {
   );
 }
 
-export default UnknownAcc;
+
+export default TrafficFine;

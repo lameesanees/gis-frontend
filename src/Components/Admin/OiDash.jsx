@@ -3,7 +3,6 @@ import { serverURL } from "../../Services/serverURL";
 import { deleteOiAPI, getAOtherInfoAPI,updateOiAPI } from "../../Services/allAPI";
 import { FaTrash, FaEdit } from "react-icons/fa"; // Importing Font Awesome icons
 import Swal from "sweetalert2";
-import "../View Form/loading.css"
 
 function OiDash() {
   const [userReport, setUserReport] = useState([]);
@@ -183,15 +182,8 @@ function OiDash() {
               </tbody>
             </table>
           ) : (
-<div class="loader">
-  <p class="heading">Loading</p>
-  <div class="loading">
-    <div class="load"></div>
-    <div class="load"></div>
-    <div class="load"></div>
-    <div class="load"></div>
-  </div>
-</div>          )}
+            <p>No Reports</p>
+          )}
         </div>
       </div>
     </div>

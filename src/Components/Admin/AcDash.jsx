@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { deleteMaAPI, getAMaReportAPI,updateMaAPI } from "../../Services/allAPI";
 import { serverURL } from "../../Services/serverURL";
-import { FaTrash, FaEdit } from "react-icons/fa"; // Importing Font Awesome icons
+import { FaTrash } from "react-icons/fa"; // Importing Font Awesome icons
 import Swal from "sweetalert2";
-import "../View Form/loading.css"
 function AcDash() {
   const [userReport, setUserReport] = useState([]);
   const [searchKey, setSearchKey] = useState("");
@@ -121,7 +120,9 @@ function AcDash() {
                   <th>Accident Type</th>
                   <th>Opponent Name</th>
                   <th>Opponent Contact</th>
-                  <th>Status</th> <th>Action</th>{" "}
+                  <th>Status</th>
+                  <th>Current Status</th>
+                   <th>Action</th>{" "}
                   {/* New column for action buttons */}
                 </tr>
               </thead>
@@ -141,6 +142,7 @@ function AcDash() {
                     <td>{item.accidentype}</td>
                     <td>{item.oppfullname}</td>
                     <td>{item.oppcontact}</td>
+                    <td>{item.status}</td>
                     <td>
                   <div className="mb-3">
                     <label htmlFor="" className="form-label">
@@ -154,11 +156,11 @@ function AcDash() {
                       }
                     >
                       <option value="">Select status</option>
-                      <option value="pending"style={{color:"yellow"}}><b>Pending</b> </option>
-                      <option value="approved"style={{color:"green"}}><b>Approved</b></option>
-                      <option value="rejected"style={{color:"red"}}><b>Rejected</b></option>
-                      <option value="in-progress"style={{color:"primary"}}><b>In Progress</b></option>
-                      <option value="completed"style={{color:"yellow"}}><b>Visit nearby police station</b></option>
+                      <option value="pending"><b>Pending</b> </option>
+                      <option value="approved"><b>Approved</b></option>
+                      <option value="rejected"><b>Rejected</b></option>
+                      <option value="in-progress"><b>In Progress</b></option>
+                      <option value="completed"><b>Visit nearby police station</b></option>
                     </select>
                   </div>
                 </td>
@@ -183,15 +185,7 @@ function AcDash() {
               </tbody>
             </table>
           ) : (
-            <div class="loader">
-  <p class="heading">Loading</p>
-  <div class="loading">
-    <div class="load"></div>
-    <div class="load"></div>
-    <div class="load"></div>
-    <div class="load"></div>
-  </div>
-</div>
+          <p>No Reports</p>
           )}
         </div>
       </div>

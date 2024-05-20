@@ -12,6 +12,8 @@ import McDash from "./McDash";
 import OiDash from "./OiDash";
 import TpDash from "./TpDash";
 import AcDash from "./AcDash";
+import TrafficFine from "./TrafficFine";
+import { RiMoneyDollarCircleFill } from "react-icons/ri";
 
 function DashboardAdmin() {
   const [selectedOption, setSelectedOption] = useState(null);
@@ -47,9 +49,9 @@ function DashboardAdmin() {
       icon: <FaCar />,
     },
     "Traffic Fine": {
-      content: <div><AcDash/></div>,
-      icon: <FaCar />,
-    },
+      content: <div><TrafficFine/></div>,
+      icon: <RiMoneyDollarCircleFill />,
+    }
   };
 
   return (

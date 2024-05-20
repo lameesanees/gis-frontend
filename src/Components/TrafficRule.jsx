@@ -1,57 +1,134 @@
-import React from "react";
+import React, { useEffect, useState } from 'react';
+import { getTrafficReportAPI } from '../Services/allAPI';
+import { serverURL } from '../Services/serverURL';
 
 function TrafficRule() {
+  const [userReport, setUserReport] = useState([]);
+  const [searchKey, setSearchKey] = useState("");
+  const [searchTimer, setSearchTimer] = useState(null);
+  const [searching, setSearching] = useState(false);
+
+  const getaReport = async () => {
+    if (sessionStorage.getItem("token")) {
+      const token = sessionStorage.getItem("token");
+
+      const reqHeader = {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      };
+
+      try {
+        const result = await getTrafficReportAPI(searchKey.trim(), reqHeader);
+        setUserReport(result.data);
+      } catch (error) {
+        console.error("Error fetching reports:", error);
+      }
+    }
+    setSearching(false);
+  };
+
+  useEffect(() => {
+    if (searchKey.trim() !== "") {
+      clearTimeout(searchTimer);
+      setSearching(true);
+      const timer = setTimeout(() => {
+        getaReport();
+      }, 500); // Adjust the delay time as needed
+      setSearchTimer(timer);
+    }
+  }, [searchKey]);
+
+  const handleInputChange = (e) => {
+    setSearchKey(e.target.value);
+  };
+
+
   return (
-    <div
-      style={{
-        position: "relative",
-        width: "100vw",
-        height: "100vh",
-        overflow: "hidden",
-      }}
-    >
-      <div
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "100%",
-          backgroundImage:
-            'linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.9)), url("https://images.pexels.com/photos/2048224/pexels-photo-2048224.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1")',
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      ></div>
-      <div
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "100%",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          flexDirection: "column",
-          color: "white",
-          textAlign: "center",
-        }}
-      >
-        <div style={{ padding: "20px" }}>
-          <h1 style={{ margin: 0 }}>Road Rules: Navigating Traffic Safely</h1>
-          <p style={{ margin: 0,textAlign:"center" }} className="m-2">
-            Adhering to speed limits, respecting traffic signals, and
-            understanding right of way are crucial components of safe driving.
-            By staying within speed limits, obeying signals, and yielding when
-            necessary, drivers contribute to a safer road environment for
-            themselves and others.
-          </p>
-         <a href="https://morth.nic.in/sites/default/files/road_safety_books.pdf" target="_blank" rel="noopener noreferrer"> <button className="btn btn-success m-2">Click</button></a>
+    <div className="container">
+    <div className="input-group mt-5 mx-auto" style={{ maxWidth: "400px" }}>
+      <input
+        type="text"
+        className="form-control"
+        placeholder="Search by Number Plate"
+        value={searchKey}
+        onChange={handleInputChange}
+      />
+    </div>
+
+    {searching && (
+      <div className="mt-3">
+        <div class="loader mt-5">
+          <p class="heading">Loading</p>
+          <div class="loading">
+            <div class="load"></div>
+            <div class="load"></div>
+            <div class="load"></div>
+            <div class="load"></div>
+          </div>
         </div>
       </div>
-    </div>
+    )}
+
+    {!searching && searchKey.trim() === "" && (
+      <div className="d-flex justify-content-center align-items-center mt-5">
+        <img
+          src="https://png.pngtree.com/png-clipart/20230825/original/pngtree-mobile-payment-transfer-flat-vector-illustration-picture-image_8704858.png"
+          style={{ width: "45%" }}
+          alt=""
+        />
+      </div>
+    )}
+
+    {!searching && searchKey.trim() !== "" && (
+      <div className="row mt-5">
+        {userReport.length > 0 ? (
+          <table className="table table-striped">
+            <thead>
+              <tr>
+                <th>Image</th>
+                <th>Fine Amount </th>
+                <th>Vehicle Number</th>
+                <th>Amount</th>
+                <th>Date</th>
+                <th>Location</th>
+                <th>Status</th>
+                <th>Payment</th>
+              </tr>
+            </thead>
+            <tbody>
+              {userReport.map((item, index) => (
+                <tr key={index}>
+                  <td>
+                    <img
+                      src={
+                        item
+                          ? `${serverURL}/uploads/${item.tImage}`
+                          : "https://www.hindustantimes.com/ht-img/img/2023/11/27/1600x900/The-mangled-car-on-Monday---HT-Photo-_1701110057428.jpeg"
+                      }
+                      alt="Report"
+                      style={{ height: "auto", width: "100px" }}
+                    />
+                  </td>
+                  <td>{item.fineAmount}</td>
+                  <td>{item.vehicleNumber}</td>
+                  <td>{item.amount}</td>
+                  <td>{item.date}</td>
+                  <td>{item.location}</td>
+                  <td>{item.status}</td>
+                 <td><button className='btn'>Pay</button></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        ) : (
+          <div className="col text-center">No search results found.</div>
+        )}
+      </div>
+    )}
+  </div>
   );
 }
+
+
 
 export default TrafficRule;

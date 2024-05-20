@@ -29,7 +29,6 @@ import TpForm from "./Components/View Form/TpForm";
 import OiForm from "./Components/View Form/OiForm";
 import MmForm from "./Components/View Form/MmForm";
 import DashboardAdmin from "./Components/Admin/DashboardAdmin";
-import EditUa from "./Components/Admin/EditUa";
 import Events from "./Components/Features/Events";
 import Contact from "./Components/Contact";
 import TrafficRule from "./Components/TrafficRule";
@@ -52,7 +51,6 @@ function App() {
         <Route path={"/pay"} element={<Payment />} />
         <Route path={"/contact"} element={<Contact />} />
         <Route path={"/dashadmin"} element={<DashboardAdmin />} />
-        <Route path={"/edit-ua-report/:userId"} element={<EditUa />} />
 
         {/* component of feature */}
         <Route path={"/report"} element={<Report />} />
