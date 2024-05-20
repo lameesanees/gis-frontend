@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getTrafficReportAPI, updateTrafAPI,deleteTrafficAPI } from "../Services/allAPI";
+import { getTrafficReportAPI, updateTrafAPI } from "../Services/allAPI";
 import { serverURL } from "../Services/serverURL";
 import StripeCheckout from "react-stripe-checkout";
 import Swal from "sweetalert2";
@@ -45,7 +45,7 @@ function TrafficRule() {
     setSearchKey(e.target.value);
   };
 
-  const onToken = async (token, trafficId) => {
+  const onToken = async (token, reportId) => {
     console.log(token);
     // Display success message
     Swal.fire({
@@ -55,32 +55,20 @@ function TrafficRule() {
     }).then(async () => {
       setPaidReports((prevPaidReports) => ({
         ...prevPaidReports,
-        [trafficId]: true,
+        [reportId]: true,
       }));
-  
+
       // Update the status to 'completed' after a successful payment
       const reqHeader = {
         "Content-Type": "application/json",
         Authorization: "Bearer " + sessionStorage.getItem("token"),
       };
       await updateTrafAPI(reportId, { status: "completed" }, reqHeader);
-  
-      // Delete the report after payment
-      try {
-        await deleteTrafficAPI(reportId, reqHeader);
-        console.log("Report deleted successfully");
-      } catch (error) {
-        console.error("Error deleting report:", error);
-        Swal.fire("Error!", "Failed to delete the report.", "error");
-      }
-  
+
       // Refresh the report list to reflect the updated status
       getaReport();
     });
   };
-  
-
-
 
   return (
     <div className="container-fluid justify-content-center align-items-center">
@@ -126,7 +114,7 @@ function TrafficRule() {
                 userReport.map((item, index) => (
                   <div key={index} className="mb-4">
                     <div className="card">
-                      <img
+                      {/* <img
                         src={
                           item
                             ? `${serverURL}/uploads/${item.tImage}`
@@ -135,7 +123,7 @@ function TrafficRule() {
                         className="card-img-top"
                         style={{ width: "100%" }}
                         alt="Report"
-                      />
+                      /> */}
                       <div className="card-body">
                         <h5 className="card-title">{item.vehicleNumber}</h5>
                         <p className="card-text">Fine Amount: {item.fineAmount}</p>
