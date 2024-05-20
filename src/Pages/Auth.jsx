@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { MDBInput } from "mdb-react-ui-kit";
-import { loginAPI, registerAPI } from "../Services/allAPI";
+import { registerAPI, verifyOTPAPI, loginAPI } from "../Services/allAPI"; // Assuming you have import verifyOTPAPI
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import logo from "../Components/Admin/logo.png";
@@ -9,12 +9,12 @@ import logo from "../Components/Admin/logo.png";
 function Auth({ register }) {
   const navigate = useNavigate();
   const [userData, setUserData] = useState({
-    //to hold user data
     username: "",
     email: "",
     password: "",
     aadhaar: "",
-    role: ""
+    otp: "",
+    isOTPVerified: false,
   });
 
   const handleRegister = async (e) => {
@@ -27,56 +27,74 @@ function Auth({ register }) {
     ) {
       Swal.fire({
         title: "Warning!",
-        text: "Please fill the details",
+        text: "Please fill all the details",
         icon: "warning",
-        confirmButtonText: "Back"
+        confirmButtonText: "Back",
       });
     } else {
-      // api calling to register
       const result = await registerAPI(userData);
       console.log(result);
       if (result.status === 200) {
         Swal.fire({
           title: "Success!",
-          text: "Successfully Registered",
+          text: "OTP sent to your email, please verify",
           icon: "success",
-          confirmButtonText: "Back"
+          confirmButtonText: "OK",
         });
-        setUserData({
-          username: "",
-          email: "",
-          password: "",
-          aadhaar: ""
-        });
-        // to navigate
-        navigate("/login");
+        setUserData({ ...userData, isOTPVerified: true });
       } else if (result.response.status === 406) {
         Swal.fire({
           title: "Error!",
           text: result.response.data,
           icon: "error",
-          confirmButtonText: "Back"
+          confirmButtonText: "Back",
         });
       }
     }
-    console.log(userData);
   };
 
+  const handleOTPVerification = async () => {
+    try {
+      const response = await verifyOTPAPI(userData.email, userData.otp);
+      if (response.status === 200) {
+        setUserData({ ...userData, isOTPVerified: true });
+        Swal.fire({
+          title: "Success!",
+          text: "OTP verification successful",
+          icon: "success",
+          confirmButtonText: "OK",
+        });
+      } else {
+        Swal.fire({
+          title: "Error!",
+          text: "Invalid OTP, please try again",
+          icon: "error",
+          confirmButtonText: "OK",
+        });
+      }
+    } catch (error) {
+      console.error("Error verifying OTP:", error);
+      Swal.fire({
+        title: "Error!",
+        text: "An error occurred while verifying OTP, please try again later",
+        icon: "error",
+        confirmButtonText: "OK",
+      });
+    }
+  };
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    // Validate form fields
     if (!userData.email || !userData.password) {
       Swal.fire({
         title: "Warning!",
-        text: "Please fill in all the details",
+        text: "Please fill all the details",
         icon: "warning",
-        confirmButtonText: "Back"
+        confirmButtonText: "Back",
       });
       return;
     }
 
-    // Perform login API request
     const result = await loginAPI(userData);
     console.log(result);
     if (result.status === 200) {
@@ -86,29 +104,22 @@ function Auth({ register }) {
         title: "Success!",
         text: "Login Successful",
         icon: "success",
-        confirmButtonText: "Back"
+        confirmButtonText: "Back",
       });
-      setUserData({
-        email: "",
-        password: ""
-      });
-      // Check if the logged-in user is an admin
       if (result.data.existingUser.role === "admin") {
-        navigate("/dashadmin"); // Redirect to the dashboard
-        return; // Return here to prevent further execution
+        navigate("/dashadmin");
       } else {
-        navigate("/"); // Redirect to the home page
+        navigate("/");
       }
     } else if (result.response.status === 404) {
       Swal.fire({
         title: "Error!",
         text: result.response.data,
         icon: "error",
-        confirmButtonText: "Back"
+        confirmButtonText: "Back",
       });
     }
   };
-
   return (
     <div
       style={{
@@ -121,7 +132,7 @@ function Auth({ register }) {
         justifyContent: "center",
         alignItems: "center",
         padding: "20px",
-        backgroundRepeat: "repeat"
+        backgroundRepeat: "repeat",
       }}
     >
       <div
@@ -130,9 +141,9 @@ function Auth({ register }) {
           color: "black",
           borderRadius: "10px",
           padding: "40px",
-          boxShadow: "0 4px 6px rgba(0, 0, 0, 0.8)", // Light box shadow
+          boxShadow: "0 4px 6px rgba(0, 0, 0, 0.8)",
           maxWidth: "500px",
-          background: "rgba(255, 255, 255, 0.3)" // Transparent box
+          background: "rgba(255, 255, 255, 0.3)",
         }}
       >
         <form>
@@ -174,7 +185,7 @@ function Auth({ register }) {
             )}
           </h2>
 
-          {register && (
+          {register && !userData.isOTPVerified && (
             <div>
               <MDBInput
                 onChange={(e) =>
@@ -213,9 +224,46 @@ function Auth({ register }) {
                 className="mb-3"
                 style={{ backgroundColor: "#f8f9fa" }}
               />
+              <div className="text-center">
+              <button onClick={handleRegister} className="btn btn-dark mb-5">
+                Register
+              </button>
+              </div>
+              <div className="text-center">
+              <p>
+                Already Registered?
+                <Link
+                  to={"/login"}
+                  className="text-danger text-decoration-underline"
+                >
+                  Login Here
+                </Link>
+              </p>
+              </div>
             </div>
           )}
 
+          {register && userData.isOTPVerified && (
+            <div>
+              <MDBInput
+                onChange={(e) =>
+                  setUserData({ ...userData, otp: e.target.value })
+                }
+                value={userData.otp}
+                label="Enter OTP"
+                className="mb-3"
+                style={{ backgroundColor: "#f8f9fa" }}
+              />
+              <button
+                onClick={handleOTPVerification}
+                className="btn btn-dark mb-5"
+              >
+                Verify OTP
+              </button>
+            </div>
+          )}
+
+          {/* Login form */}
           {!register && (
             <div>
               <MDBInput
@@ -237,44 +285,24 @@ function Auth({ register }) {
                 className="mb-3"
                 style={{ backgroundColor: "#f8f9fa" }}
               />
+              <div className="text-center">
+              <button onClick={handleLogin} className="btn btn-dark mb-5">
+                Login
+              </button>
+              </div>
+              <div className="text-center">
+              <p>
+                New to Here?
+                <Link
+                  to={"/register"}
+                  className="text-danger text-decoration-underline"
+                >
+                  Register
+                </Link>
+              </p>
+              </div>
             </div>
           )}
-
-          <div>
-            {register ? (
-              <div className="text-center">
-                <button onClick={handleRegister} className="btn btn-dark mb-5">
-                  Register
-                </button>
-                <p>
-                  Already Registered?
-                  <Link
-                    to={"/login"}
-                    className="text-danger text-decoration-underline"
-                  >
-                    Login Here
-                  </Link>
-                </p>
-              </div>
-            ) : (
-              <div className="text-center">
-                <button onClick={handleLogin} className="btn btn-dark mb-5">
-                  Login
-                </button>
-                <p>
-                  New to Here?
-                  <Link
-                    to={"/register"}
-                    className="text-danger text-decoration-underline"
-                  >
-                    Register
-                  </Link>
-                </p>
-              </div>
-            )}
-          </div>
-
-          
         </form>
       </div>
     </div>

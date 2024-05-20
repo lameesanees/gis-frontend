@@ -133,6 +133,7 @@ function TrafficRule() {
                         <p className="card-text">Status: {paidReports[item._id] || item.status === "completed" ? "Completed" : item.status}</p>
                         {!paidReports[item._id] && item.status !== "completed" && (
                           <StripeCheckout
+                          currency="INR"
                             amount={item.fineAmount * 100}
                             token={(token) => onToken(token, item._id)}
                             stripeKey="pk_test_51PIUQiSCXQzB17TSSsjq83dtHENVzZIRwb6gOzotMcjA4JUp0zR63sBO61eV1RfdpT2KldVR4j2gvyZtW5buaIre00Qcy5B4Fs"

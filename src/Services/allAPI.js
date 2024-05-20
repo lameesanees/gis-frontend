@@ -2,8 +2,11 @@ import { serverURL } from "./serverURL";
 import { commonAPI } from "./commonAPI";
 
 // Authentication APIs
-export const registerAPI = async (user) => {
-  return await commonAPI("post", `${serverURL}/register`, user, "");
+export const registerAPI = async (userData) => {
+  return await commonAPI("post", `${serverURL}/register`, userData, "");
+};
+export const verifyOTPAPI = async (userData) => {
+  return await commonAPI("post", `${serverURL}/verify-otp`, userData, "");
 };
 
 export const loginAPI = async (user) => {
