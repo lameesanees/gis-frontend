@@ -114,8 +114,12 @@ export const getTrafficReportAPI = async (searchKey, reqHeader) => {
   return await commonAPI("get", `${serverURL}/get-a-traffic?search=${searchKey}`, "", reqHeader);
 };
 
-export const deleteTraffic = async (trafficId, reqHeader) => {
+export const deleteTrafficAPI = async (trafficId, reqHeader) => {
   return await commonAPI("delete", `${serverURL}/delete-traffic/${trafficId}`, {}, reqHeader);
 };
-
-
+export const getAReporttAPI=async(reqheader)=>{
+  return await commonAPI("get",`${serverURL}/project/get-auser-traffic`,"",reqheader)
+}
+export const updateTrafAPI = async (trafficId, reqBody, reqHeader) => {
+  return await commonAPI("put", `${serverURL}/report/update-acc/${trafficId}`, reqBody, reqHeader);
+};

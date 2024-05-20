@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { deleteMaAPI, getAMaReportAPI,updateMaAPI } from "../../Services/allAPI";
+import {
+  deleteMaAPI,
+  getAMaReportAPI,
+  updateMaAPI,
+} from "../../Services/allAPI";
 import { serverURL } from "../../Services/serverURL";
 import { FaTrash } from "react-icons/fa"; // Importing Font Awesome icons
 import Swal from "sweetalert2";
@@ -122,8 +126,7 @@ function AcDash() {
                   <th>Opponent Contact</th>
                   <th>Status</th>
                   <th>Current Status</th>
-                   <th>Action</th>{" "}
-                  {/* New column for action buttons */}
+                  <th>Action</th> {/* New column for action buttons */}
                 </tr>
               </thead>
               <tbody>
@@ -144,48 +147,58 @@ function AcDash() {
                     <td>{item.oppcontact}</td>
                     <td>{item.status}</td>
                     <td>
-                  <div className="mb-3">
-                    <label htmlFor="" className="form-label">
-                      Status:
-                    </label>
-                    <select
-                      className="form-select"
-                      value={selectedStatus[item._id] || ""}
-                      onChange={(e) =>
-                        handleStatusChange(item._id, e.target.value)
-                      }
-                    >
-                      <option value="">Select status</option>
-                      <option value="pending"><b>Pending</b> </option>
-                      <option value="approved"><b>Approved</b></option>
-                      <option value="rejected"><b>Rejected</b></option>
-                      <option value="in-progress"><b>In Progress</b></option>
-                      <option value="completed"><b>Visit nearby police station</b></option>
-                    </select>
-                  </div>
-                </td>
-                <td>
-                  <button
-                    className="btn btn-danger me-2"
-                    onClick={() => handleDelete(item._id)}
-                  >
-                    <FaTrash />
-                  </button>
-                </td>
-                <td>
-                  <button
-                    className="btn btn-primary"
-                    onClick={() => handleSubmit(item._id)}
-                  >
-                    Update
-                  </button>
-                </td>
+                      <div className="mb-3">
+                        <label htmlFor="" className="form-label">
+                          Status:
+                        </label>
+                        <select
+                          className="form-select"
+                          value={selectedStatus[item._id] || ""}
+                          onChange={(e) =>
+                            handleStatusChange(item._id, e.target.value)
+                          }
+                        >
+                          <option value="">Select status</option>
+                          <option value="pending">
+                            <b>Pending</b>{" "}
+                          </option>
+                          <option value="approved">
+                            <b>Approved</b>
+                          </option>
+                          <option value="rejected">
+                            <b>Rejected</b>
+                          </option>
+                          <option value="in-progress">
+                            <b>In Progress</b>
+                          </option>
+                          <option value="completed">
+                            <b>Visit nearby police station</b>
+                          </option>
+                        </select>
+                      </div>
+                    </td>
+                    <td>
+                      <button
+                        className="btn btn-danger me-2"
+                        onClick={() => handleDelete(item._id)}
+                      >
+                        <FaTrash />
+                      </button>
+                    </td>
+                    <td>
+                      <button
+                        className="btn btn-primary"
+                        onClick={() => handleSubmit(item._id)}
+                      >
+                        Update
+                      </button>
+                    </td>
                   </tr>
                 ))}
               </tbody>
             </table>
           ) : (
-          <p>No Reports</p>
+            <p>No Reports</p>
           )}
         </div>
       </div>

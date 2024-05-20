@@ -68,7 +68,7 @@ function TrafficServices() {
                 <MdPayments style={{ fontSize: "80px" }} />
                 <br />
                 <p className="mt-3" style={{ fontSize: "15px" }}>
-                  Traffic Rules
+                  Traffic Fine
                 </p>
               </button>
             </Link>

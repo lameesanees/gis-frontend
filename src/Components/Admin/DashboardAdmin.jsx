@@ -14,6 +14,7 @@ import TpDash from "./TpDash";
 import AcDash from "./AcDash";
 import TrafficFine from "./TrafficFine";
 import { RiMoneyDollarCircleFill } from "react-icons/ri";
+import TraReport from "./TraReport";
 
 function DashboardAdmin() {
   const [selectedOption, setSelectedOption] = useState(null);
@@ -40,6 +41,10 @@ function DashboardAdmin() {
       content: <div><OiDash/></div>,
       icon: <FaBook />,
     },
+    "Traffic Fine Report": {
+      content: <div><TraReport/></div>,
+      icon: <FaBook />,
+    },
     "Tourist Reports": {
       content: <div><TpDash/></div>,
       icon: <FaMapLocation />,
@@ -48,7 +53,7 @@ function DashboardAdmin() {
       content: <div><AcDash/></div>,
       icon: <FaCar />,
     },
-    "Traffic Fine": {
+    "Add Traffic Fine": {
       content: <div><TrafficFine/></div>,
       icon: <RiMoneyDollarCircleFill />,
     }

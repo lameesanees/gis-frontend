@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import { getTrafficReportAPI } from '../Services/allAPI';
-import { serverURL } from '../Services/serverURL';
+import React, { useEffect, useState } from "react";
+import { getTrafficReportAPI, updateTrafAPI,deleteTrafficAPI } from "../Services/allAPI";
+import { serverURL } from "../Services/serverURL";
+import StripeCheckout from "react-stripe-checkout";
+import Swal from "sweetalert2";
 
 function TrafficRule() {
   const [userReport, setUserReport] = useState([]);
   const [searchKey, setSearchKey] = useState("");
   const [searchTimer, setSearchTimer] = useState(null);
   const [searching, setSearching] = useState(false);
+  const [paidReports, setPaidReports] = useState({});
 
   const getaReport = async () => {
     if (sessionStorage.getItem("token")) {
@@ -42,93 +45,128 @@ function TrafficRule() {
     setSearchKey(e.target.value);
   };
 
+  const onToken = async (token, trafficId) => {
+    console.log(token);
+    // Display success message
+    Swal.fire({
+      icon: "success",
+      title: "Payment Successful",
+      text: "Thank you for your payment!",
+    }).then(async () => {
+      setPaidReports((prevPaidReports) => ({
+        ...prevPaidReports,
+        [trafficId]: true,
+      }));
+  
+      // Update the status to 'completed' after a successful payment
+      const reqHeader = {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + sessionStorage.getItem("token"),
+      };
+      await updateTrafAPI(reportId, { status: "completed" }, reqHeader);
+  
+      // Delete the report after payment
+      try {
+        await deleteTrafficAPI(reportId, reqHeader);
+        console.log("Report deleted successfully");
+      } catch (error) {
+        console.error("Error deleting report:", error);
+        Swal.fire("Error!", "Failed to delete the report.", "error");
+      }
+  
+      // Refresh the report list to reflect the updated status
+      getaReport();
+    });
+  };
+  
+
+
 
   return (
-    <div className="container">
-    <div className="input-group mt-5 mx-auto" style={{ maxWidth: "400px" }}>
-      <input
-        type="text"
-        className="form-control"
-        placeholder="Search by Number Plate"
-        value={searchKey}
-        onChange={handleInputChange}
-      />
-    </div>
-
-    {searching && (
-      <div className="mt-3">
-        <div class="loader mt-5">
-          <p class="heading">Loading</p>
-          <div class="loading">
-            <div class="load"></div>
-            <div class="load"></div>
-            <div class="load"></div>
-            <div class="load"></div>
+    <div className="container-fluid justify-content-center align-items-center">
+      <div className="row">
+        <div className="mx-auto">
+          <div className="input-group mt-5">
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Search by Number Plate"
+              value={searchKey}
+              onChange={handleInputChange}
+            />
           </div>
+
+          {searching && (
+            <div className="mt-3 text-center">
+              <div className="loader">
+                <p className="heading">Loading</p>
+                <div className="loading">
+                  <div className="load"></div>
+                  <div className="load"></div>
+                  <div className="load"></div>
+                  <div className="load"></div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {!searching && searchKey.trim() === "" && (
+            <div className="text-center mt-5">
+              <img
+                src="https://png.pngtree.com/png-clipart/20230825/original/pngtree-mobile-payment-transfer-flat-vector-illustration-picture-image_8704858.png"
+                style={{ width: "45%" }}
+                alt=""
+              />
+            </div>
+          )}
+
+          {!searching && searchKey.trim() !== "" && (
+            <div className="row mt-5" style={{ justifyContent: "center" }}>
+              {userReport.length > 0 ? (
+                userReport.map((item, index) => (
+                  <div key={index} className="mb-4">
+                    <div className="card">
+                      <img
+                        src={
+                          item
+                            ? `${serverURL}/uploads/${item.tImage}`
+                            : "https://www.hindustantimes.com/ht-img/img/2023/11/27/1600x900/The-mangled-car-on-Monday---HT-Photo-_1701110057428.jpeg"
+                        }
+                        className="card-img-top"
+                        style={{ width: "100%" }}
+                        alt="Report"
+                      />
+                      <div className="card-body">
+                        <h5 className="card-title">{item.vehicleNumber}</h5>
+                        <p className="card-text">Fine Amount: {item.fineAmount}</p>
+                        <p className="card-text">Violation: {item.violationType}</p>
+                        <p className="card-text">Date: {item.date}</p>
+                        <p className="card-text">Location: {item.location}</p>
+                        <p className="card-text">Status: {paidReports[item._id] || item.status === "completed" ? "Completed" : item.status}</p>
+                        {!paidReports[item._id] && item.status !== "completed" && (
+                          <StripeCheckout
+                            amount={item.fineAmount * 100}
+                            token={(token) => onToken(token, item._id)}
+                            stripeKey="pk_test_51PIUQiSCXQzB17TSSsjq83dtHENVzZIRwb6gOzotMcjA4JUp0zR63sBO61eV1RfdpT2KldVR4j2gvyZtW5buaIre00Qcy5B4Fs"
+                          >
+                            <button className="btn btn-success">
+                              Pay Now
+                            </button>
+                          </StripeCheckout>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <div className="col text-center">No search results found.</div>
+              )}
+            </div>
+          )}
         </div>
       </div>
-    )}
-
-    {!searching && searchKey.trim() === "" && (
-      <div className="d-flex justify-content-center align-items-center mt-5">
-        <img
-          src="https://png.pngtree.com/png-clipart/20230825/original/pngtree-mobile-payment-transfer-flat-vector-illustration-picture-image_8704858.png"
-          style={{ width: "45%" }}
-          alt=""
-        />
-      </div>
-    )}
-
-    {!searching && searchKey.trim() !== "" && (
-      <div className="row mt-5">
-        {userReport.length > 0 ? (
-          <table className="table table-striped">
-            <thead>
-              <tr>
-                <th>Image</th>
-                <th>Fine Amount </th>
-                <th>Vehicle Number</th>
-                <th>Amount</th>
-                <th>Date</th>
-                <th>Location</th>
-                <th>Status</th>
-                <th>Payment</th>
-              </tr>
-            </thead>
-            <tbody>
-              {userReport.map((item, index) => (
-                <tr key={index}>
-                  <td>
-                    <img
-                      src={
-                        item
-                          ? `${serverURL}/uploads/${item.tImage}`
-                          : "https://www.hindustantimes.com/ht-img/img/2023/11/27/1600x900/The-mangled-car-on-Monday---HT-Photo-_1701110057428.jpeg"
-                      }
-                      alt="Report"
-                      style={{ height: "auto", width: "100px" }}
-                    />
-                  </td>
-                  <td>{item.fineAmount}</td>
-                  <td>{item.vehicleNumber}</td>
-                  <td>{item.amount}</td>
-                  <td>{item.date}</td>
-                  <td>{item.location}</td>
-                  <td>{item.status}</td>
-                 <td><button className='btn'>Pay</button></td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        ) : (
-          <div className="col text-center">No search results found.</div>
-        )}
-      </div>
-    )}
-  </div>
+    </div>
   );
 }
-
-
 
 export default TrafficRule;

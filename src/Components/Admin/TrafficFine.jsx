@@ -120,7 +120,6 @@ function TrafficFine() {
 
   return (
     <div className="container">
-      <h1 className="text-center mt-3">Traffic Fine</h1>
       <div
         className="p-4 shadow-lg"
         style={{
@@ -195,11 +194,11 @@ function TrafficFine() {
                 setFormData({ ...formData, violationType: e.target.value })
               }
             >
-              <option value="">Select State</option>
-              <option value="Andhra Pradesh">Andhra Pradesh</option>
-              <option value="Arunachal Pradesh">Arunachal Pradesh</option>
-              <option value="Assam">Assam</option>
-              <option value="Bihar">Bihar</option>
+              <option value="">Select Violation</option>
+              <option value="Speed Limit">Speed Limit</option>
+              <option value="Traffic Violation">Traffic Violation</option>
+              <option value="Parking">Parking</option>
+              <option value="Crossing lane">Crossing lane</option>
             </select>
           </div>
           <div className="mb-3">
@@ -226,8 +225,6 @@ function TrafficFine() {
               }
               type="date"
               className="form-control"
-              id="date"
-              name="date"
             />
           </div>
 
