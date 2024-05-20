@@ -64,6 +64,7 @@ function Auth({ register }) {
           icon: "success",
           confirmButtonText: "OK",
         });
+        navigate("/login"); // Redirect to the login page after OTP verification
       } else {
         Swal.fire({
           title: "Error!",
@@ -71,6 +72,7 @@ function Auth({ register }) {
           icon: "error",
           confirmButtonText: "OK",
         });
+        navigate("/register"); // Redirect back to the register page if OTP is invalid
       }
     } catch (error) {
       console.error("Error verifying OTP:", error);
@@ -82,6 +84,7 @@ function Auth({ register }) {
       });
     }
   };
+  
   const handleLogin = async (e) => {
     e.preventDefault();
 
@@ -122,191 +125,193 @@ function Auth({ register }) {
   };
   return (
     <div
+    style={{
+      background:
+        "url('https://images.pexels.com/photos/3358507/pexels-photo-3358507.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')",
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+      minHeight: "100vh",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      padding: "20px",
+      backgroundRepeat: "repeat",
+    }}
+  >
+    <div
+      className="col-lg-6"
       style={{
-        background:
-          "url('https://images.pexels.com/photos/3358507/pexels-photo-3358507.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        minHeight: "100vh",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        padding: "20px",
-        backgroundRepeat: "repeat",
+        color: "black",
+        borderRadius: "10px",
+        padding: "40px",
+        boxShadow: "0 4px 6px rgba(0, 0, 0, 0.8)",
+        maxWidth: "500px",
+        background: "rgba(255, 255, 255, 0.3)",
       }}
     >
-      <div
-        className="col-lg-6"
-        style={{
-          color: "black",
-          borderRadius: "10px",
-          padding: "40px",
-          boxShadow: "0 4px 6px rgba(0, 0, 0, 0.8)",
-          maxWidth: "500px",
-          background: "rgba(255, 255, 255, 0.3)",
-        }}
-      >
-        <form>
-          <h2 className="text-center mb-4">
-            {register ? (
-              <div>
-                <img
-                  src={logo}
-                  alt=""
-                  className="img-fluid"
-                  style={{ width: "10%" }}
-                />
-                <h4>
-                  Welcome to
-                  <br />
-                  <b style={{ fontSize: "30px", color: "green" }}>
-                    {" "}
-                    GuardIndiaSeva.com{" "}
-                  </b>
-                </h4>
-              </div>
-            ) : (
-              <div>
-                <img
-                  src={logo}
-                  alt=""
-                  className="img-fluid"
-                  style={{ width: "10%" }}
-                />
-                <h4>
-                  Welcome Back
-                  <br />
-                  <b style={{ fontSize: "30px", color: "green" }}>
-                    {" "}
-                    GuardIndiaSeva.com{" "}
-                  </b>
-                </h4>
-              </div>
-            )}
-          </h2>
-
-          {register && !userData.isOTPVerified && (
+      <form>
+        <h2 className="text-center mb-4">
+          {register ? (
             <div>
-              <MDBInput
-                onChange={(e) =>
-                  setUserData({ ...userData, username: e.target.value })
-                }
-                value={userData.username}
-                label="Username"
-                className="mb-3"
-                style={{ backgroundColor: "#f8f9fa" }}
+              <img
+                src={logo}
+                alt=""
+                className="img-fluid"
+                style={{ width: "10%" }}
               />
-              <MDBInput
-                onChange={(e) =>
-                  setUserData({ ...userData, email: e.target.value })
-                }
-                value={userData.email}
-                label="Email"
-                className="mb-3"
-                style={{ backgroundColor: "#f8f9fa" }}
+              <h4>
+                Welcome to
+                <br />
+                <b style={{ fontSize: "30px", color: "green" }}>
+                  {" "}
+                  GuardIndiaSeva.com{" "}
+                </b>
+              </h4>
+            </div>
+          ) : (
+            <div>
+              <img
+                src={logo}
+                alt=""
+                className="img-fluid"
+                style={{ width: "10%" }}
               />
-              <MDBInput
-                onChange={(e) =>
-                  setUserData({ ...userData, password: e.target.value })
-                }
-                value={userData.password}
-                type="password"
-                label="Password"
-                className="mb-3"
-                style={{ backgroundColor: "#f8f9fa" }}
-              />
-              <MDBInput
-                onChange={(e) =>
-                  setUserData({ ...userData, aadhaar: e.target.value })
-                }
-                value={userData.aadhaar}
-                label="Aadhar or License Number"
-                className="mb-3"
-                style={{ backgroundColor: "#f8f9fa" }}
-              />
-              <div className="text-center">
-              <button onClick={handleRegister} className="btn btn-dark mb-5">
-                Register
-              </button>
-              </div>
-              <div className="text-center">
-              <p>
-                Already Registered?
-                <Link
-                  to={"/login"}
-                  className="text-danger text-decoration-underline"
-                >
-                  Login Here
-                </Link>
-              </p>
-              </div>
+              <h4>
+                Welcome Back
+                <br />
+                <b style={{ fontSize: "30px", color: "green" }}>
+                  {" "}
+                  GuardIndiaSeva.com{" "}
+                </b>
+              </h4>
             </div>
           )}
+        </h2>
 
-          {register && userData.isOTPVerified && (
-            <div>
-              <MDBInput
-                onChange={(e) =>
-                  setUserData({ ...userData, otp: e.target.value })
-                }
-                value={userData.otp}
-                label="Enter OTP"
-                className="mb-3"
-                style={{ backgroundColor: "#f8f9fa" }}
-              />
-              <button
-                onClick={handleOTPVerification}
-                className="btn btn-dark mb-5"
+        {register && !userData.isOTPVerified && (
+          <div>
+            <MDBInput
+              onChange={(e) =>
+                setUserData({ ...userData, username: e.target.value })
+              }
+              value={userData.username}
+              label="Username"
+              className="mb-3"
+              style={{ backgroundColor: "#f8f9fa" }}
+            />
+            <MDBInput
+              onChange={(e) =>
+                setUserData({ ...userData, email: e.target.value })
+              }
+              value={userData.email}
+              label="Email"
+              className="mb-3"
+              style={{ backgroundColor: "#f8f9fa" }}
+            />
+            <MDBInput
+              onChange={(e) =>
+                setUserData({ ...userData, password: e.target.value })
+              }
+              value={userData.password}
+              type="password"
+              label="Password"
+              className="mb-3"
+              style={{ backgroundColor: "#f8f9fa" }}
+            />
+            <MDBInput
+              onChange={(e) =>
+                setUserData({ ...userData, aadhaar: e.target.value })
+              }
+              value={userData.aadhaar}
+              label="Aadhar or License Number"
+              className="mb-3"
+              style={{ backgroundColor: "#f8f9fa" }}
+            />
+            <div className="text-center">
+            <button onClick={handleRegister} className="btn btn-dark mb-5">
+              Register
+            </button>
+            </div>
+            <div className="text-center">
+            <p>
+              Already Registered?
+              <Link
+                to={"/login"}
+                className="text-danger text-decoration-underline"
               >
-                Verify OTP
-              </button>
+                Login Here
+              </Link>
+            </p>
             </div>
-          )}
+          </div>
+        )}
 
-          {/* Login form */}
-          {!register && (
-            <div>
-              <MDBInput
-                onChange={(e) =>
-                  setUserData({ ...userData, email: e.target.value })
-                }
-                value={userData.email}
-                label="Email"
-                className="mb-3"
-                style={{ backgroundColor: "#f8f9fa" }}
-              />
-              <MDBInput
-                onChange={(e) =>
-                  setUserData({ ...userData, password: e.target.value })
-                }
-                value={userData.password}
-                type="password"
-                label="Password"
-                className="mb-3"
-                style={{ backgroundColor: "#f8f9fa" }}
-              />
-              <div className="text-center">
-              <button onClick={handleLogin} className="btn btn-dark mb-5">
-                Login
-              </button>
-              </div>
-              <div className="text-center">
-              <p>
-                New to Here?
-                <Link
-                  to={"/register"}
-                  className="text-danger text-decoration-underline"
-                >
-                  Register
-                </Link>
-              </p>
-              </div>
+        {register && userData.isOTPVerified && (
+          <div>
+            <MDBInput
+              onChange={(e) =>
+                setUserData({ ...userData, otp: e.target.value })
+              }
+              value={userData.otp}
+              label="Enter OTP"
+              className="mb-3"
+              style={{ backgroundColor: "#f8f9fa" }}
+            />
+            <button
+              onClick={handleOTPVerification}
+              className="btn btn-dark mb-5"
+            >
+              Verify OTP
+            </button>
+            
+          </div>
+        )}
+
+        {/* Login form */}
+        {!register && (
+          <div>
+            <MDBInput
+              onChange={(e) =>
+                setUserData({ ...userData, email: e.target.value })
+              }
+              value={userData.email}
+              label="Email"
+              className="mb-3"
+              style={{ backgroundColor: "#f8f9fa" }}
+            />
+            <MDBInput
+              onChange={(e) =>
+                setUserData({ ...userData, password: e.target.value })
+              }
+              value={userData.password}
+              type="password"
+              label="Password"
+              className="mb-3"
+              style={{ backgroundColor: "#f8f9fa" }}
+            />
+            <div className="text-center">
+            <button onClick={handleLogin} className="btn btn-dark mb-5">
+              Login
+            </button>
             </div>
-          )}
-        </form>
-      </div>
+            <div className="text-center">
+            <p>
+              New to Here?
+              <Link
+                to={"/register"}
+                className="text-danger text-decoration-underline"
+              >
+                Register
+              </Link>
+            </p>
+            </div>
+          </div>
+        )}
+      </form>
     </div>
-  );
+  </div>
+);
 }
+
 
 export default Auth;
