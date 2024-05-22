@@ -2,6 +2,9 @@
 
 Welcome to the Accident Reporting Website! This project is built using the MERN stack (MongoDB, Express, React, Node.js) and provides a platform for reporting, managing, and analyzing accident reports. The website features CRUD operations, an API for external integrations, CORS support, OTP verification using Nodemailer, and payment processing through Stripe. 
 
+# View Live
+https://guardindiaseva.netlify.app
+
 ## Table of Contents
 
 - [Features](#features)
