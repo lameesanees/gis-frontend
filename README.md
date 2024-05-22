@@ -84,7 +84,7 @@ To get started with the project, follow these steps:
 
 ## Usage
 
-Once the servers are running, you can access the application at `http://localhost:3000` (or the port specified in your configuration).
+Once the servers are running, you can access the application at `http://localhost:5000` (or the port specified in your configuration).
 
 ## API Endpoints
 
