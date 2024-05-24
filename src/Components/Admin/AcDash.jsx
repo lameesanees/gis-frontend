@@ -10,6 +10,8 @@ import Swal from "sweetalert2";
 function AcDash() {
   const [userReport, setUserReport] = useState([]);
   const [searchKey, setSearchKey] = useState("");
+
+
   const [selectedStatus, setSelectedStatus] = useState({}); // State to store selected status for each report
   const handleStatusChange = (accidentId, newStatus) => {
     setSelectedStatus((prevStatus) => ({
@@ -17,6 +19,8 @@ function AcDash() {
       [accidentId]: newStatus,
     }));
   };
+
+
 
   const handleSubmit = async (accidentId) => {
     try {
@@ -44,6 +48,7 @@ function AcDash() {
       Swal.fire("Error!", "Failed to update status.", "error");
     }
   };
+  
   const getMaReport = async () => {
     if (sessionStorage.getItem("token")) {
       const token = sessionStorage.getItem("token");
