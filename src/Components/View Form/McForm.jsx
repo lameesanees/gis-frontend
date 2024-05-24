@@ -48,7 +48,7 @@ function McForm() {
       <input
         type="text"
         style={{ width: "400px" }}
-        placeholder="Search by fullname"
+        placeholder="Reference Number"
         onChange={handleInputChange}
         className="form-control m-5 mx-auto"
       />

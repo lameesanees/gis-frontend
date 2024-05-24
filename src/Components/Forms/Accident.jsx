@@ -18,7 +18,7 @@ function Accident() {
     oppcontact: "",
     oppadhaar: "",
     oppnoplate: "",
-    maImage: ""
+    maImage: "",
   });
   console.log(formData);
 
@@ -78,7 +78,7 @@ function Accident() {
       if (token) {
         const reqHeader = {
           "Content-Type": "multipart/form-data",
-         "Authorization": `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         };
 
         // api call
@@ -104,9 +104,23 @@ function Accident() {
             oppcontact: "",
             oppadhaar: "",
             oppnoplate: "",
-            maImage: ""
+            maImage: "",
           });
           setPreview("");
+          // Assuming newReport contains necessary details for email
+          sendEmailNotification(userEmail, {
+            yourname,
+            youraadhaar,
+            yourcontact,
+            yournoplate,
+            insurance,
+            accidentype,
+            date,
+            oppfullname,
+            oppcontact,
+            oppadhaar,
+            oppnoplate,
+          });
         } else {
           alert(result.response.data);
         }
@@ -263,8 +277,8 @@ function Accident() {
             }}
           >
             <option value="">Select Accident Type</option>
-            <option value="company1">Minor Accident</option>
-            <option value="company2">Major Accident</option>
+            <option value="Minor Accident">Minor Accident</option>
+            <option value="Major Accident">Major Accident</option>
           </select>
         </div>
         <div style={{ marginBottom: "20px" }}>

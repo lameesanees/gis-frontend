@@ -48,7 +48,7 @@ function UaForm() {
         <input
           type="text"
           className="form-control"
-          placeholder="Search by Aadhaar number"
+          placeholder="Reference number"
           value={searchKey}
           onChange={handleInputChange}
         />

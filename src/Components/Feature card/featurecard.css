@@ -92,11 +92,31 @@
   /* Responsive styles for small screens */
   @media (max-width: 576px) {
     .card {
-      width: calc(50% - 20px); /* Adjust width to fit two cards per row */
+      width: calc(50% - 20px);
+      /* Adjust width to fit two cards per row */
+    }
+    .card-content{
+      font-size: small;
+
+    }
+    .button{
+      size: 10px;
     }
   }
+
   @media (max-width: 576px) {
     .card img {
       max-width: 150px; /* Adjust the maximum width for smaller screens */
+    }.card-content{
+      font-size: large;
+
+    }
+    .button{
+      size: 10px;
+    }
+  }
+  @media (max-width: 768px) {
+    .card-content {
+      font-size: 14px; /* Further adjust font size for medium screens */
     }
   }

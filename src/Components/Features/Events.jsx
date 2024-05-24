@@ -49,7 +49,6 @@ function Events() {
           <MDBCard style={{ width: "100%", height: "100%" }}>
             <MDBCardImage
               src="https://exlyapp.com/blog/wp-content/uploads/2022/03/ezgif.com-gif-maker-6.gif"
-              alt="..."
               position="top"
               style={{ width: "100%", height: "50%" }}
             />

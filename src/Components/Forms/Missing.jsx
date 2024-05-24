@@ -89,6 +89,16 @@ function Missing() {
             mcImage: "",
           });
           setPreview("");
+
+          sendEmailNotification(userEmail,{
+            fullname,
+            age,
+            gender,
+            lastlocation,
+            date,
+            description,
+            contact,
+          })
         } else {
           alert(result.response.data);
         }

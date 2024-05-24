@@ -33,7 +33,7 @@ function FeatureCard() {
                 All reporting services under the same bundle
                 <br />
                 <Link to={"/report"}>
-                  <button className="btn mt-2"style={{backgroundColor:"#8a2222", color:"white"}}>View</button>
+                  <button className="button btn mt-2"style={{backgroundColor:"#8a2222", color:"white"}}>View</button>
                 </Link>
               </p>
               </div>
@@ -57,7 +57,7 @@ function FeatureCard() {
                 className={hoveredCard === 2 ? "visible" : "hidden"}
                 style={{ textAlign: "center" }}
               >
-                Everything related to traffic services including fine etc.
+                All traffic services under the same bundle
                 <br />
                 <Link to={"/traffic"}>
                   <button className="btn mt-2"style={{backgroundColor:"#8a2222", color:"white"}}>View</button>
@@ -79,12 +79,12 @@ function FeatureCard() {
               alt="Feature 4"
             />
             <div className="card-content">
-              <h5 className="mt-4">Community Services</h5>
+              <h5 className="mt-4">Social Services</h5>
               <p
                 className={hoveredCard === 4 ? "visible" : "hidden"}
                 style={{ textAlign: "center" }}
               >
-                Use a variety of smart and essential community services
+                All Social services under the same bundle
                 <br />
                 <Link to = {"/community"}>
                 <button className="btn mt-2"style={{backgroundColor:"#8a2222", color:"white"}}>View</button>

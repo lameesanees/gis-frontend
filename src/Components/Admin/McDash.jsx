@@ -121,7 +121,8 @@ function McDash() {
                   <th>Gender</th>
                   <th>Contact</th>
                   <th>Date</th>
-                  <th>Status</th>
+                  <th>Current Status</th>
+                  <th>Update Status</th>
                   <th>Action</th>
                 </tr>
               </thead>
@@ -144,6 +145,7 @@ function McDash() {
                     <td>{item.gender}</td>
                     <td>{item.contact}</td>
                     <td>{item.date}</td>
+                    <td>{item.status}</td>
                     <td>
                       <div className="mb-3">
                         <label htmlFor="" className="form-label">

@@ -19,37 +19,17 @@ function UnknownAcc() {
   console.log(formData);
 
   const handleAddReport = async (e) => {
-    e.preventDefault(); // Prevent default form submission
-
-    // data passing through state
-    const {
-      fullname,
-      aadhaar,
-      state,
-      location,
-      date,
-      description,
-      contact,
-      uaImage,
-    } = formData;
-
-    // Check if any field is empty
-    if (
-      !fullname ||
-      ! aadhaar ||
-      !state ||
-      !location ||
-      !date ||
-      !description ||
-      !contact ||
-      !uaImage
-    ) {
+    e.preventDefault();
+  
+    const { fullname, aadhaar, state, location, date, description, contact, uaImage } = formData;
+  
+    if (!fullname || !aadhaar || !state || !location || !date || !description || !contact || !uaImage) {
       Swal.fire({
         title: 'Warning!',
         text: 'Please fill the form',
         icon: 'warning',
         confirmButtonText: 'Back'
-      })
+      });
     } else {
       const reqBody = new FormData();
       reqBody.append("fullname", fullname);
@@ -60,41 +40,56 @@ function UnknownAcc() {
       reqBody.append("description", description);
       reqBody.append("contact", contact);
       reqBody.append("uaImage", uaImage);
-
+  
       if (token) {
         const reqHeader = {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${token}`,
         };
-
-        // api call
-        const result = await addUaAPI(reqBody, reqHeader);
-        console.log(result);
-        if (result.status == 200) {
-          Swal.fire({
-            title: 'Success!',
-            text: 'Report Submitted Successfully',
-            icon: 'success',
-            confirmButtonText: 'Back'
-          })
-          navigate('/policeye')
-          setFormData({
-            fullname: "",
-            aadhaar:"",
-            state:"",
-            location:"",
-            date:"",
-            description:"",
-            contact:"",
-            uaImage:"",
-          });
-          setPreview("")
-        } else {
-          alert(result.response.data);
+  
+        try {
+          const result = await addUaAPI(reqBody, reqHeader);
+          console.log(result);
+          if (result.status === 200) {
+            Swal.fire({
+              title: 'Success!',
+              text: 'Report Submitted Successfully',
+              icon: 'success',
+              confirmButtonText: 'Back'
+            });
+            navigate('/policeye');
+            setFormData({
+              fullname: "",
+              aadhaar:"",
+              state:"",
+              location:"",
+              date:"",
+              description:"",
+              contact:"",
+              uaImage:"",
+            });
+            setPreview("");
+            
+            // Assuming newReport contains necessary details for email
+            sendEmailNotification(userEmail, {
+              fullname,
+              aadhaar,
+              state,
+              location,
+              date,
+              description,
+              contact
+            });
+          } else {
+            alert(result.response.data);
+          }
+        } catch (error) {
+          console.error("Error adding report:", error);
         }
       }
     }
   };
+  
 
   const [fileStatus, setFileStatus] = useState(false);
   const [preview, setPreview] = useState("");

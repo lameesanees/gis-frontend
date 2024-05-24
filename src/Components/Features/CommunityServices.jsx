@@ -20,7 +20,7 @@ function CommunityServices() {
       <div className="container">
         {/* Header */}
         <header>
-          <h1 className="mt-5 mb-5 text-center">Community Services</h1>
+          <h1 className="mt-5 mb-5 text-center">Social Services</h1>
         </header>
 
         {/* Content */}

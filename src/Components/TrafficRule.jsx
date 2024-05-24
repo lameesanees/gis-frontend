@@ -52,7 +52,9 @@ function TrafficRule() {
       icon: "success",
       title: "Payment Successful",
       text: "Thank you for your payment!",
-    }).then(async () => {
+    })
+    
+    .then(async () => {
       setPaidReports((prevPaidReports) => ({
         ...prevPaidReports,
         [reportId]: true,

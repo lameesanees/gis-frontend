@@ -48,7 +48,7 @@ function MmForm() {
       <input
         type="text"
         style={{ width: "400px" }}
-        placeholder="Search by number plate"
+        placeholder="Reference number"
         onChange={handleInputChange}
         className="form-control m-5 mx-auto"
       />

@@ -61,6 +61,12 @@ function TouristPolice() {
             tpImage: "",
           });
           setPreview("");
+          sendEmailNotification(userEmail, {
+            fullname,
+            location,
+            description,
+            contact
+          });
         } else {
           alert(result.response.data);
         }

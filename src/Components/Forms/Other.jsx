@@ -67,6 +67,10 @@ const handleAddOIReport = async (e) => {
             oiImage: "",
           });
           setPreview("");
+
+          sendEmailNotification(userEmail,{
+            infotype, location, date, description, contact
+          })
         } else {
           alert(result.response.data);
         }
@@ -179,7 +183,7 @@ const handleAddOIReport = async (e) => {
               <option value="">Select Information Type</option>
               <option value="Thief">Thief</option>
               <option value="Majoraccident">Major Accident</option>
-              <option value="Carstolen">Leaving home for a trip</option>
+              <option value="Leaving home for a trip">Leaving home for a trip</option>
             </select>
           </div>
           <div className="mb-3">
