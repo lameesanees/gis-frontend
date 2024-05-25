@@ -19,11 +19,11 @@ function TrafficFine() {
 
   const handleAddReport = async (e) => {
     e.preventDefault(); // Prevent default form submission
-  
+
     // data passing through state
     const { vehicleNumber, fineAmount, violationType, location, date, tImage } =
       formData;
-  
+
     // Check if any field is empty
     if (
       !vehicleNumber ||
@@ -47,13 +47,13 @@ function TrafficFine() {
       reqBody.append("location", location);
       reqBody.append("date", date);
       reqBody.append("tImage", tImage);
-  
+
       if (token) {
         const reqHeader = {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${token}`,
         };
-  
+
         // api call
         const result = await addTrafficAPI(reqBody, reqHeader);
         console.log(result);
@@ -81,7 +81,7 @@ function TrafficFine() {
       }
     }
   };
-  
+
   const [fileStatus, setFileStatus] = useState(false);
   const [preview, setPreview] = useState("");
 
@@ -179,7 +179,6 @@ function TrafficFine() {
               }
               type="text"
               className="form-control"
-             
             />
           </div>
           <div className="mb-3">
@@ -194,11 +193,22 @@ function TrafficFine() {
                 setFormData({ ...formData, violationType: e.target.value })
               }
             >
-              <option value="">Select Violation</option>
-              <option value="Speed Limit">Speed Limit</option>
-              <option value="Traffic Violation">Traffic Violation</option>
-              <option value="Parking">Parking</option>
-              <option value="Crossing lane">Crossing lane</option>
+              <option value="Distracted Driving">Distracted Driving</option>
+              <option value="Running a Red Light">Running a Red Light</option>
+              <option value="Failure to Signal">Failure to Signal</option>
+              <option value="Driving Under the Influence (DUI)">
+                Driving Under the Influence (DUI)
+              </option>
+              <option value="Driving without Seatbelt">
+                Driving without Seatbelt
+              </option>
+              <option value="Illegal U-turn">Illegal U-turn</option>
+              <option value="Failure to Yield">Failure to Yield</option>
+              <option value="Wrong Way Driving">Wrong Way Driving</option>
+              <option value="Reckless Driving">Reckless Driving</option>
+              <option value="Driving without Valid License">
+                Driving without Valid License
+              </option>
             </select>
           </div>
           <div className="mb-3">
@@ -247,6 +257,5 @@ function TrafficFine() {
     </div>
   );
 }
-
 
 export default TrafficFine;

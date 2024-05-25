@@ -182,7 +182,7 @@ const handleAddOIReport = async (e) => {
             >
               <option value="">Select Information Type</option>
               <option value="Thief">Thief</option>
-              <option value="Majoraccident">Major Accident</option>
+              <option value="Broken">Any Damages</option>
               <option value="Leaving home for a trip">Leaving home for a trip</option>
             </select>
           </div>

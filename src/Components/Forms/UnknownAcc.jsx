@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { MDBInput } from "mdb-react-ui-kit";
 import { addUaAPI } from "../../Services/allAPI";
-import {useNavigate} from 'react-router-dom';
-import Swal from 'sweetalert2';
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 function UnknownAcc() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     fullname: "",
-    aadhaar:"",
+    aadhaar: "",
     state: "",
     location: "",
     date: "",
@@ -20,15 +20,33 @@ function UnknownAcc() {
 
   const handleAddReport = async (e) => {
     e.preventDefault();
-  
-    const { fullname, aadhaar, state, location, date, description, contact, uaImage } = formData;
-  
-    if (!fullname || !aadhaar || !state || !location || !date || !description || !contact || !uaImage) {
+
+    const {
+      fullname,
+      aadhaar,
+      state,
+      location,
+      date,
+      description,
+      contact,
+      uaImage,
+    } = formData;
+
+    if (
+      !fullname ||
+      !aadhaar ||
+      !state ||
+      !location ||
+      !date ||
+      !description ||
+      !contact ||
+      !uaImage
+    ) {
       Swal.fire({
-        title: 'Warning!',
-        text: 'Please fill the form',
-        icon: 'warning',
-        confirmButtonText: 'Back'
+        title: "Warning!",
+        text: "Please fill the form",
+        icon: "warning",
+        confirmButtonText: "Back",
       });
     } else {
       const reqBody = new FormData();
@@ -40,36 +58,36 @@ function UnknownAcc() {
       reqBody.append("description", description);
       reqBody.append("contact", contact);
       reqBody.append("uaImage", uaImage);
-  
+
       if (token) {
         const reqHeader = {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${token}`,
         };
-  
+
         try {
           const result = await addUaAPI(reqBody, reqHeader);
           console.log(result);
           if (result.status === 200) {
             Swal.fire({
-              title: 'Success!',
-              text: 'Report Submitted Successfully',
-              icon: 'success',
-              confirmButtonText: 'Back'
+              title: "Success!",
+              text: "Report Submitted Successfully",
+              icon: "success",
+              confirmButtonText: "Back",
             });
-            navigate('/policeye');
+            navigate("/policeye");
             setFormData({
               fullname: "",
-              aadhaar:"",
-              state:"",
-              location:"",
-              date:"",
-              description:"",
-              contact:"",
-              uaImage:"",
+              aadhaar: "",
+              state: "",
+              location: "",
+              date: "",
+              description: "",
+              contact: "",
+              uaImage: "",
             });
             setPreview("");
-            
+
             // Assuming newReport contains necessary details for email
             sendEmailNotification(userEmail, {
               fullname,
@@ -78,7 +96,7 @@ function UnknownAcc() {
               location,
               date,
               description,
-              contact
+              contact,
             });
           } else {
             alert(result.response.data);
@@ -89,7 +107,6 @@ function UnknownAcc() {
       }
     }
   };
-  
 
   const [fileStatus, setFileStatus] = useState(false);
   const [preview, setPreview] = useState("");
@@ -212,6 +229,42 @@ function UnknownAcc() {
               <option value="Arunachal Pradesh">Arunachal Pradesh</option>
               <option value="Assam">Assam</option>
               <option value="Bihar">Bihar</option>
+              <option value="Chhattisgarh">Chhattisgarh</option>
+              <option value="Goa">Goa</option>
+              <option value="Gujarat">Gujarat</option>
+              <option value="Haryana">Haryana</option>
+              <option value="Himachal Pradesh">Himachal Pradesh</option>
+              <option value="Jharkhand">Jharkhand</option>
+              <option value="Karnataka">Karnataka</option>
+              <option value="Kerala">Kerala</option>
+              <option value="Madhya Pradesh">Madhya Pradesh</option>
+              <option value="Maharashtra">Maharashtra</option>
+              <option value="Manipur">Manipur</option>
+              <option value="Meghalaya">Meghalaya</option>
+              <option value="Mizoram">Mizoram</option>
+              <option value="Nagaland">Nagaland</option>
+              <option value="Odisha">Odisha</option>
+              <option value="Punjab">Punjab</option>
+              <option value="Rajasthan">Rajasthan</option>
+              <option value="Sikkim">Sikkim</option>
+              <option value="Tamil Nadu">Tamil Nadu</option>
+              <option value="Telangana">Telangana</option>
+              <option value="Tripura">Tripura</option>
+              <option value="Uttar Pradesh">Uttar Pradesh</option>
+              <option value="Uttarakhand">Uttarakhand</option>
+              <option value="West Bengal">West Bengal</option>
+              <option value="Andaman and Nicobar Islands">
+                Andaman and Nicobar Islands
+              </option>
+              <option value="Chandigarh">Chandigarh</option>
+              <option value="Dadra and Nagar Haveli and Daman and Diu">
+                Dadra and Nagar Haveli and Daman and Diu
+              </option>
+              <option value="Lakshadweep">Lakshadweep</option>
+              <option value="Delhi">Delhi</option>
+              <option value="Puducherry">Puducherry</option>
+              <option value="Ladakh">Ladakh</option>
+              <option value="Jammu and Kashmir">Jammu and Kashmir</option>
             </select>
           </div>
           <div className="mb-3">

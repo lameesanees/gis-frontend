@@ -115,9 +115,7 @@ function UaDash() {
           <thead>
             <tr>
               <th>Image</th>
-              <th>
-                Ref.No
-              </th>
+              
               <th>Full Name</th>
               <th>Location</th>
               <th>Aadhaar</th>
@@ -142,7 +140,6 @@ function UaDash() {
                     style={{ height: "auto", width: "100px" }}
                   />
                 </td>
-                <td>{item.userId}</td>
                 <td>{item.fullname}</td>
                 <td>
                   {item.location}, {item.state}

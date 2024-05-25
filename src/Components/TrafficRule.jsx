@@ -3,6 +3,7 @@ import { getTrafficReportAPI, updateTrafAPI } from "../Services/allAPI";
 import { serverURL } from "../Services/serverURL";
 import StripeCheckout from "react-stripe-checkout";
 import Swal from "sweetalert2";
+import html2pdf from "html2pdf.js";
 
 function TrafficRule() {
   const [userReport, setUserReport] = useState([]);
@@ -53,7 +54,6 @@ function TrafficRule() {
       title: "Payment Successful",
       text: "Thank you for your payment!",
     })
-    
     .then(async () => {
       setPaidReports((prevPaidReports) => ({
         ...prevPaidReports,
@@ -70,6 +70,12 @@ function TrafficRule() {
       // Refresh the report list to reflect the updated status
       getaReport();
     });
+  };
+  
+  const openImageInNewPage = (imageName) => {
+    if (imageName) {
+      window.open(`${serverURL}/uploads/${imageName}`, "_blank");
+    }
   };
 
   return (
@@ -111,47 +117,65 @@ function TrafficRule() {
           )}
 
           {!searching && searchKey.trim() !== "" && (
-            <div className="row mt-5" style={{ justifyContent: "center" }}>
-              {userReport.length > 0 ? (
-                userReport.map((item, index) => (
-                  <div key={index} className="mb-4">
-                    <div className="card">
-                      {/* <img
+            <div className="table-responsive mt-5">
+              <table className="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>Image</th>
+                    <th>Ref.no</th>
+                    <th>Vehicle Number</th>
+                    <th>Fine Amount</th>
+                    <th>Violation Type</th>
+                    <th>Date</th>
+                    <th>Location</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {userReport.map((item) => (
+                    <tr key={item.userId}>
+                      <td>
+                      <img onClick={() => openImageInNewPage(item.tImage)}
                         src={
                           item
                             ? `${serverURL}/uploads/${item.tImage}`
                             : "https://www.hindustantimes.com/ht-img/img/2023/11/27/1600x900/The-mangled-car-on-Monday---HT-Photo-_1701110057428.jpeg"
                         }
-                        className="card-img-top"
-                        style={{ width: "100%" }}
                         alt="Report"
-                      /> */}
-                      <div className="card-body">
-                        <h5 className="card-title">{item.vehicleNumber}</h5>
-                        <p className="card-text">Fine Amount: {item.fineAmount}</p>
-                        <p className="card-text">Violation: {item.violationType}</p>
-                        <p className="card-text">Date: {item.date}</p>
-                        <p className="card-text">Location: {item.location}</p>
-                        <p className="card-text">Status: {paidReports[item._id] || item.status === "completed" ? "Completed" : item.status}</p>
-                        {!paidReports[item._id] && item.status !== "completed" && (
-                          <StripeCheckout
-                          currency="INR"
-                            amount={item.fineAmount * 100}
-                            token={(token) => onToken(token, item._id)}
-                            stripeKey="pk_test_51PIUQiSCXQzB17TSSsjq83dtHENVzZIRwb6gOzotMcjA4JUp0zR63sBO61eV1RfdpT2KldVR4j2gvyZtW5buaIre00Qcy5B4Fs"
-                          >
-                            <button className="btn btn-success">
-                              Pay Now
-                            </button>
-                          </StripeCheckout>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                ))
-              ) : (
-                <div className="col text-center">No search results found.</div>
-              )}
+                        style={{ height: "auto", width: "100px" }}
+                      />
+                    </td>
+                      <td>{item.userId}</td>
+                      <td>{item.vehicleNumber}</td>
+                      <td>{item.fineAmount}</td>
+                      <td>{item.violationType}</td>
+                      <td>{item.date}</td>
+                      <td>{item.location}</td>
+                      <td>
+                        {paidReports[item._id] || item.status === "completed"
+                          ? "Completed"
+                          : item.status}
+                      </td>
+                      <td>
+                        {!paidReports[item._id] &&
+                          item.status !== "completed" && (
+                            <StripeCheckout
+                              currency="INR"
+                              amount={item.fineAmount * 100}
+                              token={(token) => onToken(token, item._id)}
+                              stripeKey="pk_test_51PIUQiSCXQzB17TSSsjq83dtHENVzZIRwb6gOzotMcjA4JUp0zR63sBO61eV1RfdpT2KldVR4j2gvyZtW5buaIre00Qcy5B4Fs"
+                            >
+                              <button className="btn btn-success text-center m-1">
+                                Pay Now
+                              </button>
+                            </StripeCheckout>
+                          )}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           )}
         </div>
